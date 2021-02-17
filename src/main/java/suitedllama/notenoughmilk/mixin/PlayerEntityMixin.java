@@ -1,8 +1,6 @@
 package suitedllama.notenoughmilk.mixin;
 
-import net.minecraft.entity.mob.ShulkerEntity;
 import net.minecraft.entity.projectile.ShulkerBulletEntity;
-import net.minecraft.util.math.Direction;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -19,7 +17,6 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
 import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
