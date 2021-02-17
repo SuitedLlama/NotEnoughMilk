@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "notenoughmilk:item/snow_golem_milk_bucket"
+    }
+  }

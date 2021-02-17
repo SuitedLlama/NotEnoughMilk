@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "modid",
+  "version": "${version}",
+
+  "name": "Not Enough Milk",
+  "description": "You can milk every mob... yes every mob.",
+  "authors": [
+    "SuitedLlama"
+  ],
+  "contact": {
+    "homepage": "https://twitter.com/SuitedLlama",
+    "sources": ""
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/notenoughmilk/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "suitedllama.notenoughmilk.NotEnoughMilk"
+    ]
+  },
+  "mixins": [
+    "notenoughmilk.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "minecraft": "1.16.x"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

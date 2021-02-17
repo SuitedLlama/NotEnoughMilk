@@ -1,0 +1,23 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "suitedllama.notenoughmilk.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "LivingEntityMixin",
+    "PlayerEntityMixin",
+    "BucketItemMixin",
+    "AbstractDonkeyEntityMixin",
+    "CatEntityMixin",
+    "ItemMixin",
+    "MyceliumBlockMixin",
+    "MooshroomEntityMixin"
+  ],
+  "client": [
+    "ClientPlayerEntityMixin",
+    "InGameHudMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

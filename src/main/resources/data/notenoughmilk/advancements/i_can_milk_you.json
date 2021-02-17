@@ -1,0 +1,80 @@
+{
+    "parent": "minecraft:husbandry/root",
+    "display": {
+      "icon": {
+        "item": "minecraft:milk_bucket"
+      },
+      "title": {
+        "translate": "advancements.husbandry.i_can_milk_you.title"
+      },
+      "description": {
+        "translate": "advancements.husbandry.i_can_milk_you.description"
+      },
+      "frame": "challenge",
+      "show_toast": true,
+      "announce_to_chat": true,
+      "hidden": false
+    },
+    "rewards": {
+      "experience": 800
+    },
+    "criteria": {
+      "notenoughmilk:bat_milk_bucket": {
+        "trigger": "minecraft:consume_item",
+        "conditions": {
+          "item": {
+            "item": "notenoughmilk:bat_milk_bucket"
+          }
+        }
+      },
+      "minecraft:milk_bucket": {
+        "trigger": "minecraft:consume_item",
+        "conditions": {
+          "item": {
+            "item": "minecraft:milk_bucket"
+          }
+        }
+      }
+    },
+    "notenoughmilk:chicken_milk_bucket": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:chicken_milk_bucket"
+        }
+      }
+    },
+    "notenoughmilk:cat_milk_bucket": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:cat_milk_bucket"
+        }
+      }
+    },
+    "notenoughmilk:fish_milk_bucket": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:fish_milk_bucket"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "notenoughmilk:bat_milk_bucket"
+      ],
+      [
+        "minecraft:milk_bucket"
+      ],
+      [
+        "notenoughmilk:chicken_milk_bucket"
+      ],
+      [
+        "notenoughmilk:cat_milk_bucket"
+      ],
+      [
+        "notenoughmilk:fish_milk_bucket"
+      ]
+    ]
+  }
