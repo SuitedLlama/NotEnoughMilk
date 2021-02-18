@@ -13,5 +13,6 @@
     "item.notenoughmilk.horse_milk_bucket": "Horse Milk",
     "item.notenoughmilk.mooshroom_milk_bucket": "Mooshroom Milk",
     "effect.notenoughmilk.shroomed": "Shroom'd",
-    "item.notenoughmilk.shulker_milk_bucket": "Shulker Milk"
+    "item.notenoughmilk.shulker_milk_bucket": "Shulker Milk",
+    "effect.notenoughmilk.shulked": "Shulk'd"
 }
