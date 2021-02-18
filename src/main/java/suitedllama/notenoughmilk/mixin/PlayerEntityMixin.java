@@ -85,7 +85,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 					}
 				}
 				}
-			}
 			if (this.isSneaking()) {
 				if (cooldownShulkerShoot <= 0) {
 					LivingEntity target = null;
@@ -101,6 +100,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 				}
 			}
 		}
+
+	}
 
 
 	@Inject(cancellable = true, at = @At("TAIL"), method = "interact")
