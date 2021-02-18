@@ -25,12 +25,10 @@ public abstract class MooshroomEntityMixin extends MobEntity {
 	}
 
 	@Inject(cancellable = true, at = @At("HEAD"), method = "interactMob")
-	private ActionResult interactMob(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> info) {
+	private void interactMob(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> info) {
 		ItemStack itemStack = player.getStackInHand(hand);
 		if (itemStack.getItem() == Items.BUCKET)  {
 			info.setReturnValue(ActionResult.PASS);
-			return ActionResult.PASS;
 		 }
-		 return super.interactMob(player, hand);
 	}
 }

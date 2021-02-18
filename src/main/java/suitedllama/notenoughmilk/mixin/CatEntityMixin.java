@@ -23,13 +23,11 @@ public abstract class CatEntityMixin extends MobEntity {
 	}
 
 	@Inject(cancellable = true, at = @At("HEAD"), method = "interactMob")
-	public ActionResult interactMob(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> info) {
+	public void interactMob(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> info) {
 		ItemStack itemStack = player.getStackInHand(hand);
 		if (itemStack.getItem() == Items.BUCKET)  {
 			info.setReturnValue(ActionResult.PASS);
-			return ActionResult.PASS;
 		 }
 		 info.setReturnValue(ActionResult.PASS);
-		 return ActionResult.PASS;
 	}
 }

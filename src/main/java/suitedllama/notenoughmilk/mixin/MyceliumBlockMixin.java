@@ -16,6 +16,7 @@ import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
 import org.spongepowered.asm.mixin.Mixin;
 
+@SuppressWarnings("deprecation")
 @Mixin(MyceliumBlock.class)
 public abstract class MyceliumBlockMixin extends Block {
 

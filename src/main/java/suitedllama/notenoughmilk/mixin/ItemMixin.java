@@ -23,15 +23,12 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class ItemMixin implements ItemConvertible {
 
 	@Inject(cancellable = true, at = @At("TAIL"), method = "use")
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> info) {
+    public void use(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> info) {
         ItemStack stackInHand = user.getStackInHand(hand);
         if (stackInHand.getItem() == Items.BOWL && user.hasStatusEffect(NotEnoughMilkStatusEffects.SHROOMED)) {
             this.milk(stackInHand, user, Items.MUSHROOM_STEW.getDefaultStack(), hand);
             info.setReturnValue(TypedActionResult.success(stackInHand, world.isClient()));
-            return TypedActionResult.success(stackInHand, world.isClient());
         }
-        
-        return TypedActionResult.pass(stackInHand);
     }
     
     protected void milk(ItemStack bucketStack, PlayerEntity player, ItemStack milkStack, Hand hand) {
