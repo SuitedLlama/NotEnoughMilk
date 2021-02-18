@@ -29,7 +29,7 @@ public abstract class MyceliumBlockMixin extends Block {
         if (player.hasStatusEffect(NotEnoughMilkStatusEffects.SHROOMED) && player.getHungerManager().isNotFull()){
             world.setBlockState(pos, Blocks.DIRT.getDefaultState(), 2);
             world.playSound(player, pos, SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS, 1.0F, 1.0F);
-            player.playSound(SoundEvents.ENTITY_MOOSHROOM_EAT, 1.0F, 1.0F);
+            player.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1.0F, 1.0F);
             player.getHungerManager().add(1, 1);
             return ActionResult.success(world.isClient);
         }

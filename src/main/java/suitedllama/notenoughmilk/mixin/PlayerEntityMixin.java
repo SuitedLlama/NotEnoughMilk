@@ -1,6 +1,9 @@
 package suitedllama.notenoughmilk.mixin;
 
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.ShulkerBulletEntity;
+import net.minecraft.util.math.MathHelper;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -29,7 +32,10 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
 
-    private int cooldown;
+	@Shadow public abstract boolean damage(DamageSource source, float amount);
+
+	private int cooldownSnow;
+	private int cooldownShulker;
 	
 	protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -38,33 +44,57 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(at = @At("TAIL"), method = "tick")
 	public void tick(CallbackInfo info) {
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SNOWED_IN) && this.isSneaking()) {
-			if (cooldown <= 0) {
+			if (cooldownSnow <= 0) {
 			SnowballEntity snowballEntity = new SnowballEntity(world, this);
 			snowballEntity.setProperties(this, this.pitch, this.yaw, 0.0F, 1.5F, 1.0F);
 			world.spawnEntity(snowballEntity);
 			this.playSound(SoundEvents.ENTITY_SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-			cooldown = 10;
+			cooldownSnow = 10;
 			}
-			else if (cooldown >= 0) {
-			cooldown --;
+			else if (cooldownSnow >= 0) {
+			cooldownSnow --;
 			}
 		}
 
-		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SHULKED) && this.isSneaking()) {
-			if (cooldown <= 0) {
-				LivingEntity target = null;
-				ShulkerBulletEntity shulkerBulletEntity = new ShulkerBulletEntity(world, this, target, this.getMovementDirection().getAxis());
-				shulkerBulletEntity.setNoGravity(true);
-				shulkerBulletEntity.setProperties(this, this.pitch, this.yaw, 0.5F, 0.75F, 1.0F);
-				this.playSound(SoundEvents.ENTITY_SHULKER_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-				world.spawnEntity(shulkerBulletEntity);
-				cooldown = 40;
+		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SHULKED)) {
+			if (this.lastDamageTaken == 0){
+				if (!world.isClient) {
+					double d = this.getX();
+					double e = this.getY();
+					double f = this.getZ();
+
+					for (int i = 0; i < 16; ++i) {
+						double g = this.getX() + (this.getRandom().nextDouble() - 0.5D) * 16.0D;
+						double h = MathHelper.clamp(this.getY() + (double) (this.getRandom().nextInt(16) - 8), 0.0D, (double) (world.getDimensionHeight() - 1));
+						double j = this.getZ() + (this.getRandom().nextDouble() - 0.5D) * 16.0D;
+						if (this.hasVehicle()) {
+							this.stopRiding();
+						}
+
+						if (this.teleport(g, h, j, true)) {
+							world.playSound((PlayerEntity) null, d, e, f, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
+							this.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
+							break;
+						}
+					}
+				}
 			}
-			else if (cooldown >= 0) {
-				cooldown --;
+			if (this.isSneaking()) {
+				if (cooldownShulker <= 0) {
+					LivingEntity target = null;
+					ShulkerBulletEntity shulkerBulletEntity = new ShulkerBulletEntity(world, this, target, this.getMovementDirection().getAxis());
+					shulkerBulletEntity.setNoGravity(true);
+					shulkerBulletEntity.setProperties(this, this.pitch, this.yaw, 0.5F, 0.75F, 1.0F);
+					this.playSound(SoundEvents.ENTITY_SHULKER_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+					world.spawnEntity(shulkerBulletEntity);
+					cooldownShulker = 40;
+				}
+				else if (cooldownShulker >= 0) {
+					cooldownShulker --;
+				}
 			}
 		}
-		}
+	}
 
 	@Inject(cancellable = true, at = @At("TAIL"), method = "interact")
 	public ActionResult interact(Entity player, Hand hand, CallbackInfoReturnable<ActionResult> info) {
