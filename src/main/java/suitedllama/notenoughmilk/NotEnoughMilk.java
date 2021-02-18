@@ -5,18 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import suitedllama.notenoughmilk.milks.BatMilkItem;
-import suitedllama.notenoughmilk.milks.CatMilkItem;
-import suitedllama.notenoughmilk.milks.ChickenMilkItem;
-import suitedllama.notenoughmilk.milks.DonkeyMilkItem;
-import suitedllama.notenoughmilk.milks.FishMilkItem;
-import suitedllama.notenoughmilk.milks.FoxMilkItem;
-import suitedllama.notenoughmilk.milks.HorseMilkItem;
-import suitedllama.notenoughmilk.milks.MooshroomMilkItem;
-import suitedllama.notenoughmilk.milks.PigMilkItem;
-import suitedllama.notenoughmilk.milks.ShulkerMilkItem;
-import suitedllama.notenoughmilk.milks.SnowGolemMilkItem;
-import suitedllama.notenoughmilk.milks.SquidMilkItem;
+import suitedllama.notenoughmilk.milks.*;
 import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
 public class NotEnoughMilk implements ModInitializer {
@@ -35,6 +24,7 @@ public class NotEnoughMilk implements ModInitializer {
 	public static final Item HORSE_MILK_BUCKET = new HorseMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item MOOSHROOM_MILK_BUCKET = new MooshroomMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item SHULKER_MILK_BUCKET = new ShulkerMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item CREEPER_MILK_BUCKET = new CreeperMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 
 
 	@Override
@@ -52,6 +42,7 @@ public class NotEnoughMilk implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"horse_milk_bucket"), HORSE_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"mooshroom_milk_bucket"), MOOSHROOM_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"shulker_milk_bucket"), SHULKER_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"creeper_milk_bucket"), CREEPER_MILK_BUCKET);
 
 
 	}
