@@ -1,6 +1,8 @@
 package suitedllama.notenoughmilk.mixin;
 
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.projectile.ShulkerBulletEntity;
 import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Shadow;
@@ -34,9 +36,9 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
 	@Shadow public abstract boolean damage(DamageSource source, float amount);
 
-	private int cooldownSnow;
-	private int cooldownShulker;
-	
+	private int cooldownSnowShoot;
+	private int cooldownShulkerShoot;
+
 	protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -44,22 +46,26 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(at = @At("TAIL"), method = "tick")
 	public void tick(CallbackInfo info) {
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SNOWED_IN) && this.isSneaking()) {
-			if (cooldownSnow <= 0) {
+			if (cooldownSnowShoot <= 0) {
 			SnowballEntity snowballEntity = new SnowballEntity(world, this);
 			snowballEntity.setProperties(this, this.pitch, this.yaw, 0.0F, 1.5F, 1.0F);
 			world.spawnEntity(snowballEntity);
 			this.playSound(SoundEvents.ENTITY_SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-			cooldownSnow = 10;
+			cooldownSnowShoot = 10;
 			}
-			else if (cooldownSnow >= 0) {
-			cooldownSnow --;
+			else if (cooldownSnowShoot >= 0) {
+			cooldownSnowShoot --;
 			}
 		}
 
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SHULKED)) {
-			if (this.lastDamageTaken == 0){
-				if (!world.isClient) {
-					double d = this.getX();
+			if ((this.getAttacking() != null)){
+				LivingEntity attacking = this.getAttacking();
+				attacking.addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 100));
+			}
+			if (hasBeenDamaged(this)){
+				if ((!world.isClient)) {
+				double d = this.getX();
 					double e = this.getY();
 					double f = this.getZ();
 
@@ -78,26 +84,27 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 						}
 					}
 				}
+				}
 			}
 			if (this.isSneaking()) {
-				if (cooldownShulker <= 0) {
+				if (cooldownShulkerShoot <= 0) {
 					LivingEntity target = null;
 					ShulkerBulletEntity shulkerBulletEntity = new ShulkerBulletEntity(world, this, target, this.getMovementDirection().getAxis());
 					shulkerBulletEntity.setNoGravity(true);
 					shulkerBulletEntity.setProperties(this, this.pitch, this.yaw, 0.5F, 0.75F, 1.0F);
 					this.playSound(SoundEvents.ENTITY_SHULKER_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
 					world.spawnEntity(shulkerBulletEntity);
-					cooldownShulker = 40;
+					cooldownShulkerShoot = 40;
 				}
-				else if (cooldownShulker >= 0) {
-					cooldownShulker --;
+				else if (cooldownShulkerShoot >= 0) {
+					cooldownShulkerShoot --;
 				}
 			}
 		}
-	}
+
 
 	@Inject(cancellable = true, at = @At("TAIL"), method = "interact")
-	public ActionResult interact(Entity player, Hand hand, CallbackInfoReturnable<ActionResult> info) {
+	public void interact(Entity player, Hand hand, CallbackInfoReturnable<ActionResult> info) {
 		ItemStack itemStack = (this.getStackInHand(hand));
 		if (itemStack.getItem() == Items.SHEARS && ((LivingEntity) player).hasStatusEffect(NotEnoughMilkStatusEffects.SHROOMED)) {
 		   if (!this.world.isClient) {
@@ -115,14 +122,18 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 			  }
 			((LivingEntity) player).removeStatusEffect(NotEnoughMilkStatusEffects.SHROOMED);
 			  info.setReturnValue(ActionResult.SUCCESS);
-			  return ActionResult.SUCCESS;
 		   } else {
 			  info.setReturnValue(ActionResult.PASS);
-			  return ActionResult.PASS;
 		   }
 		}
-		return ActionResult.PASS;
 	 }
-  
+  	public boolean hasBeenDamaged(LivingEntity instance){
+		if(this.world.getTime() - (((LivingEntityAccess)instance).lastDamageTime()) > 1L) {
+			return false;
+			}
+		else {
+			return true;
+		}
+		}
 
 }

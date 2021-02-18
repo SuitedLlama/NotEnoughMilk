@@ -11,7 +11,8 @@
     "CatEntityMixin",
     "ItemMixin",
     "MyceliumBlockMixin",
-    "MooshroomEntityMixin"
+    "MooshroomEntityMixin",
+    "LivingEntityAccess"
   ],
   "client": [
     "ClientPlayerEntityMixin",
