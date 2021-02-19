@@ -38,6 +38,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
 	private int cooldownSnowShoot;
 	private int cooldownShulkerShoot;
+	private int ironedTurretCooldown;
 
 	protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -56,6 +57,22 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 			else if (cooldownSnowShoot >= 0) {
 			cooldownSnowShoot --;
 			}
+		}
+		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.IRONED)) {
+			if (!this.isSneaking()){
+				ironedTurretCooldown = 15;
+				this.removeStatusEffect(StatusEffects.SLOWNESS);
+				this.removeStatusEffect(StatusEffects.STRENGTH);
+			}
+			if (this.isSneaking()){
+				ironedTurretCooldown --;
+				if(ironedTurretCooldown == 0){
+					this.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 999999, 4));
+					this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 999999, 99));
+				}
+			}
+
+
 		}
 
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SHULKED)) {

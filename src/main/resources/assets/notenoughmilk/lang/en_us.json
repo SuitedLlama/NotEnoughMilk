@@ -15,5 +15,7 @@
     "effect.notenoughmilk.shroomed": "Shroomed",
     "item.notenoughmilk.shulker_milk_bucket": "Shulker Milk",
     "effect.notenoughmilk.shulked": "Shulked",
-    "item.notenoughmilk.creeper_milk_bucket": "Creeper Milk"
+    "item.notenoughmilk.creeper_milk_bucket": "Creeper Milk",
+    "item.notenoughmilk.iron_golem_milk_bucket": "Iron Golem Milk",
+    "effect.notenoughmilk.ironed": "Ironed"
 }
