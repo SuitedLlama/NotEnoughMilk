@@ -1,12 +1,14 @@
 package suitedllama.notenoughmilk.mixin;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.util.ActionResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import net.minecraft.entity.player.PlayerEntity;
@@ -69,6 +71,13 @@ public abstract class ItemMixin implements ItemConvertible {
 			user.addStatusEffect(new StatusEffectInstance(StatusEffects.HERO_OF_THE_VILLAGE, 3000, 0));
 			info.setReturnValue(ActionResult.success(true));
 		}
+	}
+	@Inject(cancellable = true, at = @At("HEAD"), method = "finishUsing")
+	public void finishUsing(ItemStack stack, World world, LivingEntity user, CallbackInfoReturnable<ItemStack> info) {
+		if ((stack.getItem() == Items.COOKIE) && user.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED)){
+			user.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 600, 0));
+		}
+
 	}
 
     protected void milk(ItemStack bucketStack, PlayerEntity player, ItemStack milkStack, Hand hand) {

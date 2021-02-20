@@ -1,19 +1,20 @@
 package suitedllama.notenoughmilk.mixin;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.projectile.ShulkerBulletEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.thrown.SnowballEntity;
 import net.minecraft.item.ItemStack;
@@ -23,6 +24,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import suitedllama.notenoughmilk.NotEnoughMilk;
 import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
 import java.util.function.Consumer;
@@ -36,9 +38,16 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
 	@Shadow public abstract boolean damage(DamageSource source, float amount);
 
+	@Shadow public abstract void startFallFlying();
+	@Shadow public abstract void stopFallFlying();
+
+	@Shadow public abstract void jump();
+
 	private int cooldownSnowShoot;
 	private int cooldownShulkerShoot;
 	private int ironedTurretCooldown;
+	private boolean songPlaying;
+	private BlockPos songSource;
 
 	protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -58,6 +67,15 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 			cooldownSnowShoot --;
 			}
 		}
+
+		if (this.songSource != null && this.songSource.isWithinDistance(this.getPos(), 3.46D) && this.world.getBlockState(this.songSource).isOf(Blocks.JUKEBOX) && this.songPlaying == true) {
+			ItemStack itemStack = this.getStackInHand(Hand.MAIN_HAND);
+			if (this.isOnGround()){
+				this.jump();
+				this.swingHand(Hand.MAIN_HAND);
+			}
+		}
+
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.IRONED)) {
 			if (!this.isSneaking()){
 				ironedTurretCooldown = 15;
@@ -74,6 +92,24 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
 
 		}
+	if (!this.isFallFlying() && this.jumping) {
+		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED)) {
+			if (!this.onGround && !this.isFallFlying() && !this.isTouchingWater()) {
+				this.startFallFlying();
+			}
+
+		}
+	}
+
+	if ((this.isFallFlying() && this.onGround) && this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED) ){
+		this.stopFallFlying();
+	}
+
+	if (this.isSneaking() && this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED)) {
+		this.addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 10, 7));
+		}
+
+
 
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SHULKED)) {
 			if ((this.getAttacking() != null)){
@@ -119,7 +155,12 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 		}
 
 	}
-
+	@Inject(cancellable = true, at = @At("HEAD"), method = "handleFallDamage")
+	public void handleFallDamage(float fallDistance, float damageMultiplier, CallbackInfoReturnable<Boolean> info) {
+		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED)){
+			info.setReturnValue(false);
+		}
+	}
 
 	@Inject(cancellable = true, at = @At("TAIL"), method = "interact")
 	public void interact(Entity player, Hand hand, CallbackInfoReturnable<ActionResult> info) {
@@ -152,6 +193,17 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 		else {
 			return true;
 		}
-		}
+	}
+
+	@Environment(EnvType.CLIENT)
+	public void setNearbySongPlaying(BlockPos songPosition, boolean playing) {
+		this.songSource = songPosition;
+		this.songPlaying = playing;
+	}
+
+	@Environment(EnvType.CLIENT)
+	public boolean getSongPlaying() {
+		return this.songPlaying;
+	}
 
 }

@@ -17,5 +17,7 @@
     "effect.notenoughmilk.shulked": "Shulked",
     "item.notenoughmilk.creeper_milk_bucket": "Creeper Milk",
     "item.notenoughmilk.iron_golem_milk_bucket": "Iron Golem Milk",
-    "effect.notenoughmilk.ironed": "Ironed"
+    "effect.notenoughmilk.ironed": "Ironed",
+    "item.notenoughmilk.parrot_milk_bucket": "Parrot Milk",
+    "effect.notenoughmilk.parroted": "Parroted"
 }
