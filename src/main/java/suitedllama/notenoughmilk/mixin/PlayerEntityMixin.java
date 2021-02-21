@@ -55,7 +55,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Inject(at = @At("TAIL"), method = "tick")
 	public void tick(CallbackInfo info) {
-		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SNOWED_IN) && this.isSneaking()) {
+		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SNOWED) && this.isSneaking()) {
 			if (cooldownSnowShoot <= 0) {
 			SnowballEntity snowballEntity = new SnowballEntity(world, this);
 			snowballEntity.setProperties(this, this.pitch, this.yaw, 0.0F, 1.5F, 1.0F);
@@ -68,7 +68,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 			}
 		}
 
-		if (this.songSource != null && this.songSource.isWithinDistance(this.getPos(), 3.46D) && this.world.getBlockState(this.songSource).isOf(Blocks.JUKEBOX) && this.songPlaying == true) {
+		if (this.songSource != null && this.songSource.isWithinDistance(this.getPos(), 3.46D) && this.world.getBlockState(this.songSource).isOf(Blocks.JUKEBOX) && this.songPlaying == true && this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED)) {
 			ItemStack itemStack = this.getStackInHand(Hand.MAIN_HAND);
 			if (this.isOnGround()){
 				this.jump();
@@ -93,7 +93,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
 		}
 	if (!this.isFallFlying() && this.jumping) {
-		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED)) {
+		if ((this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED) || this.hasStatusEffect(NotEnoughMilkStatusEffects.BATTED))) {
 			if (!this.onGround && !this.isFallFlying() && !this.isTouchingWater()) {
 				this.startFallFlying();
 			}
@@ -101,11 +101,11 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 		}
 	}
 
-	if ((this.isFallFlying() && this.onGround) && this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED) ){
+	if ((this.isFallFlying() && this.onGround) && ((this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED) || this.hasStatusEffect(NotEnoughMilkStatusEffects.BATTED)))){
 		this.stopFallFlying();
 	}
 
-	if (this.isSneaking() && this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED)) {
+	if (this.isSneaking() && ((this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED) || this.hasStatusEffect(NotEnoughMilkStatusEffects.BATTED)))) {
 		this.addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 10, 7));
 		}
 
@@ -157,7 +157,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 	}
 	@Inject(cancellable = true, at = @At("HEAD"), method = "handleFallDamage")
 	public void handleFallDamage(float fallDistance, float damageMultiplier, CallbackInfoReturnable<Boolean> info) {
-		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED)){
+		if ((this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED) || this.hasStatusEffect(NotEnoughMilkStatusEffects.BATTED))){
 			info.setReturnValue(false);
 		}
 	}

@@ -15,6 +15,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
+import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
 public class BatMilkItem extends Item {
 
@@ -34,9 +35,8 @@ public class BatMilkItem extends Item {
       }
 
       if (!world.isClient) {
-        user.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 600, 0));
-        user.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 840, 0));
-        user.addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 600, 3));
+        user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.BATTED, 6000, 0));
+        user.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 6000, 0));
       }
 
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;

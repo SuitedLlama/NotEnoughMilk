@@ -25,7 +25,7 @@ public class InGameHudMixin {
 
     @Inject(at = @At(value = "JUMP", opcode = Opcodes.IFEQ, ordinal = 1), method = "render")
     private void render(MatrixStack matrices, float tickDelta, CallbackInfo info){
-        if ((this.client.options.getPerspective().isFirstPerson()) && this.client.player.hasStatusEffect(NotEnoughMilkStatusEffects.SNOWED_IN)) {
+        if ((this.client.options.getPerspective().isFirstPerson()) && this.client.player.hasStatusEffect(NotEnoughMilkStatusEffects.SNOWED)) {
             this.renderPumpkinOverlay();
         }
     }

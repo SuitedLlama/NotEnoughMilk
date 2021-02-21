@@ -32,7 +32,7 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Inject(at = @At("TAIL"), method = "tick")
 	private void tick(CallbackInfo info) {
-		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SNOWED_IN) && (!world.isClient)) {
+		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SNOWED) && (!world.isClient)) {
 			int i = MathHelper.floor(this.getX());
 			int j = MathHelper.floor(this.getY());
 			int k = MathHelper.floor(this.getZ());

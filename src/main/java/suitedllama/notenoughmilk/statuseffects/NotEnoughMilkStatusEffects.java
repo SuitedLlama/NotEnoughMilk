@@ -9,20 +9,23 @@ import suitedllama.notenoughmilk.NotEnoughMilk;
 public class NotEnoughMilkStatusEffects {
 
     public static final StatusEffect INKED = new AccessibleStatusEffect(StatusEffectType.HARMFUL, 1508648);
-    public static final StatusEffect SNOWED_IN = new AccessibleStatusEffect(StatusEffectType.HARMFUL, 11859951);
+    public static final StatusEffect SNOWED = new AccessibleStatusEffect(StatusEffectType.HARMFUL, 11859951);
     public static final StatusEffect SHROOMED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 13107200);
     public static final StatusEffect SHULKED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 15728880);
     public static final StatusEffect IRONED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 6579300);
     public static final StatusEffect PARROTED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 3342130);
+    public static final StatusEffect BATTED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 20);
+    public static final StatusEffect CATTED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 20);
 
 
     public static void statusEffectInit(){
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "inked"), INKED);
-        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "snowed_in"), SNOWED_IN);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "snowed"), SNOWED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "shroomed"), SHROOMED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "shulked"), SHULKED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "ironed"), IRONED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "parroted"), PARROTED);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "batted"), BATTED);
 
     }
     
