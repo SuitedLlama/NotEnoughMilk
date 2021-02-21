@@ -19,5 +19,9 @@
     "item.notenoughmilk.iron_golem_milk_bucket": "Iron Golem Milk",
     "effect.notenoughmilk.ironed": "Ironed",
     "item.notenoughmilk.parrot_milk_bucket": "Parrot Milk",
-    "effect.notenoughmilk.parroted": "Parroted"
+    "effect.notenoughmilk.parroted": "Parroted",
+    "item.notenoughmilk.blaze_milk_bucket": "Blaze Milk",
+    "effect.notenoughmilk.blazed": "Blazed",
+    "item.notenoughmilk.ghast_milk_bucket": "Ghast Milk",
+    "effect.notenoughmilk.Ghasted": "Ghasted"
 }

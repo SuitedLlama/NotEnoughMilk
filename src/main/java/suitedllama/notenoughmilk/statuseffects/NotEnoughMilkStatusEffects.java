@@ -15,7 +15,8 @@ public class NotEnoughMilkStatusEffects {
     public static final StatusEffect IRONED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 6579300);
     public static final StatusEffect PARROTED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 3342130);
     public static final StatusEffect BATTED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 20);
-    public static final StatusEffect CATTED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 20);
+    public static final StatusEffect BLAZED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 16744960);
+    public static final StatusEffect GHASTED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 16744960);
 
 
     public static void statusEffectInit(){
@@ -26,6 +27,9 @@ public class NotEnoughMilkStatusEffects {
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "ironed"), IRONED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "parroted"), PARROTED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "batted"), BATTED);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "blazed"), BLAZED);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "ghasted"), GHASTED);
+
 
     }
     

@@ -72,10 +72,11 @@ public abstract class ItemMixin implements ItemConvertible {
 			info.setReturnValue(ActionResult.success(true));
 		}
 	}
+
 	@Inject(cancellable = true, at = @At("HEAD"), method = "finishUsing")
 	public void finishUsing(ItemStack stack, World world, LivingEntity user, CallbackInfoReturnable<ItemStack> info) {
 		if ((stack.getItem() == Items.COOKIE) && user.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED)){
-			user.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 600, 0));
+			user.damage(DamageSource.GENERIC, 99999);
 		}
 
 	}

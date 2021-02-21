@@ -7,9 +7,12 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.projectile.FireballEntity;
 import net.minecraft.entity.projectile.ShulkerBulletEntity;
+import net.minecraft.entity.projectile.SmallFireballEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -24,7 +27,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
-import suitedllama.notenoughmilk.NotEnoughMilk;
 import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
 import java.util.function.Consumer;
@@ -44,6 +46,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 	@Shadow public abstract void jump();
 
 	private int cooldownSnowShoot;
+	private int cooldownBlazeShoot;
 	private int cooldownShulkerShoot;
 	private int ironedTurretCooldown;
 	private boolean songPlaying;
@@ -54,7 +57,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     }
 
     @Inject(at = @At("TAIL"), method = "tick")
-	public void tick(CallbackInfo info) {
+	public void tick(CallbackInfo info) throws InterruptedException {
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SNOWED) && this.isSneaking()) {
 			if (cooldownSnowShoot <= 0) {
 			SnowballEntity snowballEntity = new SnowballEntity(world, this);
@@ -75,11 +78,37 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 				this.swingHand(Hand.MAIN_HAND);
 			}
 		}
+		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.BLAZED) || this.hasStatusEffect(NotEnoughMilkStatusEffects.GHASTED)){
+			FireballEntity fireballEntity = new FireballEntity(world, this, 0, 0, 0);
+			if (!this.world.getDimension().isUltrawarm()){
+				this.removeStatusEffect(StatusEffects.FIRE_RESISTANCE);
+				this.removeStatusEffect(NotEnoughMilkStatusEffects.BLAZED);
+				this.removeStatusEffect(StatusEffects.SLOW_FALLING);
+				this.removeStatusEffect(NotEnoughMilkStatusEffects.GHASTED);
+			}
+			if (!this.isSneaking()){
+				cooldownBlazeShoot = 25;
+			}
+			if (this.isSneaking()){
+				if (cooldownBlazeShoot <= 0) {
+					Vec3d vec3d = this.getRotationVec(1.0F);
+					fireballEntity.setProperties(this, this.pitch, this.yaw, 0.0F, 0.0F, 0.0F);
+					fireballEntity.updatePosition(this.getX() + vec3d.x * 4.0D, this.getY() + vec3d.y * 4.0D, fireballEntity.getZ() + vec3d.z * 4.0D);
+					world.spawnEntity(fireballEntity);
+					cooldownBlazeShoot = 25;
+				}
+				else if (cooldownBlazeShoot >= 0) {
+					cooldownBlazeShoot --;
+				}
+			}
+
+		}
 
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.IRONED)) {
-			if (!this.isSneaking()){
+			if (!this.isSneaking() && this.hasStatusEffect(StatusEffects.STRENGTH) && this.hasStatusEffect(StatusEffects.SLOWNESS)){
 				ironedTurretCooldown = 15;
 				this.removeStatusEffect(StatusEffects.SLOWNESS);
+				this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 999999, 0));
 				this.removeStatusEffect(StatusEffects.STRENGTH);
 			}
 			if (this.isSneaking()){

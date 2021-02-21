@@ -1,6 +1,7 @@
 package suitedllama.notenoughmilk.mixin;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.mob.BlazeEntity;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.entity.mob.ShulkerEntity;
 import net.minecraft.entity.passive.*;
@@ -82,7 +83,11 @@ public abstract class BucketItemMixin extends Item {
 			return ActionResult.success(player.world.isClient);
 		}
 		if (entity instanceof ParrotEntity && entity.isAlive() && !entity.isBaby()) {
-			this.milk(stack, player, NotEnoughMilk.IRON_GOLEM_MILK_BUCKET.getDefaultStack(), hand);
+			this.milk(stack, player, NotEnoughMilk.PARROT_MILK_BUCKET.getDefaultStack(), hand);
+			return ActionResult.success(player.world.isClient);
+		}
+		if (entity instanceof BlazeEntity && entity.isAlive() && !entity.isBaby()) {
+			this.milk(stack, player, NotEnoughMilk.BLAZE_MILK_BUCKET.getDefaultStack(), hand);
 			return ActionResult.success(player.world.isClient);
 		}
 		return ActionResult.PASS;

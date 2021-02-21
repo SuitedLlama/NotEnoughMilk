@@ -35,8 +35,6 @@ public class FishMilkItem extends Item {
 
       if (!world.isClient) {
         user.addStatusEffect(new StatusEffectInstance(StatusEffects.CONDUIT_POWER, 6000, 0));
-        user.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 6000, 0));
-        user.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 6000, 0));
       }
 
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;

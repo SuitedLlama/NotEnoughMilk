@@ -35,7 +35,6 @@ public class ChickenMilkItem extends Item {
 
       if (!world.isClient) {
         user.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 9999999, 0));
-        user.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 9999999, 0));
       }
 
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;

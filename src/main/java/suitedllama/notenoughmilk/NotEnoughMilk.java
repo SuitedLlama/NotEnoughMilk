@@ -27,6 +27,8 @@ public class NotEnoughMilk implements ModInitializer {
 	public static final Item CREEPER_MILK_BUCKET = new CreeperMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item IRON_GOLEM_MILK_BUCKET = new IronGolemMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item PARROT_MILK_BUCKET = new ParrotMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item BLAZE_MILK_BUCKET = new BlazeMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item GHAST_MILK_BUCKET = new GhastMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 
 
 	@Override
@@ -47,6 +49,8 @@ public class NotEnoughMilk implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"creeper_milk_bucket"), CREEPER_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"iron_golem_milk_bucket"), IRON_GOLEM_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"parrot_milk_bucket"), PARROT_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"blaze_milk_bucket"), BLAZE_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"ghast_milk_bucket"), GHAST_MILK_BUCKET);
 
 
 	}
