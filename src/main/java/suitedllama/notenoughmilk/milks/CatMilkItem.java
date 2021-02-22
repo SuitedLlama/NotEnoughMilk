@@ -34,6 +34,7 @@ public class CatMilkItem extends Item {
       }
 
       if (!world.isClient) {
+        user.clearStatusEffects();
         user.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 600, 5));
         user.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 840, 0));
       }

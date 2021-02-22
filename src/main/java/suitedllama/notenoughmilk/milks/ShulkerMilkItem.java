@@ -39,6 +39,7 @@ public class ShulkerMilkItem extends Item {
 
       if (!world.isClient) { 
             int i = this.randomEffectTime(world.random);
+            user.clearStatusEffects();
             user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.SHULKED, i));
             
       }

@@ -36,6 +36,7 @@ public class BlazeMilkItem extends Item {
 
       if (!world.isClient) {
         if (user.world.getDimension().isUltrawarm()){
+           user.clearStatusEffects();
            user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.BLAZED, 6000, 0));
            user.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 6000,0));
         }

@@ -41,6 +41,7 @@ public class CreeperMilkItem extends Item {
       }
 
       if (!world.isClient) {
+         user.clearStatusEffects();
          user.world.createExplosion(user, user.getX(), user.getY(), user.getZ(), 5.0F, true, Explosion.DestructionType.BREAK);
          this.spawnEffectsCloud(user);
          user.damage(DamageSource.explosion(user), 20);

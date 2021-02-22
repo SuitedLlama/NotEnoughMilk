@@ -35,6 +35,7 @@ public class ParrotMilkItem extends Item {
       }
 
       if (!world.isClient) {
+        user.clearStatusEffects();
         user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.PARROTED, 6000, 0));
       }
 

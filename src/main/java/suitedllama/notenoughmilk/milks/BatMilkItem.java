@@ -35,6 +35,7 @@ public class BatMilkItem extends Item {
       }
 
       if (!world.isClient) {
+        user.clearStatusEffects();
         user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.BATTED, 6000, 0));
         user.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 6000, 0));
       }

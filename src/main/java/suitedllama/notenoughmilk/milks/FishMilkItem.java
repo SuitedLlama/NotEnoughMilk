@@ -34,6 +34,7 @@ public class FishMilkItem extends Item {
       }
 
       if (!world.isClient) {
+        user.clearStatusEffects();
         user.addStatusEffect(new StatusEffectInstance(StatusEffects.CONDUIT_POWER, 6000, 0));
       }
 

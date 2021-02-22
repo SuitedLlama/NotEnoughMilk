@@ -35,6 +35,7 @@ public class SquidMilkItem extends Item {
       }
 
       if (!world.isClient) {
+        user.clearStatusEffects();
         user.addStatusEffect(new StatusEffectInstance(StatusEffects.CONDUIT_POWER, 999999, 0));
         user.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 999999, 0));
         user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.INKED, 999999, 0));

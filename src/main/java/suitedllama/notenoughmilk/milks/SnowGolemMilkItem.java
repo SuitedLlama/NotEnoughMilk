@@ -34,6 +34,7 @@ public class SnowGolemMilkItem extends Item {
       }
 
       if (!world.isClient) {
+        user.clearStatusEffects();
         user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.SNOWED, 7200));
       }
 

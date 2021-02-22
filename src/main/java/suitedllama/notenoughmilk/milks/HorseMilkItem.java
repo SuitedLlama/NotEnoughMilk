@@ -34,6 +34,7 @@ public class HorseMilkItem extends Item {
       }
 
       if (!world.isClient) {
+        user.clearStatusEffects();
         user.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 600, 1));
         user.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 600, 2));
       }

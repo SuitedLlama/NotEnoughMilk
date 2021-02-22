@@ -34,6 +34,7 @@ public class ChickenMilkItem extends Item {
       }
 
       if (!world.isClient) {
+        user.clearStatusEffects();
         user.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 9999999, 0));
       }
 
