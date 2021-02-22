@@ -13,7 +13,8 @@
     "MyceliumBlockMixin",
     "MooshroomEntityMixin",
     "LivingEntityAccess",
-    "VillagerEntityMixin"
+    "VillagerEntityMixin",
+    "CobwebBlockMixin"
   ],
   "client": [
     "ClientPlayerEntityMixin",

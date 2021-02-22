@@ -3,7 +3,6 @@ package suitedllama.notenoughmilk.milks;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -15,12 +14,20 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
+import suitedllama.notenoughmilk.mixin.PlayerEntityMixin;
+import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
-public class PigMilkItem extends Item {
+public class WitchMilkItem extends Item {
 
-   public PigMilkItem(Item.Settings settings) {
+   public WitchMilkItem(Settings settings) {
       super(settings);
    }
+
+
+   public static boolean waterBreathingPotionRecieved;
+   public static boolean fireResistancePotionRecieved;
+   public static boolean regenerationPotionRecieved;
+   public static boolean strengthPotionRecieved;
 
    public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
       if (user instanceof ServerPlayerEntity) {
@@ -34,7 +41,11 @@ public class PigMilkItem extends Item {
       }
 
       if (!world.isClient) {
-        user.addStatusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 6000, 5));
+           this.waterBreathingPotionRecieved = false;
+           this.regenerationPotionRecieved = false;
+           this.fireResistancePotionRecieved = false;
+           this.strengthPotionRecieved = false;
+           user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.WITCHED, 6000, 0));
       }
 
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;

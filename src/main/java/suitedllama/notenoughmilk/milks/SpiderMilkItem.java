@@ -15,10 +15,11 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
+import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
-public class PigMilkItem extends Item {
+public class SpiderMilkItem extends Item {
 
-   public PigMilkItem(Item.Settings settings) {
+   public SpiderMilkItem(Settings settings) {
       super(settings);
    }
 
@@ -34,7 +35,8 @@ public class PigMilkItem extends Item {
       }
 
       if (!world.isClient) {
-        user.addStatusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 6000, 5));
+           user.clearStatusEffects();
+           user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.SPIDERED, 6000, 0));
       }
 
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;

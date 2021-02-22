@@ -1,9 +1,7 @@
 package suitedllama.notenoughmilk.mixin;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.BlazeEntity;
-import net.minecraft.entity.mob.CreeperEntity;
-import net.minecraft.entity.mob.ShulkerEntity;
+import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BucketItem;
@@ -88,6 +86,26 @@ public abstract class BucketItemMixin extends Item {
 		}
 		if (entity instanceof BlazeEntity && entity.isAlive() && !entity.isBaby()) {
 			this.milk(stack, player, NotEnoughMilk.BLAZE_MILK_BUCKET.getDefaultStack(), hand);
+			return ActionResult.success(player.world.isClient);
+		}
+		if (entity instanceof GhastEntity && entity.isAlive() && !entity.isBaby()) {
+			this.milk(stack, player, NotEnoughMilk.GHAST_MILK_BUCKET.getDefaultStack(), hand);
+			return ActionResult.success(player.world.isClient);
+		}
+		if (entity instanceof ZombieEntity  && entity.isAlive() && !entity.isBaby()) {
+			this.milk(stack, player, NotEnoughMilk.ZOMBIE_MILK_BUCKET.getDefaultStack(), hand);
+			return ActionResult.success(player.world.isClient);
+		}
+		if (entity instanceof SpiderEntity && !(entity instanceof CaveSpiderEntity) && entity.isAlive() && !entity.isBaby()) {
+			this.milk(stack, player, NotEnoughMilk.SPIDER_MILK_BUCKET.getDefaultStack(), hand);
+			return ActionResult.success(player.world.isClient);
+		}
+		if (entity instanceof CaveSpiderEntity && entity.isAlive() && !entity.isBaby()) {
+			this.milk(stack, player, NotEnoughMilk.CAVE_SPIDER_MILK_BUCKET.getDefaultStack(), hand);
+			return ActionResult.success(player.world.isClient);
+		}
+		if (entity instanceof WitchEntity && entity.isAlive() && !entity.isBaby()) {
+			this.milk(stack, player, NotEnoughMilk.WITCH_MILK_BUCKET.getDefaultStack(), hand);
 			return ActionResult.success(player.world.isClient);
 		}
 		return ActionResult.PASS;

@@ -23,5 +23,12 @@
     "item.notenoughmilk.blaze_milk_bucket": "Blaze Milk",
     "effect.notenoughmilk.blazed": "Blazed",
     "item.notenoughmilk.ghast_milk_bucket": "Ghast Milk",
-    "effect.notenoughmilk.Ghasted": "Ghasted"
+    "effect.notenoughmilk.ghasted": "Ghasted",
+    "item.notenoughmilk.zombie_milk_bucket": "Zombie Milk",
+    "item.notenoughmilk.spider_milk_bucket": "Spider Milk",
+    "effect.notenoughmilk.spidered": "Spidered",
+    "item.notenoughmilk.cave_spider_milk_bucket": "Cave Spider Milk",
+    "effect.notenoughmilk.cave_spidered": "Cave Spidered",
+    "item.notenoughmilk.witch_milk_bucket": "Witch Milk",
+    "effect.notenoughmilk.witched": "Witched"
 }

@@ -29,6 +29,10 @@ public class NotEnoughMilk implements ModInitializer {
 	public static final Item PARROT_MILK_BUCKET = new ParrotMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item BLAZE_MILK_BUCKET = new BlazeMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item GHAST_MILK_BUCKET = new GhastMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item ZOMBIE_MILK_BUCKET = new ZombieMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item SPIDER_MILK_BUCKET = new SpiderMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item CAVE_SPIDER_MILK_BUCKET = new CaveSpiderMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item WITCH_MILK_BUCKET = new WitchMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 
 
 	@Override
@@ -51,7 +55,10 @@ public class NotEnoughMilk implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"parrot_milk_bucket"), PARROT_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"blaze_milk_bucket"), BLAZE_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"ghast_milk_bucket"), GHAST_MILK_BUCKET);
-
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"zombie_milk_bucket"), ZOMBIE_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"spider_milk_bucket"), SPIDER_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"cave_spider_milk_bucket"), CAVE_SPIDER_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"witch_milk_bucket"), WITCH_MILK_BUCKET);
 
 	}
 }
