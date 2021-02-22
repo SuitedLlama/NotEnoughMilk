@@ -20,6 +20,7 @@ public class NotEnoughMilkStatusEffects {
     public static final StatusEffect SPIDERED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 2621440);
     public static final StatusEffect CAVE_SPIDERED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 5120);
     public static final StatusEffect WITCHED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 6553700);
+    public static final StatusEffect BONED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 13158600);
 
 
     public static void statusEffectInit(){
@@ -35,6 +36,8 @@ public class NotEnoughMilkStatusEffects {
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "spidered"), SPIDERED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "cave_spidered"), CAVE_SPIDERED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "witched"), WITCHED);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "boned"), BONED);
+
 
     }
     

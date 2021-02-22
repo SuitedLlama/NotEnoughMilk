@@ -68,43 +68,47 @@ public abstract class BucketItemMixin extends Item {
 			this.milk(stack, player, NotEnoughMilk.MOOSHROOM_MILK_BUCKET.getDefaultStack(), hand);
 			return ActionResult.success(player.world.isClient);
 		}
-		if (entity instanceof ShulkerEntity && entity.isAlive() && !entity.isBaby()) {
+		else if (entity instanceof ShulkerEntity && entity.isAlive() && !entity.isBaby()) {
 			this.milk(stack, player, NotEnoughMilk.SHULKER_MILK_BUCKET.getDefaultStack(), hand);
 			return ActionResult.success(player.world.isClient);
 		}
-		if (entity instanceof CreeperEntity && entity.isAlive() && !entity.isBaby()) {
+		else if (entity instanceof CreeperEntity && entity.isAlive() && !entity.isBaby()) {
 			this.milk(stack, player, NotEnoughMilk.CREEPER_MILK_BUCKET.getDefaultStack(), hand);
 			return ActionResult.success(player.world.isClient);
 		}
-		if (entity instanceof IronGolemEntity && entity.isAlive() && !entity.isBaby()) {
+		else if (entity instanceof IronGolemEntity && entity.isAlive() && !entity.isBaby()) {
 			this.milk(stack, player, NotEnoughMilk.IRON_GOLEM_MILK_BUCKET.getDefaultStack(), hand);
 			return ActionResult.success(player.world.isClient);
 		}
-		if (entity instanceof ParrotEntity && entity.isAlive() && !entity.isBaby()) {
+		else if (entity instanceof ParrotEntity && entity.isAlive() && !entity.isBaby()) {
 			this.milk(stack, player, NotEnoughMilk.PARROT_MILK_BUCKET.getDefaultStack(), hand);
 			return ActionResult.success(player.world.isClient);
 		}
-		if (entity instanceof BlazeEntity && entity.isAlive() && !entity.isBaby()) {
+		else if (entity instanceof BlazeEntity && entity.isAlive() && !entity.isBaby()) {
 			this.milk(stack, player, NotEnoughMilk.BLAZE_MILK_BUCKET.getDefaultStack(), hand);
 			return ActionResult.success(player.world.isClient);
 		}
-		if (entity instanceof GhastEntity && entity.isAlive() && !entity.isBaby()) {
+		else if (entity instanceof GhastEntity && entity.isAlive() && !entity.isBaby()) {
 			this.milk(stack, player, NotEnoughMilk.GHAST_MILK_BUCKET.getDefaultStack(), hand);
 			return ActionResult.success(player.world.isClient);
 		}
-		if (entity instanceof ZombieEntity  && entity.isAlive() && !entity.isBaby()) {
+		else if (entity instanceof ZombieEntity  && entity.isAlive() && !entity.isBaby()) {
 			this.milk(stack, player, NotEnoughMilk.ZOMBIE_MILK_BUCKET.getDefaultStack(), hand);
 			return ActionResult.success(player.world.isClient);
 		}
-		if (entity instanceof SpiderEntity && !(entity instanceof CaveSpiderEntity) && entity.isAlive() && !entity.isBaby()) {
+		else if (entity instanceof SpiderEntity && !(entity instanceof CaveSpiderEntity) && entity.isAlive() && !entity.isBaby()) {
 			this.milk(stack, player, NotEnoughMilk.SPIDER_MILK_BUCKET.getDefaultStack(), hand);
 			return ActionResult.success(player.world.isClient);
 		}
-		if (entity instanceof CaveSpiderEntity && entity.isAlive() && !entity.isBaby()) {
+		else if (entity instanceof CaveSpiderEntity && entity.isAlive() && !entity.isBaby()) {
 			this.milk(stack, player, NotEnoughMilk.CAVE_SPIDER_MILK_BUCKET.getDefaultStack(), hand);
 			return ActionResult.success(player.world.isClient);
 		}
-		if (entity instanceof WitchEntity && entity.isAlive() && !entity.isBaby()) {
+		else if (entity instanceof WitchEntity && entity.isAlive() && !entity.isBaby()) {
+			this.milk(stack, player, NotEnoughMilk.WITCH_MILK_BUCKET.getDefaultStack(), hand);
+			return ActionResult.success(player.world.isClient);
+		}
+		else if (entity instanceof SlimeEntity && !(entity instanceof MagmaCubeEntity)  && entity.isAlive() && !entity.isBaby()) {
 			this.milk(stack, player, NotEnoughMilk.WITCH_MILK_BUCKET.getDefaultStack(), hand);
 			return ActionResult.success(player.world.isClient);
 		}

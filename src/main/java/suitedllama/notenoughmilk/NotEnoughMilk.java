@@ -33,6 +33,8 @@ public class NotEnoughMilk implements ModInitializer {
 	public static final Item SPIDER_MILK_BUCKET = new SpiderMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item CAVE_SPIDER_MILK_BUCKET = new CaveSpiderMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item WITCH_MILK_BUCKET = new WitchMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item SLIME_MILK_BUCKET = new SlimeMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item MAGMA_CUBE_MILK_BUCKET = new MagmaCubeMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 
 
 	@Override
@@ -59,6 +61,8 @@ public class NotEnoughMilk implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"spider_milk_bucket"), SPIDER_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"cave_spider_milk_bucket"), CAVE_SPIDER_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"witch_milk_bucket"), WITCH_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"slime_milk_bucket"), SLIME_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"magma_cube_milk_bucket"), MAGMA_CUBE_MILK_BUCKET);
 
 	}
 }

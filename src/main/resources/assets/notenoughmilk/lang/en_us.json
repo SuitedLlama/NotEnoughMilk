@@ -30,5 +30,8 @@
     "item.notenoughmilk.cave_spider_milk_bucket": "Cave Spider Milk",
     "effect.notenoughmilk.cave_spidered": "Cave Spidered",
     "item.notenoughmilk.witch_milk_bucket": "Witch Milk",
-    "effect.notenoughmilk.witched": "Witched"
+    "effect.notenoughmilk.witched": "Witched",
+    "item.notenoughmilk.slime_milk_bucket": "Slime Milk",
+    "item.notenoughmilk.magma_cube_milk_bucket": "Magma Cube Milk",
+    "effect.notenoughmilk.boned": "Boned"
 }
