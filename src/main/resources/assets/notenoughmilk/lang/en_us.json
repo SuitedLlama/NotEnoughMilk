@@ -33,5 +33,8 @@
     "effect.notenoughmilk.witched": "Witched",
     "item.notenoughmilk.slime_milk_bucket": "Slime Milk",
     "item.notenoughmilk.magma_cube_milk_bucket": "Magma Cube Milk",
-    "effect.notenoughmilk.boned": "Boned"
+    "effect.notenoughmilk.boned": "Boned",
+    "item.notenoughmilk.skeleton_milk_bucket": "Skeleton Milk",
+    "item.notenoughmilk.stray_milk_bucket": "Stray Milk",
+    "effect.notenoughmilk.strayed": "Strayed"
 }

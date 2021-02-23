@@ -58,7 +58,7 @@ public abstract class LivingEntityMixin extends Entity {
 	}
 	@Inject(cancellable = true, at = @At("HEAD"), method = "isClimbing")
 	public void isClimbing(CallbackInfoReturnable<Boolean> cir) {
-		if (this.horizontalCollision){
+		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SPIDERED)|| this.hasStatusEffect(NotEnoughMilkStatusEffects.CAVE_SPIDERED) && this.horizontalCollision){
 			cir.setReturnValue(true);
 		}
 	}
@@ -82,6 +82,12 @@ public abstract class LivingEntityMixin extends Entity {
 		}
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.CAVE_SPIDERED) && target instanceof LivingEntity)	{
 			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 600, 0));
+		}
+		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.STRAYED) && target instanceof LivingEntity)	{
+			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 600, 0));
+		}
+		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SHULKED) && target instanceof LivingEntity)	{
+			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 200, 0));
 		}
 	}
 }

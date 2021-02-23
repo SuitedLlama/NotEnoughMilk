@@ -14,7 +14,8 @@
     "MooshroomEntityMixin",
     "LivingEntityAccess",
     "VillagerEntityMixin",
-    "CobwebBlockMixin"
+    "CobwebBlockMixin",
+    "BowItemMixin"
   ],
   "client": [
     "ClientPlayerEntityMixin",

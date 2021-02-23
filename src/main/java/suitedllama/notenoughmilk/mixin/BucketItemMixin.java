@@ -109,7 +109,19 @@ public abstract class BucketItemMixin extends Item {
 			return ActionResult.success(player.world.isClient);
 		}
 		else if (entity instanceof SlimeEntity && !(entity instanceof MagmaCubeEntity)  && entity.isAlive() && !entity.isBaby()) {
-			this.milk(stack, player, NotEnoughMilk.WITCH_MILK_BUCKET.getDefaultStack(), hand);
+			this.milk(stack, player, NotEnoughMilk.SLIME_MILK_BUCKET.getDefaultStack(), hand);
+			return ActionResult.success(player.world.isClient);
+		}
+		else if (entity instanceof MagmaCubeEntity && entity.isAlive() && !entity.isBaby()) {
+			this.milk(stack, player, NotEnoughMilk.MAGMA_CUBE_MILK_BUCKET.getDefaultStack(), hand);
+			return ActionResult.success(player.world.isClient);
+		}
+		else if (entity instanceof SkeletonEntity && entity.isAlive() && !entity.isBaby()) {
+			this.milk(stack, player, NotEnoughMilk.SKELETON_MILK_BUCKET.getDefaultStack(), hand);
+			return ActionResult.success(player.world.isClient);
+		}
+		else if (entity instanceof StrayEntity && entity.isAlive() && !entity.isBaby()) {
+			this.milk(stack, player, NotEnoughMilk.STRAY_MILK_BUCKET.getDefaultStack(), hand);
 			return ActionResult.success(player.world.isClient);
 		}
 		return ActionResult.PASS;

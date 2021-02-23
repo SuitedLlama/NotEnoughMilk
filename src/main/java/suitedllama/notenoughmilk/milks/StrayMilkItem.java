@@ -3,11 +3,11 @@ package suitedllama.notenoughmilk.milks;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
-import net.minecraft.potion.PotionUtil;
-import net.minecraft.potion.Potions;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsage;
+import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
@@ -16,9 +16,9 @@ import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
-public class SkeletonMilkItem extends Item {
+public class StrayMilkItem extends Item {
 
-    public SkeletonMilkItem(Settings settings) {
+    public StrayMilkItem(Settings settings) {
       super(settings);
    }
 
@@ -38,7 +38,7 @@ public class SkeletonMilkItem extends Item {
           assert user instanceof PlayerEntity;
           PlayerEntity playerEntity = (PlayerEntity) user;
           user.clearStatusEffects();
-          user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.BONED, 6000, 0));
+          user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.STRAYED, 6000, 0));
           boolean foundBow = false;
           for (int i = 0; i < playerEntity.inventory.size(); i++) {
               ItemStack inventoryStack = playerEntity.inventory.getStack(i);

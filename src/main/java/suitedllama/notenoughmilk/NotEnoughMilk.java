@@ -35,6 +35,8 @@ public class NotEnoughMilk implements ModInitializer {
 	public static final Item WITCH_MILK_BUCKET = new WitchMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item SLIME_MILK_BUCKET = new SlimeMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item MAGMA_CUBE_MILK_BUCKET = new MagmaCubeMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item SKELETON_MILK_BUCKET = new SkeletonMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item STRAY_MILK_BUCKET = new StrayMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 
 
 	@Override
@@ -63,6 +65,7 @@ public class NotEnoughMilk implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"witch_milk_bucket"), WITCH_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"slime_milk_bucket"), SLIME_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"magma_cube_milk_bucket"), MAGMA_CUBE_MILK_BUCKET);
-
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"skeleton_milk_bucket"), SKELETON_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"stray_milk_bucket"), STRAY_MILK_BUCKET);
 	}
 }

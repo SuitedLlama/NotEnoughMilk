@@ -172,10 +172,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
 
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SHULKED)) {
-			if ((this.getAttacking() != null)){
-				LivingEntity attacking = this.getAttacking();
-				attacking.addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 100));
-			}
 			if (hasBeenDamaged(this)){
 				if ((!world.isClient)) {
 				double d = this.getX();
