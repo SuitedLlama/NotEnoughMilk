@@ -36,5 +36,8 @@
     "effect.notenoughmilk.boned": "Boned",
     "item.notenoughmilk.skeleton_milk_bucket": "Skeleton Milk",
     "item.notenoughmilk.stray_milk_bucket": "Stray Milk",
-    "effect.notenoughmilk.strayed": "Strayed"
+    "effect.notenoughmilk.strayed": "Strayed",
+    "item.notenoughmilk.rabbit_milk_bucket": "Rabbit Milk",
+    "effect.notenoughmilk.buzzing": "Buzzing",
+    "item.notenoughmilk.bee_milk_bucket": "Bee Milk"
 }
