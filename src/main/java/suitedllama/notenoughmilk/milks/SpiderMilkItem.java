@@ -37,6 +37,7 @@ public class SpiderMilkItem extends Item {
       if (!world.isClient) {
            user.clearStatusEffects();
            user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.SPIDERED, 6000, 0));
+           user.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 6000, 0));
       }
 
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;
