@@ -36,8 +36,7 @@ public class IronGolemMilkItem extends Item {
 
       if (!world.isClient) {
         user.clearStatusEffects();
-        user.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 999999, 0));
-        user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.IRONED, 999999, 0));
+        user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.IRONED, 6000, 0));
       }
 
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;
