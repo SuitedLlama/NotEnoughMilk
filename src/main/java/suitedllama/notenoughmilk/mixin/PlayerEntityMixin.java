@@ -2,20 +2,23 @@ package suitedllama.notenoughmilk.mixin;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.projectile.FireballEntity;
 import net.minecraft.entity.projectile.ShulkerBulletEntity;
-import net.minecraft.entity.projectile.SmallFireballEntity;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.GameMode;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -47,12 +50,24 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 	@Shadow public abstract void startFallFlying();
 	@Shadow public abstract void stopFallFlying();
 
+	@Shadow public abstract void setGameMode(GameMode gameMode);
+	@Shadow public abstract boolean isCreative();
+
 	@Shadow public abstract void jump();
 
 	@Shadow protected boolean isSubmergedInWater;
 
 	@Shadow public abstract boolean giveItemStack(ItemStack stack);
 
+	@Shadow public abstract boolean isSpectator();
+
+	@Shadow public abstract void slowMovement(BlockState state, Vec3d multiplier);
+
+	@Shadow public abstract float getMovementSpeed();
+
+	@Shadow public abstract boolean canFly();
+
+	@Shadow @Final public PlayerAbilities abilities;
 	private int cooldownSnowShoot;
 	private int cooldownBlazeShoot;
 	private int cooldownShulkerShoot;
@@ -112,24 +127,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 			}
 
 		}
-
-		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.IRONED)) {
-			if (!this.isSneaking() && this.hasStatusEffect(StatusEffects.STRENGTH) && this.hasStatusEffect(StatusEffects.SLOWNESS)){
-				ironedTurretCooldown = 15;
-				this.removeStatusEffect(StatusEffects.SLOWNESS);
-				this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 999999, 0));
-				this.removeStatusEffect(StatusEffects.STRENGTH);
-			}
-			if (this.isSneaking()){
-				ironedTurretCooldown --;
-				if(ironedTurretCooldown == 0){
-					this.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 999999, 4));
-					this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 999999, 99));
-				}
-			}
-
-
-		}
+		
 	if (!this.isFallFlying() && this.jumping) {
 		if ((this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED) || this.hasStatusEffect(NotEnoughMilkStatusEffects.BATTED))) {
 			if (!this.onGround && !this.isFallFlying() && !this.isTouchingWater()) {
