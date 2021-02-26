@@ -2,6 +2,7 @@ package suitedllama.notenoughmilk.mixin;
 
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -35,6 +36,12 @@ public abstract class LivingEntityMixin extends Entity {
 		return false;
 	}
 
+	@Shadow
+	public boolean removeStatusEffect(StatusEffect type) {
+		return false;
+	}
+
+	@Shadow public abstract boolean clearStatusEffects();
 
 	@Inject(at = @At("TAIL"), method = "tick")
 	private void tick(CallbackInfo info) {
@@ -55,6 +62,10 @@ public abstract class LivingEntityMixin extends Entity {
 
 			}
 		}
+		if (!this.hasStatusEffect(NotEnoughMilkStatusEffects.IRONED) && this.hasStatusEffect(StatusEffects.HEALTH_BOOST) && this.hasStatusEffect(StatusEffects.SLOWNESS)){
+			this.removeStatusEffect(StatusEffects.HEALTH_BOOST);
+			this.removeStatusEffect(StatusEffects.SLOWNESS);
+		}
 	}
 	@Inject(cancellable = true, at = @At("HEAD"), method = "isClimbing")
 	public void isClimbing(CallbackInfoReturnable<Boolean> cir) {
@@ -69,7 +80,8 @@ public abstract class LivingEntityMixin extends Entity {
 	@Inject(at = @At("TAIL"), method = "onAttacking")
 	public void onAttacking(Entity target, CallbackInfo info) {
 		BlockState blockState = Blocks.COBWEB.getDefaultState();
-		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SPIDERED) || (this.hasStatusEffect(NotEnoughMilkStatusEffects.CAVE_SPIDERED))) {
+		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SPIDERED) || (this.hasStatusEffect(NotEnoughMilkStatusEffects.CAVE_SPIDERED)) && target instanceof LivingEntity) {
+			target.playSound(SoundEvents.ENTITY_SPIDER_HURT, 1.0F, 1.0F);
 			int i;
 			int j;
 			int k;
@@ -82,7 +94,9 @@ public abstract class LivingEntityMixin extends Entity {
 					target.world.setBlockState(blockPos, blockState);
 				}
 			}
+
 		}
+
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.CAVE_SPIDERED) && target instanceof LivingEntity)	{
 			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 600, 0));
 		}
@@ -93,6 +107,7 @@ public abstract class LivingEntityMixin extends Entity {
 			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 200, 0));
 		}
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.BUZZING) && target instanceof LivingEntity)	{
+			target.playSound(SoundEvents.ENTITY_BEE_STING, 1.0F, 1.0F);
 			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 600, 0));
 		}
 	}
