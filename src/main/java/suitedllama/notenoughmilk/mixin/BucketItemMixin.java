@@ -132,6 +132,26 @@ public abstract class BucketItemMixin extends Item {
 			this.milk(stack, player, NotEnoughMilk.BEE_MILK_BUCKET.getDefaultStack(), hand);
 			return ActionResult.success(player.world.isClient);
 		}
+		else if (entity instanceof DolphinEntity && entity.isAlive() && !entity.isBaby()) {
+			this.milk(stack, player, NotEnoughMilk.DOLPHIN_MILK_BUCKET.getDefaultStack(), hand);
+			return ActionResult.success(player.world.isClient);
+		}
+		else if (entity instanceof WitherSkeletonEntity && entity.isAlive() && !entity.isBaby()) {
+			this.milk(stack, player, NotEnoughMilk.WITHER_SKELETON_MILK_BUCKET.getDefaultStack(), hand);
+			return ActionResult.success(player.world.isClient);
+		}
+		else if (entity instanceof EndermanEntity && entity.isAlive() && !entity.isBaby()) {
+			this.milk(stack, player, NotEnoughMilk.ENDERMAN_MILK_BUCKET.getDefaultStack(), hand);
+			return ActionResult.success(player.world.isClient);
+		}
+		else if (entity instanceof PolarBearEntity && entity.isAlive() && !entity.isBaby()) {
+			this.milk(stack, player, NotEnoughMilk.POLAR_BEAR_MILK_BUCKET.getDefaultStack(), hand);
+			return ActionResult.success(player.world.isClient);
+		}
+		else if (entity instanceof MuleEntity && entity.isAlive() && !entity.isBaby()) {
+			this.milk(stack, player, NotEnoughMilk.MULE_MILK_BUCKET.getDefaultStack(), hand);
+			return ActionResult.success(player.world.isClient);
+		}
 		return ActionResult.PASS;
 	}
 

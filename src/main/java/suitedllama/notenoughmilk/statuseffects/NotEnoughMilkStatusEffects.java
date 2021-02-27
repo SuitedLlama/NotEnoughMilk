@@ -8,7 +8,7 @@ import suitedllama.notenoughmilk.NotEnoughMilk;
 
 public class NotEnoughMilkStatusEffects {
 
-    public static final StatusEffect INKED = new AccessibleStatusEffect(StatusEffectType.HARMFUL, 1508648);
+    public static final StatusEffect INKING = new AccessibleStatusEffect(StatusEffectType.HARMFUL, 1508648);
     public static final StatusEffect SNOWED = new AccessibleStatusEffect(StatusEffectType.HARMFUL, 11859951);
     public static final StatusEffect SHROOMED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 13107200);
     public static final StatusEffect SHULKED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 15728880);
@@ -24,10 +24,12 @@ public class NotEnoughMilkStatusEffects {
     public static final StatusEffect STRAYED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 13158600);
     public static final StatusEffect BUZZING = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 16762880);
     public static final StatusEffect FISHER = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 54015);
+    public static final StatusEffect WITHERING = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 986895);
+    public static final StatusEffect ENDERMANNED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 7864470);
 
 
     public static void statusEffectInit(){
-        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "inked"), INKED);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "inking"), INKING);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "snowed"), SNOWED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "shroomed"), SHROOMED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "shulked"), SHULKED);
@@ -43,6 +45,8 @@ public class NotEnoughMilkStatusEffects {
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "strayed"), STRAYED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "buzzing"), BUZZING);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "fisher"), FISHER);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "withering"), WITHERING);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "endermanned"), ENDERMANNED);
 
 
     }

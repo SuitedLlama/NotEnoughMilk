@@ -2,8 +2,14 @@ package suitedllama.notenoughmilk.mixin;
 
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.passive.FoxEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -81,7 +87,7 @@ public abstract class LivingEntityMixin extends Entity {
 	public void onAttacking(Entity target, CallbackInfo info) {
 		BlockState blockState = Blocks.COBWEB.getDefaultState();
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SPIDERED) || (this.hasStatusEffect(NotEnoughMilkStatusEffects.CAVE_SPIDERED)) && target instanceof LivingEntity) {
-			target.playSound(SoundEvents.ENTITY_SPIDER_HURT, 1.0F, 1.0F);
+			createSound(target, SoundEvents.ENTITY_SPIDER_HURT, SoundCategory.PLAYERS);
 			int i;
 			int j;
 			int k;
@@ -96,6 +102,29 @@ public abstract class LivingEntityMixin extends Entity {
 			}
 
 		}
+		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.ENDERMANNED) && target instanceof LivingEntity){
+			createSound(target, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS);
+			createSound(target, SoundEvents.ENTITY_ENDERMAN_SCREAM, SoundCategory.PLAYERS);
+			if (!world.isClient) {
+				double d = target.getX();
+				double e = target.getY();
+				double f = target.getZ();
+
+				for (int i = 0; i < 24; ++i) {
+					double g = target.getX() + (((LivingEntity)target).getRandom().nextDouble() - 0.5D) * 50.0D;
+					double h = MathHelper.clamp(target.getY() + (double) (((LivingEntity)target).getRandom().nextInt(40) - 8), 0.0D, (double) (world.getDimensionHeight() - 1));
+					double j = target.getZ() + (((LivingEntity)target).getRandom().nextDouble() - 0.5D) * 50.0D;
+					if (target.hasVehicle()) {
+						target.stopRiding();
+					}
+					if (((LivingEntity)target).teleport(g, h, j, true)) {
+						createSound(target, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS);
+						createSound(target, SoundEvents.ENTITY_ENDERMAN_SCREAM, SoundCategory.PLAYERS);
+						break;
+					}
+				}
+			}
+		}
 
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.CAVE_SPIDERED) && target instanceof LivingEntity)	{
 			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 600, 0));
@@ -104,12 +133,48 @@ public abstract class LivingEntityMixin extends Entity {
 			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 600, 0));
 		}
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SHULKED) && target instanceof LivingEntity)	{
+			createSound(target, SoundEvents.ENTITY_SHULKER_BULLET_HIT, SoundCategory.PLAYERS);
 			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 200, 0));
 		}
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.BUZZING) && target instanceof LivingEntity)	{
-			target.playSound(SoundEvents.ENTITY_BEE_STING, 1.0F, 1.0F);
+			createSound(target, SoundEvents.ENTITY_BEE_STING, SoundCategory.PLAYERS);
 			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 600, 0));
 		}
+		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.INKING) && target instanceof LivingEntity)	{
+			createSound(target, SoundEvents.ENTITY_SQUID_SQUIRT, SoundCategory.PLAYERS);
+			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 160, 0));
+		}
+		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.WITHERING) && target instanceof LivingEntity)	{
+			createSound(target, SoundEvents.ENTITY_WITHER_SKELETON_HURT, SoundCategory.PLAYERS);
+			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 80, 0));
+		}
 	}
+	private void randomTeleport(LivingEntity entity) {
+		if (!world.isClient) {
+			double d = entity.getX();
+			double e = entity.getY();
+			double f = entity.getZ();
+
+			for (int i = 0; i < 16; ++i) {
+				double g = entity.getX() + (entity.getRandom().nextDouble() - 0.5D) * 16.0D;
+				double h = MathHelper.clamp(entity.getY() + (double) (entity.getRandom().nextInt(16) - 8), 0.0D, (double) (world.getDimensionHeight() - 1));
+				double j = entity.getZ() + (entity.getRandom().nextDouble() - 0.5D) * 16.0D;
+				if (entity.hasVehicle()) {
+					entity.stopRiding();
+				}
+
+				if (entity.teleport(g, h, j, true)) {
+					world.playSound((PlayerEntity) null, d, e, f, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
+					entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
+					break;
+				}
+			}
+		}
+	}
+	public void createSound(Entity entity, SoundEvent soundEvent, SoundCategory soundCategory){
+		entity.playSound(soundEvent, 1.0F, 1.0F);
+		world.playSound((PlayerEntity)null, entity.getX(), entity.getY(), entity.getZ(), soundEvent, soundCategory, 1.0F, 1.0F);
+	}
+
 }
  

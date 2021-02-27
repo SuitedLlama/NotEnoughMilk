@@ -31,8 +31,8 @@ public abstract class SchoolingFishEntityMixin extends FishEntity {
 	@Override
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
-		if (itemStack.isEmpty() && player.hasStatusEffect(NotEnoughMilkStatusEffects.FISHER)) {
-			this.kill();
+		if (itemStack.isEmpty() && player.hasStatusEffect(NotEnoughMilkStatusEffects.FISHER) && (player.getHungerManager().isNotFull() || player.abilities.creativeMode) ) {
+			this.remove();
 			player.getHungerManager().add(6, 0.3F);
 			player.playSound(SoundEvents.ENTITY_PLAYER_BURP, 1.0F, 1.0F);
 			return ActionResult.success(player.world.isClient);

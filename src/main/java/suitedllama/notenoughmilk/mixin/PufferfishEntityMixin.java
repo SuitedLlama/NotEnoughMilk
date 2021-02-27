@@ -26,8 +26,8 @@ public abstract class PufferfishEntityMixin extends FishEntity {
 	@Override
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
-		if (itemStack.isEmpty() && player.hasStatusEffect(NotEnoughMilkStatusEffects.FISHER)) {
-			this.kill();
+		if (itemStack.isEmpty() && player.hasStatusEffect(NotEnoughMilkStatusEffects.FISHER) && (player.getHungerManager().isNotFull() || player.abilities.creativeMode)) {
+			this.remove();
 			player.getHungerManager().add(1, 0.1F);
 			player.addStatusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 400, 0));
 			player.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 200, 0));

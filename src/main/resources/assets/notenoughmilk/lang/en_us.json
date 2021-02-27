@@ -6,7 +6,7 @@
     "item.notenoughmilk.donkey_milk_bucket": "Donkey Milk",
     "item.notenoughmilk.fox_milk_bucket": "Fox Milk",
     "item.notenoughmilk.squid_milk_bucket": "Squid Milk",
-    "effect.notenoughmilk.inked": "Inked",
+    "effect.notenoughmilk.inking": "Inking",
     "item.notenoughmilk.pig_milk_bucket": "Pig Milk",
     "item.notenoughmilk.snow_golem_milk_bucket": "Snow Golem Milk",
     "effect.notenoughmilk.snowed": "Snowed",
@@ -41,5 +41,13 @@
     "effect.notenoughmilk.buzzing": "Buzzing",
     "item.notenoughmilk.bee_milk_bucket": "Bee Milk",
     "effect.notenoughmilk.fisher": "Fisher",
-    "item.notenoughmilk.dolphin_milk_bucket": "Dolphin Milk"
+    "item.notenoughmilk.dolphin_milk_bucket": "Dolphin Milk",
+    "effect.notenoughmilk.withering": "Withering",
+    "item.notenoughmilk.wither_skeleton_milk_bucket": "Wither Skeleton Milk",
+    "effect.notenoughmilk.endermanned": "Endermanned",
+    "item.notenoughmilk.enderman_milk_bucket": "Enderman Milk",
+    "item.notenoughmilk.polar_bear_milk_bucket": "Polar Bear Milk",
+    "item.notenoughmilk.mule_milk_bucket": "Mule Milk"
+
+
 }

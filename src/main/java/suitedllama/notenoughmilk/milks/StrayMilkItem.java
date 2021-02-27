@@ -34,24 +34,24 @@ public class StrayMilkItem extends Item {
          stack.decrement(1);
       }
 
-      if (!world.isClient) {
-          assert user instanceof PlayerEntity;
-          PlayerEntity playerEntity = (PlayerEntity) user;
-          user.clearStatusEffects();
-          user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.STRAYED, 7200, 0));
-          boolean foundBow = false;
-          for (int i = 0; i < playerEntity.inventory.size(); i++) {
-              ItemStack inventoryStack = playerEntity.inventory.getStack(i);
-              if ((inventoryStack.getItem() == Items.BOW)) {
-                  foundBow = true;
-                  break;
-              }
-          }
-          if (!foundBow) {
-              playerEntity.giveItemStack(new ItemStack(Items.BOW));
-          }
+        if (!world.isClient) {
+            assert user instanceof PlayerEntity;
+            PlayerEntity playerEntity = (PlayerEntity) user;
+            user.clearStatusEffects();
+            user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.STRAYED, 4200, 0));
+            boolean foundBow = false;
+            for (int i = 0; i < playerEntity.inventory.size(); i++) {
+                ItemStack inventoryStack = playerEntity.inventory.getStack(i);
+                if ((inventoryStack.getItem() == Items.BOW)) {
+                    foundBow = true;
+                    break;
+                }
+            }
+            if (!foundBow) {
+                user.dropItem(Items.BOW, 1);
+            }
 
-}
+        }
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;
    }
 

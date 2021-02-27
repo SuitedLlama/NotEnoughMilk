@@ -1,6 +1,7 @@
 package suitedllama.notenoughmilk.milks;
 
 import net.minecraft.advancement.criterion.Criteria;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -48,7 +49,7 @@ public class SkeletonMilkItem extends Item {
               }
           }
           if (!foundBow) {
-              playerEntity.giveItemStack(new ItemStack(Items.BOW));
+              user.dropItem(Items.BOW, 1);
           }
 
 }

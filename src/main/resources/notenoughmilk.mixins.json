@@ -22,7 +22,6 @@
     "VillagerEntityMixin"
   ],
   "client": [
-    "ClientPlayerEntityMixin",
     "InGameHudMixin"
   ],
   "injectors": {

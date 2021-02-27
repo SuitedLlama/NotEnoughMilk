@@ -10,6 +10,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerAbilities;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.projectile.FireballEntity;
 import net.minecraft.entity.projectile.ShulkerBulletEntity;
 import net.minecraft.potion.PotionUtil;
@@ -45,6 +46,8 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
 
+	@Shadow public final PlayerInventory inventory;
+
 	@Shadow public abstract boolean damage(DamageSource source, float amount);
 
 	@Shadow public abstract void startFallFlying();
@@ -76,9 +79,10 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 	private BlockPos songSource;
 
 
-	protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
+	protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world, PlayerInventory inventory) {
         super(entityType, world);
-    }
+		this.inventory = inventory;
+	}
 
     @Inject(at = @At("TAIL"), method = "tick")
 	public void tick(CallbackInfo info) throws InterruptedException {
