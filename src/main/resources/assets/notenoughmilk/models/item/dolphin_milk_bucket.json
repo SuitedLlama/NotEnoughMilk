@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "notenoughmilk:item/dolphin_milk_bucket"
+    }
+  }

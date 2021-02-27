@@ -45,7 +45,7 @@ public class WitchMilkItem extends Item {
            this.regenerationPotionRecieved = false;
            this.fireResistancePotionRecieved = false;
            this.strengthPotionRecieved = false;
-           user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.WITCHED, 6000, 0));
+           user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.WITCHED, 999999, 0));
       }
 
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;

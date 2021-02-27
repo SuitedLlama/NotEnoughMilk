@@ -15,10 +15,11 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
+import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
-public class ChickenMilkItem extends Item {
+public class DolphinMilkItem extends Item {
 
-   public ChickenMilkItem(Item.Settings settings) {
+   public DolphinMilkItem(Settings settings) {
       super(settings);
    }
 
@@ -35,7 +36,9 @@ public class ChickenMilkItem extends Item {
 
       if (!world.isClient) {
         user.clearStatusEffects();
-        user.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 6000, 0));
+        user.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 6000, 0));
+         user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.FISHER, 6000, 0));
+
       }
 
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;

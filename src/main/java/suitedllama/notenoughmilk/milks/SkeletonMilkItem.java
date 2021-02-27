@@ -38,7 +38,7 @@ public class SkeletonMilkItem extends Item {
           assert user instanceof PlayerEntity;
           PlayerEntity playerEntity = (PlayerEntity) user;
           user.clearStatusEffects();
-          user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.BONED, 6000, 0));
+          user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.BONED, 3000, 0));
           boolean foundBow = false;
           for (int i = 0; i < playerEntity.inventory.size(); i++) {
               ItemStack inventoryStack = playerEntity.inventory.getStack(i);

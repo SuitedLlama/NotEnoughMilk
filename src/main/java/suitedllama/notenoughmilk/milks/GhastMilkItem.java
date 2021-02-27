@@ -37,9 +37,9 @@ public class GhastMilkItem extends Item {
       if (!world.isClient) {
         if (user.world.getDimension().isUltrawarm()){
            user.clearStatusEffects();
-           user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.GHASTED, 12000, 0));
-           user.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 12000,0));
-           user.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 12000,0));
+           user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.GHASTED, 6000, 0));
+           user.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 6000,0));
+           user.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 6000,0));
         }
       }
 

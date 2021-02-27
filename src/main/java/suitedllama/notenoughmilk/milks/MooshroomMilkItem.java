@@ -38,9 +38,8 @@ public class MooshroomMilkItem extends Item {
       }
 
       if (!world.isClient) { 
-            int i = this.randomEffectTime(world.random);
             user.clearStatusEffects();
-            user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.SHROOMED, i));
+            user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.SHROOMED, 6000));
             
       }
 
@@ -55,10 +54,6 @@ public class MooshroomMilkItem extends Item {
    public UseAction getUseAction(ItemStack stack) {
       return UseAction.DRINK;
    }
-
-   protected int randomEffectTime(Random random){
-      return MathHelper.nextInt(random, 2400, 12000);
-    }
 
    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
       return ItemUsage.consumeHeldItem(world, user, hand);

@@ -23,6 +23,7 @@ public class NotEnoughMilkStatusEffects {
     public static final StatusEffect BONED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 13158600);
     public static final StatusEffect STRAYED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 13158600);
     public static final StatusEffect BUZZING = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 16762880);
+    public static final StatusEffect FISHER = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 54015);
 
 
     public static void statusEffectInit(){
@@ -41,6 +42,7 @@ public class NotEnoughMilkStatusEffects {
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "boned"), BONED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "strayed"), STRAYED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "buzzing"), BUZZING);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "fisher"), FISHER);
 
 
     }

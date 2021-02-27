@@ -36,8 +36,8 @@ public class BatMilkItem extends Item {
 
       if (!world.isClient) {
         user.clearStatusEffects();
-        user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.BATTED, 6000, 0));
-        user.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 6000, 0));
+        user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.BATTED, 3000, 0));
+        user.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 3000, 0));
       }
 
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;

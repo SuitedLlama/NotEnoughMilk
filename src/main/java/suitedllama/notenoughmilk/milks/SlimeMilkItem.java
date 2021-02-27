@@ -36,7 +36,7 @@ public class SlimeMilkItem extends Item {
 
       if (!world.isClient) {
         user.clearStatusEffects();
-        user.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 6000, 2));
+        user.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 2400, 6));
       }
 
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;

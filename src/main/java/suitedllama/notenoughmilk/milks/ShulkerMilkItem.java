@@ -38,9 +38,8 @@ public class ShulkerMilkItem extends Item {
       }
 
       if (!world.isClient) { 
-            int i = this.randomEffectTime(world.random);
             user.clearStatusEffects();
-            user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.SHULKED, i));
+            user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.SHULKED, 2400));
             
       }
 
@@ -55,10 +54,6 @@ public class ShulkerMilkItem extends Item {
    public UseAction getUseAction(ItemStack stack) {
       return UseAction.DRINK;
    }
-
-   protected int randomEffectTime(Random random){
-      return MathHelper.nextInt(random, 2400, 12000);
-    }
 
    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
       return ItemUsage.consumeHeldItem(world, user, hand);

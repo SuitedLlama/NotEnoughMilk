@@ -35,7 +35,7 @@ public class SnowGolemMilkItem extends Item {
 
       if (!world.isClient) {
         user.clearStatusEffects();
-        user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.SNOWED, 7200));
+        user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.SNOWED, 6000));
       }
 
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;

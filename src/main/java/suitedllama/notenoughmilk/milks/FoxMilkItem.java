@@ -35,9 +35,9 @@ public class FoxMilkItem extends Item {
 
       if (!world.isClient) {
         user.clearStatusEffects();
-        user.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 3000, 10));
-        user.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 3000, 0));
-        user.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 3000, 99));
+        user.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 1200, 10));
+        user.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 1200, 0));
+        user.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 1200, 99));
 
       }
 
