@@ -17,9 +17,9 @@ import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
-public class PolarBearMilkItem extends Item {
+public class TurtleMilkItem extends Item {
 
-   public PolarBearMilkItem(Settings settings) {
+   public TurtleMilkItem(Settings settings) {
       super(settings);
    }
 
@@ -36,8 +36,9 @@ public class PolarBearMilkItem extends Item {
 
       if (!world.isClient) {
            user.clearStatusEffects();
+           user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.TURTLED, 3000));
            user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.FISHER, 3000));
-           user.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 3000, 1));
+           user.addStatusEffect(new StatusEffectInstance(StatusEffects.CONDUIT_POWER, 3000));
       }
 
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;

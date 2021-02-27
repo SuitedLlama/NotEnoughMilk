@@ -15,6 +15,7 @@ import net.minecraft.entity.projectile.FireballEntity;
 import net.minecraft.entity.projectile.ShulkerBulletEntity;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -45,8 +46,6 @@ import org.spongepowered.asm.mixin.injection.At;
 @SuppressWarnings("all")
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
-
-	@Shadow public final PlayerInventory inventory;
 
 	@Shadow public abstract boolean damage(DamageSource source, float amount);
 
@@ -81,7 +80,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
 	protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world, PlayerInventory inventory) {
         super(entityType, world);
-		this.inventory = inventory;
 	}
 
     @Inject(at = @At("TAIL"), method = "tick")
@@ -142,21 +140,23 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 	}
 
 	if (this.hasStatusEffect(NotEnoughMilkStatusEffects.WITCHED)){
-		if ((this.isSubmergedInWater) && !WitchMilkItem.waterBreathingPotionRecieved){
-			this.giveItemStack(PotionUtil.setPotion(new ItemStack(Items.POTION), Potions.LONG_WATER_BREATHING));
-			WitchMilkItem.waterBreathingPotionRecieved = true;
-		}
-		if ((this.getAttacker() != null) && !WitchMilkItem.regenerationPotionRecieved){
-			this.giveItemStack(PotionUtil.setPotion(new ItemStack(Items.POTION), Potions.STRONG_HEALING));
-			WitchMilkItem.regenerationPotionRecieved = true;
-		}
-		if ((this.isOnFire() || this.isInLava()) && !WitchMilkItem.fireResistancePotionRecieved){
-			this.giveItemStack(PotionUtil.setPotion(new ItemStack(Items.POTION), Potions.LONG_FIRE_RESISTANCE));
-			WitchMilkItem.fireResistancePotionRecieved = true;
-		}
-		if ((this.getAttacking() instanceof HostileEntity || this.getAttacking() instanceof PlayerEntity) && !WitchMilkItem.strengthPotionRecieved){
-			this.giveItemStack(PotionUtil.setPotion(new ItemStack(Items.POTION), Potions.LONG_STRENGTH));
-			WitchMilkItem.strengthPotionRecieved = true;
+		if(!this.world.isClient()) {
+			if ((this.isSubmergedInWater) && !WitchMilkItem.waterBreathingPotionRecieved) {
+				this.giveItemStack(PotionUtil.setPotion(new ItemStack(Items.POTION), Potions.LONG_WATER_BREATHING));
+				WitchMilkItem.waterBreathingPotionRecieved = true;
+			}
+			if ((this.getAttacker() != null) && !WitchMilkItem.regenerationPotionRecieved) {
+				this.giveItemStack(PotionUtil.setPotion(new ItemStack(Items.POTION), Potions.STRONG_HEALING));
+				WitchMilkItem.regenerationPotionRecieved = true;
+			}
+			if ((this.isOnFire() || this.isInLava()) && !WitchMilkItem.fireResistancePotionRecieved) {
+				this.giveItemStack(PotionUtil.setPotion(new ItemStack(Items.POTION), Potions.LONG_FIRE_RESISTANCE));
+				WitchMilkItem.fireResistancePotionRecieved = true;
+			}
+			if ((this.getAttacking() instanceof HostileEntity || this.getAttacking() instanceof PlayerEntity) && !WitchMilkItem.strengthPotionRecieved) {
+				this.giveItemStack(PotionUtil.setPotion(new ItemStack(Items.POTION), Potions.LONG_STRENGTH));
+				WitchMilkItem.strengthPotionRecieved = true;
+			}
 		}
 		if (WitchMilkItem.waterBreathingPotionRecieved && WitchMilkItem.regenerationPotionRecieved && WitchMilkItem.fireResistancePotionRecieved && WitchMilkItem.strengthPotionRecieved){
 			this.removeStatusEffect(NotEnoughMilkStatusEffects.WITCHED);
@@ -170,8 +170,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 	if (this.isSneaking() && ((this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED) || this.hasStatusEffect(NotEnoughMilkStatusEffects.BATTED)))) {
 		this.addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 10, 7));
 		}
-
-
 
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SHULKED)) {
 			if (hasBeenDamaged(this)){
@@ -213,6 +211,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 		}
 
 	}
+
 	@Inject(cancellable = true, at = @At("HEAD"), method = "handleFallDamage")
 	public void handleFallDamage(float fallDistance, float damageMultiplier, CallbackInfoReturnable<Boolean> info) {
 		if ((this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED) || this.hasStatusEffect(NotEnoughMilkStatusEffects.BATTED))){
@@ -244,6 +243,22 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 		   }
 		}
 	 }
+
+	@Inject(cancellable = true, at = @At("HEAD"), method = "getHurtSound")
+	protected void getHurtSound(DamageSource source, CallbackInfoReturnable<SoundEvent> cir) {
+		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.TURTLED) && this.isSneaking()) {
+			cir.setReturnValue(SoundEvents.ITEM_SHIELD_BREAK);
+		}
+	}
+
+	@Override
+	protected float applyEnchantmentsToDamage(DamageSource source, float amount) {
+		 if(this.hasStatusEffect(NotEnoughMilkStatusEffects.TURTLED) && this.isSneaking()){
+			return 0;
+		 }
+		 return super.applyEnchantmentsToDamage(source, amount);
+	}
+
   	public boolean hasBeenDamaged(LivingEntity instance){
 		if(this.world.getTime() - (((LivingEntityAccess)instance).lastDamageTime()) > 1L) {
 			return false;

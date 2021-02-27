@@ -26,6 +26,7 @@ public class NotEnoughMilkStatusEffects {
     public static final StatusEffect FISHER = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 54015);
     public static final StatusEffect WITHERING = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 986895);
     public static final StatusEffect ENDERMANNED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 7864470);
+    public static final StatusEffect TURTLED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 6592100);
 
 
     public static void statusEffectInit(){
@@ -47,8 +48,7 @@ public class NotEnoughMilkStatusEffects {
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "fisher"), FISHER);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "withering"), WITHERING);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "endermanned"), ENDERMANNED);
-
-
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "turtled"), TURTLED);
     }
     
 }

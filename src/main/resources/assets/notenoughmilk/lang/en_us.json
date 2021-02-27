@@ -47,7 +47,7 @@
     "effect.notenoughmilk.endermanned": "Endermanned",
     "item.notenoughmilk.enderman_milk_bucket": "Enderman Milk",
     "item.notenoughmilk.polar_bear_milk_bucket": "Polar Bear Milk",
-    "item.notenoughmilk.mule_milk_bucket": "Mule Milk"
-
-
+    "item.notenoughmilk.mule_milk_bucket": "Mule Milk",
+    "effect.notenoughmilk.turtled": "Turtled",
+    "item.notenoughmilk.turtle_milk_bucket": "Turtle Milk"
 }
