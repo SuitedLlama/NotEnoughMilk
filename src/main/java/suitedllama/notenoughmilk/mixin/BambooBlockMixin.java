@@ -28,7 +28,7 @@ public abstract class BambooBlockMixin extends Block {
 	@Override
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		ItemStack stackInHand = player.getStackInHand(hand);
-		if (player.hasStatusEffect(NotEnoughMilkStatusEffects.BAMBOOED)) {
+		if (player.hasStatusEffect(NotEnoughMilkStatusEffects.BAMBOOED) && player.getHungerManager().isNotFull() && stackInHand.isEmpty()){
 			player.playSound(SoundEvents.ENTITY_PANDA_BITE, 1.0F, 1.0F);
 			player.getHungerManager().add(1, 1);
 			world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
