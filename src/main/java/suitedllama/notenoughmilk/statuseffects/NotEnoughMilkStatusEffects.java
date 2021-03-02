@@ -8,8 +8,8 @@ import suitedllama.notenoughmilk.NotEnoughMilk;
 
 public class NotEnoughMilkStatusEffects {
 
-    public static final StatusEffect INKING = new AccessibleStatusEffect(StatusEffectType.HARMFUL, 1508648);
-    public static final StatusEffect SNOWED = new AccessibleStatusEffect(StatusEffectType.HARMFUL, 11859951);
+    public static final StatusEffect INKING = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 1508648);
+    public static final StatusEffect SNOWED = new AccessibleStatusEffect(StatusEffectType.NEUTRAL, 11859951);
     public static final StatusEffect SHROOMED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 13107200);
     public static final StatusEffect SHULKED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 15728880);
     public static final StatusEffect IRONED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 6579300);
@@ -27,6 +27,9 @@ public class NotEnoughMilkStatusEffects {
     public static final StatusEffect WITHERING = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 986895);
     public static final StatusEffect ENDERMANNED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 7864470);
     public static final StatusEffect TURTLED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 6592100);
+    public static final StatusEffect CARNIVOROUS = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 9830400);
+    public static final StatusEffect SHEEPED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 16448250);
+    public static final StatusEffect BAMBOOED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 8243325);
 
 
     public static void statusEffectInit(){
@@ -49,6 +52,9 @@ public class NotEnoughMilkStatusEffects {
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "withering"), WITHERING);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "endermanned"), ENDERMANNED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "turtled"), TURTLED);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "carnivorous"), CARNIVOROUS);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "sheeped"), SHEEPED);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "bambooed"), BAMBOOED);
     }
-    
+
 }

@@ -5,12 +5,14 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "AbstractDonkeyEntityMixin",
+    "BambooBlockMixin",
     "BeehiveBlockMixin",
     "BowItemMixin",
     "BucketItemMixin",
     "CatEntityMixin",
     "CobwebBlockMixin",
     "FlowerBlockMixin",
+    "GrassBlockMixin",
     "ItemMixin",
     "LivingEntityAccess",
     "LivingEntityMixin",
@@ -19,7 +21,8 @@
     "PlayerEntityMixin",
     "PufferfishEntityMixin",
     "SchoolingFishEntityMixin",
-    "VillagerEntityMixin"
+    "VillagerEntityMixin",
+    "WolfEntityMixin"
   ],
   "client": [
     "InGameHudMixin"

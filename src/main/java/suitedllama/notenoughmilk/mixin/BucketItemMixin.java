@@ -92,7 +92,7 @@ public abstract class BucketItemMixin extends Item {
 			this.milk(stack, player, NotEnoughMilk.GHAST_MILK_BUCKET.getDefaultStack(), hand);
 			return ActionResult.success(player.world.isClient);
 		}
-		else if (entity instanceof ZombieEntity  && entity.isAlive() && !entity.isBaby()) {
+		else if (entity instanceof ZombieEntity && !(entity instanceof ZombifiedPiglinEntity) && entity.isAlive() && !entity.isBaby()) {
 			this.milk(stack, player, NotEnoughMilk.ZOMBIE_MILK_BUCKET.getDefaultStack(), hand);
 			return ActionResult.success(player.world.isClient);
 		}
@@ -154,6 +154,22 @@ public abstract class BucketItemMixin extends Item {
 		}
 		else if (entity instanceof TurtleEntity && entity.isAlive() && !entity.isBaby()) {
 			this.milk(stack, player, NotEnoughMilk.TURTLE_MILK_BUCKET.getDefaultStack(), hand);
+			return ActionResult.success(player.world.isClient);
+		}
+		else if (entity instanceof WolfEntity && entity.isAlive() && !entity.isBaby()) {
+			this.milk(stack, player, NotEnoughMilk.WOLF_MILK_BUCKET.getDefaultStack(), hand);
+			return ActionResult.success(player.world.isClient);
+		}
+		else if (entity instanceof ZombifiedPiglinEntity && entity.isAlive() && !entity.isBaby()) {
+			this.milk(stack, player, NotEnoughMilk.ZOMBIFIED_PIGLIN_MILK_BUCKET.getDefaultStack(), hand);
+			return ActionResult.success(player.world.isClient);
+		}
+		else if (entity instanceof SheepEntity && entity.isAlive() && !entity.isBaby()) {
+			this.milk(stack, player, NotEnoughMilk.SHEEP_MILK_BUCKET.getDefaultStack(), hand);
+			return ActionResult.success(player.world.isClient);
+		}
+		else if (entity instanceof PandaEntity && entity.isAlive() && !entity.isBaby()) {
+			this.milk(stack, player, NotEnoughMilk.PANDA_MILK_BUCKET.getDefaultStack(), hand);
 			return ActionResult.success(player.world.isClient);
 		}
 		return ActionResult.PASS;

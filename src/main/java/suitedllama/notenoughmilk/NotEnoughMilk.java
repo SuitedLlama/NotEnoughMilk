@@ -45,6 +45,10 @@ public class NotEnoughMilk implements ModInitializer {
 	public static final Item POLAR_BEAR_MILK_BUCKET = new PolarBearMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item MULE_MILK_BUCKET = new MuleMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item TURTLE_MILK_BUCKET = new TurtleMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item WOLF_MILK_BUCKET = new WolfMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item ZOMBIFIED_PIGLIN_MILK_BUCKET = new ZombifiedPiglinMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item SHEEP_MILK_BUCKET = new SheepMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item PANDA_MILK_BUCKET = new PandaMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 
 
 	@Override
@@ -83,6 +87,10 @@ public class NotEnoughMilk implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"polar_bear_milk_bucket"), POLAR_BEAR_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"mule_milk_bucket"), MULE_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"turtle_milk_bucket"), TURTLE_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"wolf_milk_bucket"), WOLF_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"zombified_piglin_milk_bucket"), ZOMBIFIED_PIGLIN_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"sheep_milk_bucket"), SHEEP_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"panda_milk_bucket"), PANDA_MILK_BUCKET);
 
 	}
 }

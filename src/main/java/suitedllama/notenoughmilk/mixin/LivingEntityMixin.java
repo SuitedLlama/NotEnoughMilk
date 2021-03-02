@@ -4,7 +4,10 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.FoxEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -49,8 +52,21 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Shadow public abstract boolean clearStatusEffects();
 
+	@Shadow public abstract boolean teleport(double x, double y, double z, boolean particleEffects);
+
+	@Shadow public float bodyYaw;
+
 	@Inject(at = @At("TAIL"), method = "tick")
 	private void tick(CallbackInfo info) {
+		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.BAMBOOED) && MathHelper.nextInt(random, 0, 200) == 0){
+			Vec3d vec3d = this.getVelocity();
+			this.world.addParticle(ParticleTypes.SNEEZE, this.getX() - (double)(this.getWidth() + 1.0F) * 0.5D * (double)MathHelper.sin(this.bodyYaw * 0.017453292F), this.getEyeY() - 0.10000000149011612D, this.getZ() + (double)(this.getWidth() + 1.0F) * 0.5D * (double)MathHelper.cos(this.bodyYaw * 0.017453292F), vec3d.x, 0.0D, vec3d.z);
+			createSound(this, SoundEvents.ENTITY_PANDA_SNEEZE, SoundCategory.PLAYERS);
+			if(!world.isClient){
+				this.dropItem(Items.SLIME_BALL, 1);
+			}
+		}
+
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SNOWED) && (!world.isClient)) {
 			int i;
 			int j;
@@ -103,21 +119,20 @@ public abstract class LivingEntityMixin extends Entity {
 
 		}
 		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.ENDERMANNED) && target instanceof LivingEntity){
-			createSound(target, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS);
-			createSound(target, SoundEvents.ENTITY_ENDERMAN_SCREAM, SoundCategory.PLAYERS);
 			if (!world.isClient) {
-				double d = target.getX();
-				double e = target.getY();
-				double f = target.getZ();
+				double d = this.getX();
+				double e = this.getY();
+				double f = this.getZ();
 
 				for (int i = 0; i < 24; ++i) {
-					double g = target.getX() + (((LivingEntity)target).getRandom().nextDouble() - 0.5D) * 50.0D;
-					double h = MathHelper.clamp(target.getY() + (double) (((LivingEntity)target).getRandom().nextInt(40) - 8), 0.0D, (double) (world.getDimensionHeight() - 1));
-					double j = target.getZ() + (((LivingEntity)target).getRandom().nextDouble() - 0.5D) * 50.0D;
-					if (target.hasVehicle()) {
-						target.stopRiding();
+					double g = this.getX() + ((this.world.getRandom().nextDouble() - 0.5D)) * 25.0D;
+					double h = MathHelper.clamp(this.getY() + (double) ((this.world.getRandom().nextInt(25) - 8)), 0.0D, (double) (world.getDimensionHeight() - 1));
+					double j = this.getZ() + ((this.world.getRandom().nextDouble() - 0.5D)) * 25.0D;
+					if (this.hasVehicle()) {
+						this.stopRiding();
 					}
-					if (((LivingEntity)target).teleport(g, h, j, true)) {
+					if (this.teleport(g, h, j, true)) {
+						createSound(this, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS);
 						createSound(target, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS);
 						createSound(target, SoundEvents.ENTITY_ENDERMAN_SCREAM, SoundCategory.PLAYERS);
 						break;
@@ -128,6 +143,10 @@ public abstract class LivingEntityMixin extends Entity {
 
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.CAVE_SPIDERED) && target instanceof LivingEntity)	{
 			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 600, 0));
+		}
+		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.BAMBOOED) && target instanceof LivingEntity)	{
+			createSound(target, SoundEvents.ENTITY_PANDA_SNEEZE, SoundCategory.PLAYERS);
+			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20, 2));
 		}
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.STRAYED) && target instanceof LivingEntity)	{
 			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 600, 0));

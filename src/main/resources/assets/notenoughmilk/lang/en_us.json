@@ -49,5 +49,12 @@
     "item.notenoughmilk.polar_bear_milk_bucket": "Polar Bear Milk",
     "item.notenoughmilk.mule_milk_bucket": "Mule Milk",
     "effect.notenoughmilk.turtled": "Turtled",
-    "item.notenoughmilk.turtle_milk_bucket": "Turtle Milk"
+    "item.notenoughmilk.turtle_milk_bucket": "Turtle Milk",
+    "item.notenoughmilk.zombified_piglin_milk_bucket": "Zombified Piglin Milk",
+    "effect.notenoughmilk.sheeped": "Sheep",
+    "item.notenoughmilk.sheep_milk_bucket": "Sheep Milk",
+    "effect.notenoughmilk.carnivorous": "Carnivorous",
+    "item.notenoughmilk.wolf_milk_bucket": "Wolf Milk",
+    "effect.notenoughmilk.bambooed": "Bambooed",
+    "item.notenoughmilk.panda_milk_bucket": "Panda Milk"
 }

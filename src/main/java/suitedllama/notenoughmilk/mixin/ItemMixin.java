@@ -34,10 +34,11 @@ public abstract class ItemMixin implements ItemConvertible {
 	@Inject(cancellable = true, at = @At("TAIL"), method = "use")
     public void use(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> info) {
         ItemStack stackInHand = user.getStackInHand(hand);
-        if (stackInHand.getItem() == Items.BOWL && user.hasStatusEffect(NotEnoughMilkStatusEffects.SHROOMED)) {
+		if (stackInHand.getItem() == Items.BOWL && user.hasStatusEffect(NotEnoughMilkStatusEffects.SHROOMED)) {
             this.milk(stackInHand, user, Items.MUSHROOM_STEW.getDefaultStack(), hand);
             info.setReturnValue(TypedActionResult.success(stackInHand, world.isClient()));
         }
+
 		if (stackInHand.getItem() == Items.IRON_INGOT && user.hasStatusEffect(NotEnoughMilkStatusEffects.IRONED)) {
 			if (!user.hasStatusEffect(StatusEffects.HEALTH_BOOST)){
 				ironCount = 0;
@@ -75,10 +76,20 @@ public abstract class ItemMixin implements ItemConvertible {
 
 	@Inject(cancellable = true, at = @At("HEAD"), method = "finishUsing")
 	public void finishUsing(ItemStack stack, World world, LivingEntity user, CallbackInfoReturnable<ItemStack> info) {
+		Item item = stack.getItem();
 		if ((stack.getItem() == Items.COOKIE) && user.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED)){
 			user.damage(DamageSource.GENERIC, 99999);
 		}
+		if(user.hasStatusEffect(NotEnoughMilkStatusEffects.CARNIVOROUS) && stack.isFood()){
+			if (!item.getFoodComponent().isMeat()){
+				user.addStatusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 100, 2));
+				user.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 100, 0));
+			}
 
+			if (item.getFoodComponent().isMeat()){
+				user.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 100, 0));
+			}
+		}
 	}
 
     protected void milk(ItemStack bucketStack, PlayerEntity player, ItemStack milkStack, Hand hand) {

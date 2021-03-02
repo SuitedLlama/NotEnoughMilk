@@ -242,6 +242,26 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 			  info.setReturnValue(ActionResult.PASS);
 		   }
 		}
+		if (itemStack.getItem() == Items.SHEARS && ((LivingEntity) player).hasStatusEffect(NotEnoughMilkStatusEffects.SHEEPED)) {
+			if (!this.world.isClient) {
+				itemStack.damage(1, (LivingEntity)player, (Consumer)((playerEntity) -> {
+					((LivingEntity) playerEntity).sendToolBreakStatus(hand);
+				}));
+				this.world.playSoundFromEntity((PlayerEntity)null, this, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.PLAYERS, 1.0F, 1.0F);
+				int i = 1 + this.random.nextInt(3);
+
+				for(int j = 0; j < i; ++j) {
+					ItemEntity itemEntity = player.dropItem(Items.WHITE_WOOL, 1);
+					if (itemEntity != null) {
+						itemEntity.setVelocity(itemEntity.getVelocity().add((double)((this.random.nextFloat() - this.random.nextFloat()) * 0.1F), (double)(this.random.nextFloat() * 0.05F), (double)((this.random.nextFloat() - this.random.nextFloat()) * 0.1F)));
+					}
+				}
+				((LivingEntity) player).removeStatusEffect(NotEnoughMilkStatusEffects.SHEEPED);
+				info.setReturnValue(ActionResult.SUCCESS);
+			} else {
+				info.setReturnValue(ActionResult.PASS);
+			}
+		}
 	 }
 
 	@Inject(cancellable = true, at = @At("HEAD"), method = "getHurtSound")
