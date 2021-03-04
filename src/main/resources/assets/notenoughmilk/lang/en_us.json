@@ -56,5 +56,7 @@
     "effect.notenoughmilk.carnivorous": "Carnivorous",
     "item.notenoughmilk.wolf_milk_bucket": "Wolf Milk",
     "effect.notenoughmilk.bambooed": "Bambooed",
-    "item.notenoughmilk.panda_milk_bucket": "Panda Milk"
+    "item.notenoughmilk.panda_milk_bucket": "Panda Milk",
+    "effect.notenoughmilk.village_daddy": "Village Daddy",
+    "item.notenoughmilk.villager_milk_bucket": "Villager Milk"
 }

@@ -30,6 +30,7 @@ public class NotEnoughMilkStatusEffects {
     public static final StatusEffect CARNIVOROUS = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 9830400);
     public static final StatusEffect SHEEPED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 16448250);
     public static final StatusEffect BAMBOOED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 8243325);
+    public static final StatusEffect VILLAGE_DADDY = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 14469300);
 
 
     public static void statusEffectInit(){
@@ -55,6 +56,8 @@ public class NotEnoughMilkStatusEffects {
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "carnivorous"), CARNIVOROUS);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "sheeped"), SHEEPED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "bambooed"), BAMBOOED);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "village_daddy"), VILLAGE_DADDY);
+
     }
 
 }
