@@ -1,17 +1,18 @@
 package suitedllama.notenoughmilk.mixin;
 
+import net.minecraft.block.FluidBlock;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.passive.FoxEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -67,6 +68,19 @@ public abstract class LivingEntityMixin extends Entity {
 			}
 		}
 
+		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.STRIDERED)){
+			this.checkBlockCollision();
+			if (this.isInLava() && !this.isSneaking()) {
+				ShapeContext shapeContext = ShapeContext.of(this);
+				if (shapeContext.isAbove(FluidBlock.COLLISION_SHAPE, this.getBlockPos(), true) && !this.world.getFluidState(this.getBlockPos().up()).isIn(FluidTags.LAVA)) {
+					this.onGround = true;
+				} else {
+					this.setVelocity(this.getVelocity().multiply(0.5D).add(0.0D, 0.05D, 0.0D));
+				}
+			}
+		}
+
+
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SNOWED) && (!world.isClient)) {
 			int i;
 			int j;
@@ -98,6 +112,29 @@ public abstract class LivingEntityMixin extends Entity {
 			cir.setReturnValue(true);
 		}
 	}
+	@Inject(cancellable = true, at = @At("HEAD"), method = "canWalkOnFluid")
+	public void canWalkOnFluid(Fluid fluid, CallbackInfoReturnable<Boolean> cir) {
+		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.STRIDERED) && !this.isSneaking()){
+			cir.setReturnValue(fluid.isIn(FluidTags.LAVA));
+		}
+	}
+
+	@Inject(cancellable = true, at = @At("HEAD"), method = "handleFallDamage")
+	public void handleFallDamage(float fallDistance, float damageMultiplier, CallbackInfoReturnable<Boolean> cir) {
+		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.STRIDERED)){
+			cir.setReturnValue(!this.isInLava());
+		}
+		super.handleFallDamage(fallDistance, damageMultiplier);
+	}
+
+	@Override
+	public boolean isFireImmune() {
+		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.STRIDERED)){
+			return true;
+		}
+		return super.isFireImmune();
+	}
+
 
 	@Inject(at = @At("TAIL"), method = "onAttacking")
 	public void onAttacking(Entity target, CallbackInfo info) {

@@ -176,6 +176,14 @@ public abstract class BucketItemMixin extends Item {
 			this.milk(stack, player, NotEnoughMilk.VILLAGER_MILK_BUCKET.getDefaultStack(), hand);
 			return ActionResult.success(player.world.isClient);
 		}
+		else if (entity instanceof OcelotEntity && entity.isAlive() && !entity.isBaby()) {
+			this.milk(stack, player, NotEnoughMilk.OCELOT_MILK_BUCKET.getDefaultStack(), hand);
+			return ActionResult.success(player.world.isClient);
+		}
+		else if (entity instanceof StriderEntity && entity.isAlive() && !entity.isBaby()) {
+			this.milk(stack, player, NotEnoughMilk.STRIDER_MILK_BUCKET.getDefaultStack(), hand);
+			return ActionResult.success(player.world.isClient);
+		}
 		return ActionResult.PASS;
 	}
 

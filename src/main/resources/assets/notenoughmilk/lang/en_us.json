@@ -58,5 +58,8 @@
     "effect.notenoughmilk.bambooed": "Bambooed",
     "item.notenoughmilk.panda_milk_bucket": "Panda Milk",
     "effect.notenoughmilk.village_daddy": "Village Daddy",
-    "item.notenoughmilk.villager_milk_bucket": "Villager Milk"
+    "item.notenoughmilk.villager_milk_bucket": "Villager Milk",
+    "item.notenoughmilk.ocelot_milk_bucket": "Ocelot Milk",
+    "effect.notenoughmilk.stridered": "Stridered",
+    "item.notenoughmilk.strider_milk_bucket": "Strider Milk"
 }

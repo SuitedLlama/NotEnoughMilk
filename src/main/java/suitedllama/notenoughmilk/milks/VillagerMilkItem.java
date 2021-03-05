@@ -22,6 +22,9 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -54,6 +57,9 @@ public class VillagerMilkItem extends Item {
          VillagerEntity villagerEntity = new VillagerEntity(EntityType.VILLAGER, world, VillagerType.forBiome(world.method_31081(user.getBlockPos())));
          villagerEntity.updatePosition(user.getX(), user.getY(), user.getZ());
          villagerEntity.setBaby(true);
+         if(user.getDisplayName()!= null){
+            villagerEntity.setCustomName(user.getDisplayName().copy().append((new LiteralText(" Jr."))));
+         }
          world.spawnEntity(villagerEntity);
       }
       this.produceParticles(ParticleTypes.HEART,user,world);
