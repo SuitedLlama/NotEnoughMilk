@@ -1,7 +1,7 @@
 package suitedllama.notenoughmilk.mixin;
 
-import net.minecraft.block.FluidBlock;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.*;
+import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -19,8 +19,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -29,6 +27,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import suitedllama.notenoughmilk.NotEnoughMilk;
 import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
 import org.spongepowered.asm.mixin.injection.At;
@@ -60,6 +59,10 @@ public abstract class LivingEntityMixin extends Entity {
 	@Shadow public abstract boolean addStatusEffect(StatusEffectInstance effect);
 
 	@Shadow public abstract void setJumping(boolean jumping);
+
+	@Shadow protected abstract void setPositionInBed(BlockPos pos);
+
+	@Shadow public abstract void setSleepingPosition(BlockPos pos);
 
 	@Inject(at = @At("TAIL"), method = "tick")
 	private void tick(CallbackInfo info) {
@@ -166,22 +169,36 @@ public abstract class LivingEntityMixin extends Entity {
 			}
 
 		}
+		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.NIGHTMARE)){
+			if (target.hasVehicle()) {
+				target.stopRiding();
+			}
+			LivingEntity livingTarget = (LivingEntity) target;
+			BlockPos pos = this.getBlockPos();
+			this.setPose(EntityPose.SLEEPING);
+			this.setPositionInBed(pos);
+			this.setSleepingPosition(pos);
+			this.setVelocity(Vec3d.ZERO);
+			this.velocityDirty = true;
+		}
+
 		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.ENDERMANNED) && target instanceof LivingEntity){
 			if (!world.isClient) {
-				double d = this.getX();
-				double e = this.getY();
-				double f = this.getZ();
+				double d = target.getX();
+				double e = target.getY();
+				double f = target.getZ();
 
 				for (int i = 0; i < 24; ++i) {
-					double g = this.getX() + ((this.world.getRandom().nextDouble() - 0.5D)) * 25.0D;
-					double h = MathHelper.clamp(this.getY() + (double) ((this.world.getRandom().nextInt(25) - 8)), 0.0D, (double) (world.getDimensionHeight() - 1));
-					double j = this.getZ() + ((this.world.getRandom().nextDouble() - 0.5D)) * 25.0D;
-					if (this.hasVehicle()) {
-						this.stopRiding();
+					double g = target.getX() + ((target.world.getRandom().nextDouble() - 0.5D)) * 25.0D;
+					double h = MathHelper.clamp(target.getY() + (double) ((target.world.getRandom().nextInt(25) - 8)), 0.0D, (double) (world.getDimensionHeight() - 1));
+					double j = target.getZ() + ((target.world.getRandom().nextDouble() - 0.5D)) * 25.0D;
+					if (target.hasVehicle()) {
+						target.stopRiding();
 					}
-					if (this.teleport(g, h, j, true)) {
-						createSound(this, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS);
+					if (((LivingEntity)target).teleport(g, h, j, true)) {
 						createSound(target, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS);
+						createSound(this, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS);
+						createSound(this, SoundEvents.ENTITY_ENDERMAN_SCREAM, SoundCategory.PLAYERS);
 						createSound(target, SoundEvents.ENTITY_ENDERMAN_SCREAM, SoundCategory.PLAYERS);
 						break;
 					}

@@ -33,6 +33,7 @@ public class NotEnoughMilkStatusEffects {
     public static final StatusEffect VILLAGE_DADDY = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 14469300);
     public static final StatusEffect STRIDERED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 6553600);
     public static final StatusEffect PILLAGING = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 6579300);
+    public static final StatusEffect NIGHTMARE = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 1644865);
 
 
     public static void statusEffectInit(){
@@ -61,7 +62,7 @@ public class NotEnoughMilkStatusEffects {
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "village_daddy"), VILLAGE_DADDY);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "stridered"), STRIDERED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "pillaging"), PILLAGING);
-
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "nightmare"), NIGHTMARE);
     }
 
 }

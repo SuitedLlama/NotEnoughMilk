@@ -64,5 +64,6 @@
     "item.notenoughmilk.strider_milk_bucket": "Strider Milk",
     "item.notenoughmilk.vindicator_milk_bucket": "Vindicator Milk",
     "effect.notenoughmilk.pillaging": "Pillaging",
-    "item.notenoughmilk.pillager_milk_bucket": "Pillager Milk"
+    "item.notenoughmilk.pillager_milk_bucket": "Pillager Milk",
+    "effect.notenoughmilk.nightmare": "Nightmare"
 }
