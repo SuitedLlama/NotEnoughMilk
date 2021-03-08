@@ -57,6 +57,10 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Shadow public float bodyYaw;
 
+	@Shadow public abstract boolean addStatusEffect(StatusEffectInstance effect);
+
+	@Shadow public abstract void setJumping(boolean jumping);
+
 	@Inject(at = @At("TAIL"), method = "tick")
 	private void tick(CallbackInfo info) {
 		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.BAMBOOED) && MathHelper.nextInt(random, 0, 700) == 0){
@@ -70,13 +74,19 @@ public abstract class LivingEntityMixin extends Entity {
 
 		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.STRIDERED)){
 			this.checkBlockCollision();
-			if (this.isInLava() && !this.isSneaking()) {
-				ShapeContext shapeContext = ShapeContext.of(this);
-				if (shapeContext.isAbove(FluidBlock.COLLISION_SHAPE, this.getBlockPos(), true) && !this.world.getFluidState(this.getBlockPos().up()).isIn(FluidTags.LAVA)) {
-					this.onGround = true;
-				} else {
-					this.setVelocity(this.getVelocity().multiply(0.5D).add(0.0D, 0.05D, 0.0D));
+			if (!this.isInLava()) {
+				this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 10, 1));
 				}
+				if (this.isInLava()) {
+					this.removeStatusEffect(StatusEffects.SLOWNESS);
+					if(!this.isSneaking()){
+						ShapeContext shapeContext = ShapeContext.of(this);
+						if (shapeContext.isAbove(FluidBlock.COLLISION_SHAPE, this.getBlockPos(), true) && !this.world.getFluidState(this.getBlockPos().up()).isIn(FluidTags.LAVA)) {
+							this.onGround = true;
+						} else {
+							this.setVelocity(this.getVelocity().multiply(0.5D).add(0.0D, 0.05D, 0.0D));
+						}
+					}
 			}
 		}
 
@@ -126,6 +136,7 @@ public abstract class LivingEntityMixin extends Entity {
 		}
 		super.handleFallDamage(fallDistance, damageMultiplier);
 	}
+
 
 	@Override
 	public boolean isFireImmune() {

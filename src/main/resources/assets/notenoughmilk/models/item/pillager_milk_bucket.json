@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "notenoughmilk:item/pillager_milk_bucket"
+    }
+  }

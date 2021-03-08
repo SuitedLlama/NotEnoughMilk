@@ -61,5 +61,8 @@
     "item.notenoughmilk.villager_milk_bucket": "Villager Milk",
     "item.notenoughmilk.ocelot_milk_bucket": "Ocelot Milk",
     "effect.notenoughmilk.stridered": "Stridered",
-    "item.notenoughmilk.strider_milk_bucket": "Strider Milk"
+    "item.notenoughmilk.strider_milk_bucket": "Strider Milk",
+    "item.notenoughmilk.vindicator_milk_bucket": "Vindicator Milk",
+    "effect.notenoughmilk.pillaging": "Pillaging",
+    "item.notenoughmilk.pillager_milk_bucket": "Pillager Milk"
 }

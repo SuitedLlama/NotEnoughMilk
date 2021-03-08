@@ -52,6 +52,8 @@ public class NotEnoughMilk implements ModInitializer {
 	public static final Item VILLAGER_MILK_BUCKET = new VillagerMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item OCELOT_MILK_BUCKET = new CatMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item STRIDER_MILK_BUCKET = new StriderMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item VINDICATOR_MILK_BUCKET = new VindicatorMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item PILLAGER_MILK_BUCKET = new PillagerMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 
 
 	@Override
@@ -97,6 +99,8 @@ public class NotEnoughMilk implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"villager_milk_bucket"), VILLAGER_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"ocelot_milk_bucket"), OCELOT_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"strider_milk_bucket"), STRIDER_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"vindicator_milk_bucket"), VINDICATOR_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"pillager_milk_bucket"), PILLAGER_MILK_BUCKET);
 
 	}
 }

@@ -13,6 +13,7 @@ import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.projectile.FireballEntity;
 import net.minecraft.entity.projectile.ShulkerBulletEntity;
+import net.minecraft.item.CrossbowItem;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
 import net.minecraft.sound.SoundEvent;
@@ -211,6 +212,14 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 		}
 
 	}
+
+	@Inject(cancellable = true, at = @At("HEAD"), method = "getArrowType")
+	public void getArrowType(ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
+		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.PILLAGING) && (stack.getItem() instanceof CrossbowItem)){
+			cir.setReturnValue(new ItemStack(Items.ARROW));
+		}
+	}
+
 
 	@Inject(cancellable = true, at = @At("HEAD"), method = "handleFallDamage")
 	public void handleFallDamage(float fallDistance, float damageMultiplier, CallbackInfoReturnable<Boolean> info) {
