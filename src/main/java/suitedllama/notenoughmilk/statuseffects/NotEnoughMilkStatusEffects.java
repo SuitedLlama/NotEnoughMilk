@@ -63,6 +63,7 @@ public class NotEnoughMilkStatusEffects {
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "stridered"), STRIDERED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "pillaging"), PILLAGING);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "nightmare"), NIGHTMARE);
+
     }
 
 }

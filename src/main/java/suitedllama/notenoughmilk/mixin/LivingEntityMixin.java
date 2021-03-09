@@ -64,6 +64,8 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Shadow public abstract void setSleepingPosition(BlockPos pos);
 
+	@Shadow public abstract void sleep(BlockPos pos);
+
 	@Inject(at = @At("TAIL"), method = "tick")
 	private void tick(CallbackInfo info) {
 		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.BAMBOOED) && MathHelper.nextInt(random, 0, 700) == 0){
@@ -92,7 +94,6 @@ public abstract class LivingEntityMixin extends Entity {
 					}
 			}
 		}
-
 
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SNOWED) && (!world.isClient)) {
 			int i;
@@ -169,18 +170,6 @@ public abstract class LivingEntityMixin extends Entity {
 			}
 
 		}
-		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.NIGHTMARE)){
-			if (target.hasVehicle()) {
-				target.stopRiding();
-			}
-			LivingEntity livingTarget = (LivingEntity) target;
-			BlockPos pos = this.getBlockPos();
-			this.setPose(EntityPose.SLEEPING);
-			this.setPositionInBed(pos);
-			this.setSleepingPosition(pos);
-			this.setVelocity(Vec3d.ZERO);
-			this.velocityDirty = true;
-		}
 
 		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.ENDERMANNED) && target instanceof LivingEntity){
 			if (!world.isClient) {
@@ -219,6 +208,12 @@ public abstract class LivingEntityMixin extends Entity {
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SHULKED) && target instanceof LivingEntity)	{
 			createSound(target, SoundEvents.ENTITY_SHULKER_BULLET_HIT, SoundCategory.PLAYERS);
 			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 200, 0));
+		}
+		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.NIGHTMARE) && target instanceof LivingEntity)	{
+			createSound(target, SoundEvents.ENTITY_PHANTOM_BITE, SoundCategory.PLAYERS);
+			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200, 0));
+			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 200, 0));
+			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200, 9999));
 		}
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.BUZZING) && target instanceof LivingEntity)	{
 			createSound(target, SoundEvents.ENTITY_BEE_STING, SoundCategory.PLAYERS);
