@@ -2,6 +2,8 @@ package suitedllama.notenoughmilk.mixin;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.model.Model;
+import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
@@ -12,13 +14,16 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
+import net.minecraft.item.MiningToolItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
+import suitedllama.notenoughmilk.milks.phantom.PhantomMilkItem;
 import suitedllama.notenoughmilk.milks.phantom.PhantomTranslucentCount;
 import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
@@ -34,39 +39,40 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
 
 	@SuppressWarnings("UnresolvedMixinReference")
 	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/model/EntityModel;render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;IIFFFF)V"))
-	private void modifyAlpha(Args args,T entity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+	private void modifyAlpha(Args args, T entity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+		float initialAlpha = args.get(7);
 		if (entity.hasStatusEffect(NotEnoughMilkStatusEffects.NIGHTMARE)) {
-			args.set(7, PhantomTranslucentCount.phantomAlpha);
-			args.set(6, 0.5f);
-			args.set(5, 0.5f);
-			args.set(4, 0.5f);
-		}
-		if (!entity.hasStatusEffect(NotEnoughMilkStatusEffects.NIGHTMARE)) {
-			args.set(7, 1.0f);
-		}
-	}
-	@Inject(at = @At("HEAD"), method = "render")
-	public void render(T entity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
-		if(entity.hasStatusEffect(NotEnoughMilkStatusEffects.NIGHTMARE)) {
-			if (!entity.isSneaking()) {
-				if ((PhantomTranslucentCount.phantomAlpha < .3F) && !entity.isSprinting()) {
-					PhantomTranslucentCount.phantomAlpha = PhantomTranslucentCount.phantomAlpha + .01F;
+			if (!entity.isSprinting() && initialAlpha != .33f) {
+				if (initialAlpha > .33f) {
+					float resultAlpha;
+					resultAlpha = initialAlpha - .01f;
+					args.set(7, resultAlpha);
 				}
-				if (entity.isSprinting() && (PhantomTranslucentCount.phantomAlpha > 0.04F)) {
-					PhantomTranslucentCount.phantomAlpha = PhantomTranslucentCount.phantomAlpha - .01F;
+				if ((initialAlpha < .33f) && initialAlpha != .33f) {
+					float resultAlpha;
+					resultAlpha = initialAlpha + .01f;
+					args.set(7, resultAlpha);
+				}
+				if (initialAlpha == .33f) {
+					args.set(7, .33f);
 				}
 			}
-			if (!entity.isSprinting()) {
-				if ((PhantomTranslucentCount.phantomAlpha < .3F) && !entity.isSneaking()) {
-					PhantomTranslucentCount.phantomAlpha = PhantomTranslucentCount.phantomAlpha + .01F;
+			if (entity.isSprinting()) {
+				if ((initialAlpha > .05f) && initialAlpha != .05f) {
+					float resultAlpha;
+					resultAlpha = initialAlpha - .01f;
+					args.set(7, resultAlpha);
 				}
-				if (entity.isSneaking() && (PhantomTranslucentCount.phantomAlpha > 0.04F)) {
-					PhantomTranslucentCount.phantomAlpha = PhantomTranslucentCount.phantomAlpha - .01F;
+				if ((initialAlpha < .05f) && initialAlpha != .05f) {
+					float resultAlpha;
+					resultAlpha = initialAlpha + .01f;
+					args.set(7, resultAlpha);
+				}
+				if (initialAlpha == .05f) {
+					args.set(7, .05f);
 				}
 			}
 		}
-
 	}
 
 }
-

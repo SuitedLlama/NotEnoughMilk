@@ -22,6 +22,8 @@ public class PhantomMilkItem extends Item {
       super(settings);
    }
 
+   public static float alpha;
+
    public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
       if (user instanceof ServerPlayerEntity) {
          ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)user;
@@ -34,7 +36,7 @@ public class PhantomMilkItem extends Item {
       }
 
       if (!world.isClient) {
-         PhantomTranslucentCount.phantomAlpha = .3F;
+         alpha = .33f;
          user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.NIGHTMARE, 6000, 0));
       }
 
