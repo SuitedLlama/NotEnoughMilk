@@ -1,4 +1,4 @@
-package suitedllama.notenoughmilk.milks;
+package suitedllama.notenoughmilk.milks.phantom;
 
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
@@ -34,7 +34,8 @@ public class PhantomMilkItem extends Item {
       }
 
       if (!world.isClient) {
-        user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.NIGHTMARE, 6000, 0));
+         PhantomTranslucentCount.phantomAlpha = .3F;
+         user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.NIGHTMARE, 6000, 0));
       }
 
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;

@@ -18,18 +18,19 @@
     "ItemMixin",
     "LivingEntityAccess",
     "LivingEntityMixin",
-    "LivingEntityRendererMixin",
     "MooshroomEntityMixin",
     "MyceliumBlockMixin",
     "PlayerEntityMixin",
-    "PlayerEntityRendererMixin",
+
     "PufferfishEntityMixin",
     "SchoolingFishEntityMixin",
     "VillagerEntityMixin",
     "WolfEntityMixin"
   ],
   "client": [
-    "InGameHudMixin"
+    "InGameHudMixin",
+    "LivingEntityRendererMixin",
+    "PlayerEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

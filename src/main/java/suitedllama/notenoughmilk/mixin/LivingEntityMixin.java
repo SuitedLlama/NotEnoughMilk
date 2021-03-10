@@ -28,6 +28,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import suitedllama.notenoughmilk.NotEnoughMilk;
+import suitedllama.notenoughmilk.milks.phantom.PhantomTranslucentCount;
 import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
 import org.spongepowered.asm.mixin.injection.At;
@@ -52,19 +53,9 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Shadow public abstract boolean clearStatusEffects();
 
-	@Shadow public abstract boolean teleport(double x, double y, double z, boolean particleEffects);
-
 	@Shadow public float bodyYaw;
 
 	@Shadow public abstract boolean addStatusEffect(StatusEffectInstance effect);
-
-	@Shadow public abstract void setJumping(boolean jumping);
-
-	@Shadow protected abstract void setPositionInBed(BlockPos pos);
-
-	@Shadow public abstract void setSleepingPosition(BlockPos pos);
-
-	@Shadow public abstract void sleep(BlockPos pos);
 
 	@Inject(at = @At("TAIL"), method = "tick")
 	private void tick(CallbackInfo info) {
@@ -76,6 +67,8 @@ public abstract class LivingEntityMixin extends Entity {
 				this.dropItem(Items.SLIME_BALL, 1);
 			}
 		}
+
+
 
 		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.STRIDERED)){
 			this.checkBlockCollision();

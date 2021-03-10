@@ -6,6 +6,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import suitedllama.notenoughmilk.milks.*;
+import suitedllama.notenoughmilk.milks.phantom.PhantomMilkItem;
 import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
 public class NotEnoughMilk implements ModInitializer {
