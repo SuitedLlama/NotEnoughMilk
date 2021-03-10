@@ -34,7 +34,7 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
 
 	@SuppressWarnings("UnresolvedMixinReference")
 	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/model/EntityModel;render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;IIFFFF)V"))
-	private void modifyAlpha(Args args, LivingEntity entity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+	private void modifyAlpha(Args args,T entity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
 		if (entity.hasStatusEffect(NotEnoughMilkStatusEffects.NIGHTMARE)) {
 			args.set(7, PhantomTranslucentCount.phantomAlpha);
 			args.set(6, 0.5f);
