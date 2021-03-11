@@ -8,7 +8,10 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.mob.EvokerEntity;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.VexEntity;
 import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.projectile.FireballEntity;
@@ -37,6 +40,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import suitedllama.notenoughmilk.milks.WitchMilkItem;
+import suitedllama.notenoughmilk.milks.phantom.PhantomTranslucentCount;
 import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
 import java.util.function.Consumer;
@@ -85,6 +89,29 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Inject(at = @At("TAIL"), method = "tick")
 	public void tick(CallbackInfo info) throws InterruptedException {
+		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.NIGHTMARE)) {
+			if (!this.isSneaking()) {
+				if ((PhantomTranslucentCount.phantomAlpha < .3F) && !this.isSprinting()) {
+					PhantomTranslucentCount.phantomAlpha = PhantomTranslucentCount.phantomAlpha + .01F;
+				}
+				if (this.isSprinting() && (PhantomTranslucentCount.phantomAlpha > 0.04F)) {
+					PhantomTranslucentCount.phantomAlpha = PhantomTranslucentCount.phantomAlpha - .01F;
+				}
+			}
+			if (!this.isSprinting()) {
+				if ((PhantomTranslucentCount.phantomAlpha < .3F) && !this.isSneaking()) {
+					PhantomTranslucentCount.phantomAlpha = PhantomTranslucentCount.phantomAlpha + .01F;
+				}
+				if (this.isSneaking() && (PhantomTranslucentCount.phantomAlpha > 0.04F)) {
+					PhantomTranslucentCount.phantomAlpha = PhantomTranslucentCount.phantomAlpha - .01F;
+				}
+			}
+		}
+
+	if (!this.hasStatusEffect(NotEnoughMilkStatusEffects.NIGHTMARE)) {
+			PhantomTranslucentCount.phantomAlpha = 1.0f;
+		}
+
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SNOWED) && this.isSneaking()) {
 			if (cooldownSnowShoot <= 0) {
 			SnowballEntity snowballEntity = new SnowballEntity(world, this);

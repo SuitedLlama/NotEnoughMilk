@@ -66,5 +66,12 @@
     "effect.notenoughmilk.pillaging": "Pillaging",
     "item.notenoughmilk.pillager_milk_bucket": "Pillager Milk",
     "effect.notenoughmilk.nightmare": "Nightmare",
-    "effect.notenoughmilk.phantomed": "Phantomed"
+    "effect.notenoughmilk.phantomed": "Phantomed",
+    "effect.notenoughmilk.evoked": "Evoked",
+    "item.notenoughmilk.evoker_milk_bucket": "Evoker Milk",
+    "effect.notenoughmilk.ravaging": "Ravaging",
+    "item.notenoughmilk.ravager_milk_bucket": "Ravager Milk",
+    "effect.notenoughmilk.spitting": "Spitting",
+    "item.notenoughmilk.llama_milk_bucket": "Llama Milk",
+    "item.notenoughmilk.hoglin_milk_bucket": "Hoglin Milk"
 }

@@ -1,30 +1,35 @@
 package suitedllama.notenoughmilk.mixin;
 
 import net.minecraft.block.*;
-import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.mob.EvokerEntity;
+import net.minecraft.entity.mob.EvokerFangsEntity;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.VexEntity;
+import net.minecraft.entity.passive.LlamaEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.LlamaSpitEntity;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.GameRules;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import suitedllama.notenoughmilk.NotEnoughMilk;
@@ -32,6 +37,8 @@ import suitedllama.notenoughmilk.milks.phantom.PhantomTranslucentCount;
 import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
 import org.spongepowered.asm.mixin.injection.At;
+
+import java.util.Iterator;
 
 @Mixin(LivingEntity.class)
 
@@ -57,6 +64,14 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Shadow public abstract boolean addStatusEffect(StatusEffectInstance effect);
 
+	@Shadow protected abstract void jump();
+
+	@Shadow protected abstract void knockback(LivingEntity target);
+
+	@Shadow public float knockbackVelocity;
+
+	@Shadow public abstract void takeKnockback(float f, double d, double e);
+
 	@Inject(at = @At("TAIL"), method = "tick")
 	private void tick(CallbackInfo info) {
 		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.BAMBOOED) && MathHelper.nextInt(random, 0, 700) == 0){
@@ -67,9 +82,6 @@ public abstract class LivingEntityMixin extends Entity {
 				this.dropItem(Items.SLIME_BALL, 1);
 			}
 		}
-
-
-
 		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.STRIDERED)){
 			this.checkBlockCollision();
 			if (!this.isInLava()) {
@@ -109,7 +121,12 @@ public abstract class LivingEntityMixin extends Entity {
 			this.removeStatusEffect(StatusEffects.HEALTH_BOOST);
 			this.removeStatusEffect(StatusEffects.SLOWNESS);
 		}
+
 	}
+
+
+
+
 	@Inject(cancellable = true, at = @At("HEAD"), method = "isClimbing")
 	public void isClimbing(CallbackInfoReturnable<Boolean> cir) {
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SPIDERED) && this.horizontalCollision){
@@ -119,6 +136,7 @@ public abstract class LivingEntityMixin extends Entity {
 			cir.setReturnValue(true);
 		}
 	}
+
 	@Inject(cancellable = true, at = @At("HEAD"), method = "canWalkOnFluid")
 	public void canWalkOnFluid(Fluid fluid, CallbackInfoReturnable<Boolean> cir) {
 		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.STRIDERED) && !this.isSneaking()){
@@ -164,6 +182,32 @@ public abstract class LivingEntityMixin extends Entity {
 
 		}
 
+		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.EVOKED)){
+			double d = Math.min(target.getY(), this.getY());
+			double e = Math.max(target.getY(),this.getY()) + 1.0D;
+			float f = (float)MathHelper.atan2(target.getZ() - this.getZ(), target.getX() - this.getX());
+			int j;
+			if (this.squaredDistanceTo(target) < 9.0D) {
+				float h;
+				for(j = 0; j < 5; ++j) {
+					h = f + (float)j * 3.1415927F * 0.4F;
+					this.conjureFangs(this.getX() + (double)MathHelper.cos(h) * 1.5D, this.getZ() + (double)MathHelper.sin(h) * 1.5D, d, e, h, 0, this);
+				}
+
+				for(j = 0; j < 8; ++j) {
+					h = f + (float)j * 3.1415927F * 2.0F / 8.0F + 1.2566371F;
+					this.conjureFangs(this.getX() + (double)MathHelper.cos(h) * 2.5D, this.getZ() + (double)MathHelper.sin(h) * 2.5D, d, e, h, 3,  this);
+				}
+			} else {
+				for(j = 0; j < 16; ++j) {
+					double l = 1.25D * (double)(j + 1);
+					int m = 1 * j;
+					this.conjureFangs(this.getX() + (double)MathHelper.cos(f) * l, this.getZ() + (double)MathHelper.sin(f) * l, d, e, f, m, this);
+				}
+			}
+			createSound(target, SoundEvents.ENTITY_EVOKER_CAST_SPELL, SoundCategory.PLAYERS);
+		}
+
 		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.ENDERMANNED) && target instanceof LivingEntity){
 			if (!world.isClient) {
 				double d = target.getX();
@@ -187,9 +231,22 @@ public abstract class LivingEntityMixin extends Entity {
 				}
 			}
 		}
-
+		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SPITTER) && target instanceof LivingEntity)	{
+			createSound(target, SoundEvents.ENTITY_LLAMA_SPIT, SoundCategory.PLAYERS);
+			LlamaSpitEntity llamaSpitEntity = new LlamaSpitEntity(world, this.getX(), this.getEyeY()+.25, this.getZ(),0d,0d,0d);
+			double d = target.getX() - this.getX();
+			double e = target.getBodyY(0.3333333333333333D) - llamaSpitEntity.getY();
+			double f = target.getZ() - this.getZ();
+			float g = MathHelper.sqrt(d * d + f * f) * 0.2F;
+			llamaSpitEntity.setVelocity(d, e + (double)g, f, 1.5F, 10.0F);
+			this.world.spawnEntity(llamaSpitEntity);
+		}
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.CAVE_SPIDERED) && target instanceof LivingEntity)	{
 			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 600, 0));
+		}
+		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.RAVAGED) && target instanceof LivingEntity)	{
+			createSound(target, SoundEvents.ENTITY_RAVAGER_ATTACK, SoundCategory.PLAYERS);
+			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20, 99));
 		}
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.BAMBOOED) && target instanceof LivingEntity)	{
 			createSound(target, SoundEvents.ENTITY_PANDA_SNEEZE, SoundCategory.PLAYERS);
@@ -248,5 +305,34 @@ public abstract class LivingEntityMixin extends Entity {
 		world.playSound((PlayerEntity)null, entity.getX(), entity.getY(), entity.getZ(), soundEvent, soundCategory, 1.0F, 1.0F);
 	}
 
+	private void conjureFangs(double x, double z, double maxY, double y, float yaw, int warmup, Entity owner) {
+		BlockPos blockPos = new BlockPos(x, y, z);
+		boolean bl = false;
+		double d = 0.0D;
+
+		do {
+			BlockPos blockPos2 = blockPos.down();
+			BlockState blockState = this.world.getBlockState(blockPos2);
+			if (blockState.isSideSolidFullSquare(this.world, blockPos2, Direction.UP)) {
+				if (!this.world.isAir(blockPos)) {
+					BlockState blockState2 = this.world.getBlockState(blockPos);
+					VoxelShape voxelShape = blockState2.getCollisionShape(this.world, blockPos);
+					if (!voxelShape.isEmpty()) {
+						d = voxelShape.getMax(Direction.Axis.Y);
+					}
+				}
+
+				bl = true;
+				break;
+			}
+
+			blockPos = blockPos.down();
+		} while(blockPos.getY() >= MathHelper.floor(maxY) - 1);
+
+		if (bl) {
+			this.world.spawnEntity(new EvokerFangsEntity(this.world, x, (double)blockPos.getY() + d, z, yaw, warmup, (LivingEntity) owner));
+		}
+
+	}
 }
  

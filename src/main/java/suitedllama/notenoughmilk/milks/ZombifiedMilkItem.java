@@ -1,9 +1,9 @@
 package suitedllama.notenoughmilk.milks;
 
 import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -14,13 +14,11 @@ import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
-import net.minecraft.village.raid.Raid;
 import net.minecraft.world.World;
-import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
-public class EvokerMilkItem extends Item {
+public class ZombifiedMilkItem extends Item {
 
-   public EvokerMilkItem(Settings settings) {
+   public ZombifiedMilkItem(Settings settings) {
       super(settings);
    }
 
@@ -36,23 +34,8 @@ public class EvokerMilkItem extends Item {
       }
 
       if (!world.isClient) {
-         user.clearStatusEffects();
-         boolean foundTotem = false;
-         for (int i = 0; i < ((PlayerEntity) user).inventory.size(); i++) {
-            ItemStack inventoryStack = ((PlayerEntity) user).inventory.getStack(i);
-            if ((inventoryStack.isItemEqual(Items.TOTEM_OF_UNDYING.getDefaultStack()))) {
-               foundTotem = true;
-               break;
-            }
-         }
-         if (!foundTotem) {
-            if (user.getEquippedStack(EquipmentSlot.OFFHAND).isEmpty()) {
-               user.equipStack(EquipmentSlot.OFFHAND, Items.TOTEM_OF_UNDYING.getDefaultStack());
-            } else {
-               ((PlayerEntity) user).giveItemStack(Items.TOTEM_OF_UNDYING.getDefaultStack());
-            }
-         }
-           user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.EVOKED, 6000, 0));
+            user.addStatusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 600, 0));
+            user.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 6000, 0));
       }
 
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;

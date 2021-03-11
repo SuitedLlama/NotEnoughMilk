@@ -34,6 +34,9 @@ public class NotEnoughMilkStatusEffects {
     public static final StatusEffect STRIDERED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 6553600);
     public static final StatusEffect PILLAGING = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 6579300);
     public static final StatusEffect NIGHTMARE = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 1644865);
+    public static final StatusEffect EVOKED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 16437760);
+    public static final StatusEffect RAVAGED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 6581870);
+    public static final StatusEffect SPITTER = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 16777150);
 
 
     public static void statusEffectInit(){
@@ -63,6 +66,9 @@ public class NotEnoughMilkStatusEffects {
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "stridered"), STRIDERED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "pillaging"), PILLAGING);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "nightmare"), NIGHTMARE);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "evoked"), EVOKED);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "ravaged"), RAVAGED);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "spitter"), SPITTER);
 
     }
 

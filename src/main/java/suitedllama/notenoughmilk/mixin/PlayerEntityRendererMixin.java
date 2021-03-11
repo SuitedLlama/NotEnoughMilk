@@ -65,23 +65,5 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
 
 	@Inject(at = @At("HEAD"), method = "renderArm")
 	private void renderArm(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, AbstractClientPlayerEntity player, ModelPart arm, ModelPart sleeve, CallbackInfo ci) {
-		if (player.hasStatusEffect(NotEnoughMilkStatusEffects.NIGHTMARE)) {
-			if (!player.isSneaking()) {
-				if ((PhantomTranslucentCount.phantomAlpha < .3F) && !player.isSprinting()) {
-					PhantomTranslucentCount.phantomAlpha = PhantomTranslucentCount.phantomAlpha + .01F;
-				}
-				if (player.isSprinting() && (PhantomTranslucentCount.phantomAlpha > 0.04F)) {
-					PhantomTranslucentCount.phantomAlpha = PhantomTranslucentCount.phantomAlpha - .01F;
-				}
-			}
-			if (!player.isSprinting()) {
-				if ((PhantomTranslucentCount.phantomAlpha < .3F) && !player.isSneaking()) {
-					PhantomTranslucentCount.phantomAlpha = PhantomTranslucentCount.phantomAlpha + .01F;
-				}
-				if (player.isSneaking() && (PhantomTranslucentCount.phantomAlpha > 0.04F)) {
-					PhantomTranslucentCount.phantomAlpha = PhantomTranslucentCount.phantomAlpha - .01F;
-				}
-			}
-		}
 	}
 }

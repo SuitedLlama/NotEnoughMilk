@@ -21,7 +21,6 @@
     "MooshroomEntityMixin",
     "MyceliumBlockMixin",
     "PlayerEntityMixin",
-
     "PufferfishEntityMixin",
     "SchoolingFishEntityMixin",
     "VillagerEntityMixin",

@@ -47,7 +47,8 @@ public class NotEnoughMilk implements ModInitializer {
 	public static final Item MULE_MILK_BUCKET = new MuleMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item TURTLE_MILK_BUCKET = new TurtleMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item WOLF_MILK_BUCKET = new WolfMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
-	public static final Item ZOMBIFIED_PIGLIN_MILK_BUCKET = new ZombifiedPiglinMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item ZOMBIFIED_PIGLIN_MILK_BUCKET = new ZombifiedMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item ZOGLIN_MILK_BUCKET = new ZombifiedMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item SHEEP_MILK_BUCKET = new SheepMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item PANDA_MILK_BUCKET = new PandaMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item VILLAGER_MILK_BUCKET = new VillagerMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
@@ -56,6 +57,11 @@ public class NotEnoughMilk implements ModInitializer {
 	public static final Item VINDICATOR_MILK_BUCKET = new VindicatorMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item PILLAGER_MILK_BUCKET = new PillagerMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item PHANTOM_MILK_BUCKET = new PhantomMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item EVOKER_MILK_BUCKET = new EvokerMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item RAVAGER_MILK_BUCKET = new RavagerMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item LLAMA_MILK_BUCKET = new LlamaMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item HOGLIN_MILK_BUCKET = new HoglinMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+
 
 
 	@Override
@@ -104,6 +110,11 @@ public class NotEnoughMilk implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"vindicator_milk_bucket"), VINDICATOR_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"pillager_milk_bucket"), PILLAGER_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"phantom_milk_bucket"), PHANTOM_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"evoker_milk_bucket"), EVOKER_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"ravager_milk_bucket"), RAVAGER_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"llama_milk_bucket"), LLAMA_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"hoglin_milk_bucket"), HOGLIN_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"zoglin_milk_bucket"), ZOGLIN_MILK_BUCKET);
 
 	}
 }

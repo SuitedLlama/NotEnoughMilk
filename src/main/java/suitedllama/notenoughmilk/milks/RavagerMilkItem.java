@@ -15,10 +15,11 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
+import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
-public class ZombifiedPiglinMilkItem extends Item {
+public class RavagerMilkItem extends Item {
 
-   public ZombifiedPiglinMilkItem(Settings settings) {
+   public RavagerMilkItem(Settings settings) {
       super(settings);
    }
 
@@ -34,10 +35,9 @@ public class ZombifiedPiglinMilkItem extends Item {
       }
 
       if (!world.isClient) {
-         if(world.getDimension().isUltrawarm()){
-            user.addStatusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 600, 0));
-            user.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 6000, 0));
-         }
+        user.clearStatusEffects();
+        user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.RAVAGED, 6000, 0));
+        user.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 6000, 0));
       }
 
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;
