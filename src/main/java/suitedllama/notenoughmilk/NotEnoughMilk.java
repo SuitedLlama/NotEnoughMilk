@@ -102,6 +102,7 @@ public class NotEnoughMilk implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"turtle_milk_bucket"), TURTLE_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"wolf_milk_bucket"), WOLF_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"zombified_piglin_milk_bucket"), ZOMBIFIED_PIGLIN_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"zoglin_milk_bucket"), ZOGLIN_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"sheep_milk_bucket"), SHEEP_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"panda_milk_bucket"), PANDA_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"villager_milk_bucket"), VILLAGER_MILK_BUCKET);
@@ -114,7 +115,5 @@ public class NotEnoughMilk implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"ravager_milk_bucket"), RAVAGER_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"llama_milk_bucket"), LLAMA_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"hoglin_milk_bucket"), HOGLIN_MILK_BUCKET);
-		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"zoglin_milk_bucket"), ZOGLIN_MILK_BUCKET);
-
 	}
 }
