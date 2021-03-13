@@ -19,6 +19,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.projectile.FireballEntity;
 import net.minecraft.entity.projectile.ShulkerBulletEntity;
 import net.minecraft.item.CrossbowItem;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
 import net.minecraft.sound.SoundEvent;
@@ -92,6 +93,14 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Inject(at = @At("TAIL"), method = "tick")
 	public void tick(CallbackInfo info) throws InterruptedException {
+		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.BAMBOOED) && MathHelper.nextInt(random, 0, 700) == 0){
+			Vec3d vec3d = this.getVelocity();
+			this.world.addParticle(ParticleTypes.SNEEZE, this.getX() - (double)(this.getWidth() + 1.0F) * 0.5D * (double)MathHelper.sin(this.bodyYaw * 0.017453292F), this.getEyeY() - 0.10000000149011612D, this.getZ() + (double)(this.getWidth() + 1.0F) * 0.5D * (double)MathHelper.cos(this.bodyYaw * 0.017453292F), vec3d.x, 0.0D, vec3d.z);
+			createSound(this, SoundEvents.ENTITY_PANDA_SNEEZE, SoundCategory.PLAYERS);
+			if(!world.isClient){
+				this.giveItemStack(Items.SLIME_BALL.getDefaultStack());
+			}
+		}
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SNOWED) && this.isSneaking()) {
 			if (cooldownSnowShoot <= 0) {
 			SnowballEntity snowballEntity = new SnowballEntity(world, this);
@@ -315,4 +324,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 		return this.songPlaying;
 	}
 
+	public void createSound(Entity entity, SoundEvent soundEvent, SoundCategory soundCategory){
+		entity.playSound(soundEvent, 1.0F, 1.0F);
+		world.playSound((PlayerEntity)null, entity.getX(), entity.getY(), entity.getZ(), soundEvent, soundCategory, 1.0F, 1.0F);
+	}
 }

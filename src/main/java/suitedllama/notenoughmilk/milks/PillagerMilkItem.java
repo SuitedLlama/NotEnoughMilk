@@ -67,7 +67,7 @@ public class PillagerMilkItem extends Item {
                 }
             }
             if (!foundCrossbow) {
-                user.dropItem(Items.CROSSBOW, 1);
+                ((PlayerEntity)user).giveItemStack(Items.CROSSBOW.getDefaultStack());
             }
             for (int i = 0; i < playerEntity.inventory.size(); i++) {
                 ItemStack inventoryStack = playerEntity.inventory.getStack(i);
@@ -80,7 +80,7 @@ public class PillagerMilkItem extends Item {
                 if (user.getEquippedStack(EquipmentSlot.OFFHAND).isEmpty()) {
                     user.equipStack(EquipmentSlot.OFFHAND, (new ItemStack(Items.SHIELD)));
                 } else {
-                    user.dropItem(Items.SHIELD, 1);
+                    ((PlayerEntity)user).giveItemStack(Items.SHIELD.getDefaultStack());
                 }
             }
         }

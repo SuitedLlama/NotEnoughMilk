@@ -34,12 +34,8 @@ public abstract class GrassBlockMixin extends Block {
             player.playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1.0F, 1.0F);
             player.getHungerManager().add(1, 1);
             int i = 1 + world.random.nextInt(8);
-
             for(int j = 0; j < i; ++j) {
-                ItemEntity itemEntity = player.dropItem(Items.WHITE_WOOL, 1);
-                if (itemEntity != null) {
-                    itemEntity.setVelocity(itemEntity.getVelocity().add((double)((world.random.nextFloat() - world.random.nextFloat()) * 0.1F), (double)(world.random.nextFloat() * 0.05F), (double)((world.random.nextFloat() - world.random.nextFloat()) * 0.1F)));
-                }
+                player.giveItemStack(Items.WHITE_WOOL.getDefaultStack());
             }
             return ActionResult.success(world.isClient);
         }

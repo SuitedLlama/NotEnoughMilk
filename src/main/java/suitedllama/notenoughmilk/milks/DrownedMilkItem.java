@@ -54,7 +54,7 @@ public class DrownedMilkItem extends Item {
               }
           }
           if (!foundTrident) {
-              user.dropItem(Items.TRIDENT, 1);
+              ((PlayerEntity)user).giveItemStack(Items.TRIDENT.getDefaultStack());
           }
 
 }

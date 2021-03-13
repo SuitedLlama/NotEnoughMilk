@@ -50,7 +50,7 @@ public class PiglinMilkItem extends Item {
                   }
               }
               if (!foundSword) {
-                  user.dropItem(Items.GOLDEN_SWORD, 1);
+                  ((PlayerEntity)user).giveItemStack(Items.GOLDEN_SWORD.getDefaultStack());
               }
           }
 }

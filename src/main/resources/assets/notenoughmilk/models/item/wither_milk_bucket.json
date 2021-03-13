@@ -1,6 +1,6 @@
 {
     "parent": "minecraft:item/generated",
     "textures": {
-      "layer0": "notenoughmilk:item/cat_milk_bucket"
+      "layer0": "notenoughmilk:item/wither_milk_bucket"
     }
   }

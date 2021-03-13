@@ -48,7 +48,7 @@ public class StrayMilkItem extends Item {
                 }
             }
             if (!foundBow) {
-                user.dropItem(Items.BOW, 1);
+                ((PlayerEntity)user).giveItemStack(Items.BOW.getDefaultStack());
             }
 
         }

@@ -75,7 +75,7 @@ public class VindicatorMilkItem extends Item {
                 }
             }
             if (!foundAxe) {
-                user.dropItem(Items.IRON_AXE, 1);
+                ((PlayerEntity)user).giveItemStack(Items.IRON_AXE.getDefaultStack());
             }
             for (int i = 0; i < playerEntity.inventory.size(); i++) {
                 ItemStack inventoryStack = playerEntity.inventory.getStack(i);
@@ -88,7 +88,7 @@ public class VindicatorMilkItem extends Item {
                 if (user.getEquippedStack(EquipmentSlot.OFFHAND).isEmpty()) {
                     user.equipStack(EquipmentSlot.OFFHAND, (new ItemStack(Items.SHIELD)));
                 } else {
-                    user.dropItem(Items.SHIELD, 1);
+                    ((PlayerEntity)user).giveItemStack(Items.SHIELD.getDefaultStack());
                 }
             }
         }

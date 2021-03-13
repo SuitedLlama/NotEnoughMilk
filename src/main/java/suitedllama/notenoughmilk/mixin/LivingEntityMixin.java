@@ -63,14 +63,6 @@ public abstract class LivingEntityMixin extends Entity {
 				this.removeStatusEffect(StatusEffects.MINING_FATIGUE);
 			}
 		}
-		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.BAMBOOED) && MathHelper.nextInt(random, 0, 700) == 0){
-			Vec3d vec3d = this.getVelocity();
-			this.world.addParticle(ParticleTypes.SNEEZE, this.getX() - (double)(this.getWidth() + 1.0F) * 0.5D * (double)MathHelper.sin(this.bodyYaw * 0.017453292F), this.getEyeY() - 0.10000000149011612D, this.getZ() + (double)(this.getWidth() + 1.0F) * 0.5D * (double)MathHelper.cos(this.bodyYaw * 0.017453292F), vec3d.x, 0.0D, vec3d.z);
-			createSound(this, SoundEvents.ENTITY_PANDA_SNEEZE, SoundCategory.PLAYERS);
-			if(!world.isClient){
-				this.dropItem(Items.SLIME_BALL, 1);
-			}
-		}
 		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.STRIDERED)){
 			this.checkBlockCollision();
 			if (!this.isInLava()) {

@@ -1,6 +1,6 @@
 {
     "parent": "minecraft:item/generated",
     "textures": {
-      "layer0": "notenoughmilk:item/elder_guardian_milk_bucket"
+      "layer0": "notenoughmilk:item/guardian_milk_bucket"
     }
   }

@@ -1,6 +1,7 @@
 package suitedllama.notenoughmilk.milks;
 
 import net.minecraft.advancement.criterion.Criteria;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -12,6 +13,8 @@ import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.network.MessageType;
 import net.minecraft.network.packet.s2c.play.GameStateChangeS2CPacket;
+import net.minecraft.potion.PotionUtil;
+import net.minecraft.potion.Potions;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.Stats;
@@ -20,6 +23,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.Util;
+import net.minecraft.village.raid.Raid;
 import net.minecraft.world.World;
 import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
@@ -47,6 +51,7 @@ public class ElderGuardianMilkItem extends Item {
          assert user instanceof PlayerEntity;
          PlayerEntity playerEntity = (PlayerEntity) user;
          user.clearStatusEffects();
+         user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.INKING, 8000, 0));
          user.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 8000, 0));
          user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.FISHER, 8000, 0));
          user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.DROWNER, 8000, 0));
@@ -54,7 +59,7 @@ public class ElderGuardianMilkItem extends Item {
          user.addStatusEffect(new StatusEffectInstance(StatusEffects.CONDUIT_POWER, 8000, 0));
          assert user instanceof ServerPlayerEntity;
          ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) user;
-         serverPlayerEntity.getServerWorld().setWeather(0, 6000,true,true);
+         serverPlayerEntity.getServerWorld().setWeather(0, 8000,true,true);
          boolean foundTrident = false;
          for (int i = 0; i < playerEntity.inventory.size(); i++) {
             ItemStack inventoryStack = playerEntity.inventory.getStack(i);
@@ -64,7 +69,7 @@ public class ElderGuardianMilkItem extends Item {
             }
          }
          if (!foundTrident) {
-            user.dropItem(Items.TRIDENT, 1);
+            ((PlayerEntity)user).giveItemStack(Items.TRIDENT.getDefaultStack());
          }
          fatigueServer(user);
       }
