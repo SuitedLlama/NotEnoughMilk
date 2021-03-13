@@ -4,9 +4,10 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 import suitedllama.notenoughmilk.milks.*;
-import suitedllama.notenoughmilk.milks.phantom.PhantomMilkItem;
+import suitedllama.notenoughmilk.milks.PhantomMilkItem;
 import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
 public class NotEnoughMilk implements ModInitializer {
@@ -61,6 +62,15 @@ public class NotEnoughMilk implements ModInitializer {
 	public static final Item RAVAGER_MILK_BUCKET = new RavagerMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item LLAMA_MILK_BUCKET = new LlamaMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item HOGLIN_MILK_BUCKET = new HoglinMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item PIGLIN_MILK_BUCKET = new PiglinMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item DROWNED_MILK_BUCKET = new DrownedMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item SILVERFISH_MILK_BUCKET = new SilverfishMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item ENDERMITE_MILK_BUCKET = new EndermiteMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item VEX_MILK_BUCKET = new VexMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item GUARDIAN_MILK_BUCKET = new GuardianMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item ELDER_GUARDIAN_MILK_BUCKET = new ElderGuardianMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.EPIC));
+	public static final Item WITHER_MILK_BUCKET = new WitherMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.EPIC));
+	public static final Item ENDER_DRAGON_MILK_BUCKET = new EnderDragonMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.EPIC));
 
 
 
@@ -115,5 +125,15 @@ public class NotEnoughMilk implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"ravager_milk_bucket"), RAVAGER_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"llama_milk_bucket"), LLAMA_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"hoglin_milk_bucket"), HOGLIN_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"piglin_milk_bucket"), PIGLIN_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"drowned_milk_bucket"), DROWNED_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"silverfish_milk_bucket"), SILVERFISH_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"endermite_milk_bucket"), ENDERMITE_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"vex_milk_bucket"), VEX_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"guardian_milk_bucket"), GUARDIAN_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"elder_guardian_milk_bucket"), ELDER_GUARDIAN_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"wither_milk_bucket"), WITHER_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"ender_dragon_milk_bucket"), ENDER_DRAGON_MILK_BUCKET);
+
 	}
 }

@@ -3,7 +3,6 @@ package suitedllama.notenoughmilk.milks;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,14 +16,13 @@ import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
-public class PiglinMilkItem extends Item {
+public class VexMilkItem extends Item {
 
-    public PiglinMilkItem(Settings settings) {
+   public VexMilkItem(Settings settings) {
       super(settings);
    }
 
-    public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-
+   public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
       if (user instanceof ServerPlayerEntity) {
          ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)user;
          Criteria.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
@@ -36,24 +34,10 @@ public class PiglinMilkItem extends Item {
       }
 
       if (!world.isClient) {
-          assert user instanceof PlayerEntity;
-          PlayerEntity playerEntity = (PlayerEntity) user;
-          user.clearStatusEffects();
-          if(user.world.getDimension().isUltrawarm()) {
-              user.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 6000, 0));
-              boolean foundSword = false;
-              for (int i = 0; i < playerEntity.inventory.size(); i++) {
-                  ItemStack inventoryStack = playerEntity.inventory.getStack(i);
-                  if ((inventoryStack.getItem() == Items.GOLDEN_SWORD)) {
-                      foundSword = true;
-                      break;
-                  }
-              }
-              if (!foundSword) {
-                  user.dropItem(Items.GOLDEN_SWORD, 1);
-              }
-          }
-}
+         user.clearStatusEffects();
+         user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.VEXXED, 6000, 0));
+      }
+
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;
    }
 

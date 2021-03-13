@@ -5,17 +5,14 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.EvokerEntity;
+import net.minecraft.entity.mob.EndermiteEntity;
 import net.minecraft.entity.mob.EvokerFangsEntity;
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.SilverfishEntity;
 import net.minecraft.entity.mob.VexEntity;
-import net.minecraft.entity.passive.LlamaEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.LlamaSpitEntity;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -23,7 +20,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.*;
 import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.GameRules;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -32,13 +28,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import suitedllama.notenoughmilk.NotEnoughMilk;
-import suitedllama.notenoughmilk.milks.phantom.PhantomTranslucentCount;
 import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
 import org.spongepowered.asm.mixin.injection.At;
-
-import java.util.Iterator;
 
 @Mixin(LivingEntity.class)
 
@@ -64,16 +56,13 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Shadow public abstract boolean addStatusEffect(StatusEffectInstance effect);
 
-	@Shadow protected abstract void jump();
-
-	@Shadow protected abstract void knockback(LivingEntity target);
-
-	@Shadow public float knockbackVelocity;
-
-	@Shadow public abstract void takeKnockback(float f, double d, double e);
-
 	@Inject(at = @At("TAIL"), method = "tick")
 	private void tick(CallbackInfo info) {
+		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.GUARDED)){
+			if(this.hasStatusEffect(StatusEffects.MINING_FATIGUE)){
+				this.removeStatusEffect(StatusEffects.MINING_FATIGUE);
+			}
+		}
 		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.BAMBOOED) && MathHelper.nextInt(random, 0, 700) == 0){
 			Vec3d vec3d = this.getVelocity();
 			this.world.addParticle(ParticleTypes.SNEEZE, this.getX() - (double)(this.getWidth() + 1.0F) * 0.5D * (double)MathHelper.sin(this.bodyYaw * 0.017453292F), this.getEyeY() - 0.10000000149011612D, this.getZ() + (double)(this.getWidth() + 1.0F) * 0.5D * (double)MathHelper.cos(this.bodyYaw * 0.017453292F), vec3d.x, 0.0D, vec3d.z);
@@ -165,138 +154,148 @@ public abstract class LivingEntityMixin extends Entity {
 	@Inject(at = @At("TAIL"), method = "onAttacking")
 	public void onAttacking(Entity target, CallbackInfo info) {
 		BlockState blockState = Blocks.COBWEB.getDefaultState();
-		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SPIDERED) || (this.hasStatusEffect(NotEnoughMilkStatusEffects.CAVE_SPIDERED)) && target instanceof LivingEntity) {
-			createSound(target, SoundEvents.ENTITY_SPIDER_HURT, SoundCategory.PLAYERS);
-			int i;
-			int j;
-			int k;
-			for (int l = 0; l < 4; ++l) {
-				i = MathHelper.floor(target.getX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
-				j = MathHelper.floor(target.getY());
-				k = MathHelper.floor(target.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
-				BlockPos blockPos = new BlockPos(i, j, k);
-				if (target.world.getBlockState(blockPos).isAir()  && blockState.canPlaceAt(target.world, blockPos)) {
-					target.world.setBlockState(blockPos, blockState);
-				}
-			}
-
-		}
-
-		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.EVOKED)){
-			double d = Math.min(target.getY(), this.getY());
-			double e = Math.max(target.getY(),this.getY()) + 1.0D;
-			float f = (float)MathHelper.atan2(target.getZ() - this.getZ(), target.getX() - this.getX());
-			int j;
-			if (this.squaredDistanceTo(target) < 9.0D) {
-				float h;
-				for(j = 0; j < 5; ++j) {
-					h = f + (float)j * 3.1415927F * 0.4F;
-					this.conjureFangs(this.getX() + (double)MathHelper.cos(h) * 1.5D, this.getZ() + (double)MathHelper.sin(h) * 1.5D, d, e, h, 0, this);
-				}
-
-				for(j = 0; j < 8; ++j) {
-					h = f + (float)j * 3.1415927F * 2.0F / 8.0F + 1.2566371F;
-					this.conjureFangs(this.getX() + (double)MathHelper.cos(h) * 2.5D, this.getZ() + (double)MathHelper.sin(h) * 2.5D, d, e, h, 3,  this);
-				}
-			} else {
-				for(j = 0; j < 16; ++j) {
-					double l = 1.25D * (double)(j + 1);
-					int m = 1 * j;
-					this.conjureFangs(this.getX() + (double)MathHelper.cos(f) * l, this.getZ() + (double)MathHelper.sin(f) * l, d, e, f, m, this);
-				}
-			}
-			createSound(target, SoundEvents.ENTITY_EVOKER_CAST_SPELL, SoundCategory.PLAYERS);
-		}
-
-		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.ENDERMANNED) && target instanceof LivingEntity){
-			if (!world.isClient) {
-				double d = target.getX();
-				double e = target.getY();
-				double f = target.getZ();
-
-				for (int i = 0; i < 24; ++i) {
-					double g = target.getX() + ((target.world.getRandom().nextDouble() - 0.5D)) * 25.0D;
-					double h = MathHelper.clamp(target.getY() + (double) ((target.world.getRandom().nextInt(25) - 8)), 0.0D, (double) (world.getDimensionHeight() - 1));
-					double j = target.getZ() + ((target.world.getRandom().nextDouble() - 0.5D)) * 25.0D;
-					if (target.hasVehicle()) {
-						target.stopRiding();
-					}
-					if (((LivingEntity)target).teleport(g, h, j, true)) {
-						createSound(target, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS);
-						createSound(this, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS);
-						createSound(this, SoundEvents.ENTITY_ENDERMAN_SCREAM, SoundCategory.PLAYERS);
-						createSound(target, SoundEvents.ENTITY_ENDERMAN_SCREAM, SoundCategory.PLAYERS);
-						break;
+		if (target instanceof LivingEntity) {
+			if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SPIDERED) || (this.hasStatusEffect(NotEnoughMilkStatusEffects.CAVE_SPIDERED)) && target instanceof LivingEntity) {
+				createSound(target, SoundEvents.ENTITY_SPIDER_HURT, SoundCategory.PLAYERS);
+				int i;
+				int j;
+				int k;
+				for (int l = 0; l < 4; ++l) {
+					i = MathHelper.floor(target.getX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
+					j = MathHelper.floor(target.getY());
+					k = MathHelper.floor(target.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
+					BlockPos blockPos = new BlockPos(i, j, k);
+					if (target.world.getBlockState(blockPos).isAir() && blockState.canPlaceAt(target.world, blockPos)) {
+						target.world.setBlockState(blockPos, blockState);
 					}
 				}
+
 			}
-		}
-		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SPITTER) && target instanceof LivingEntity)	{
-			createSound(target, SoundEvents.ENTITY_LLAMA_SPIT, SoundCategory.PLAYERS);
-			LlamaSpitEntity llamaSpitEntity = new LlamaSpitEntity(world, this.getX(), this.getEyeY()+.25, this.getZ(),0d,0d,0d);
-			double d = target.getX() - this.getX();
-			double e = target.getBodyY(0.3333333333333333D) - llamaSpitEntity.getY();
-			double f = target.getZ() - this.getZ();
-			float g = MathHelper.sqrt(d * d + f * f) * 0.2F;
-			llamaSpitEntity.setVelocity(d, e + (double)g, f, 1.5F, 10.0F);
-			this.world.spawnEntity(llamaSpitEntity);
-		}
-		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.CAVE_SPIDERED) && target instanceof LivingEntity)	{
-			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 600, 0));
-		}
-		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.RAVAGED) && target instanceof LivingEntity)	{
-			createSound(target, SoundEvents.ENTITY_RAVAGER_ATTACK, SoundCategory.PLAYERS);
-			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20, 99));
-		}
-		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.BAMBOOED) && target instanceof LivingEntity)	{
-			createSound(target, SoundEvents.ENTITY_PANDA_SNEEZE, SoundCategory.PLAYERS);
-			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 80, 6));
-		}
-		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.STRAYED) && target instanceof LivingEntity)	{
-			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 600, 0));
-		}
-		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SHULKED) && target instanceof LivingEntity)	{
-			createSound(target, SoundEvents.ENTITY_SHULKER_BULLET_HIT, SoundCategory.PLAYERS);
-			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 200, 0));
-		}
-		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.NIGHTMARE) && target instanceof LivingEntity)	{
-			createSound(target, SoundEvents.ENTITY_PHANTOM_BITE, SoundCategory.PLAYERS);
-			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200, 0));
-			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 200, 0));
-			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200, 9999));
-		}
-		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.BUZZING) && target instanceof LivingEntity)	{
-			createSound(target, SoundEvents.ENTITY_BEE_STING, SoundCategory.PLAYERS);
-			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 600, 0));
-		}
-		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.INKING) && target instanceof LivingEntity)	{
-			createSound(target, SoundEvents.ENTITY_SQUID_SQUIRT, SoundCategory.PLAYERS);
-			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 160, 0));
-		}
-		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.WITHERING) && target instanceof LivingEntity)	{
-			createSound(target, SoundEvents.ENTITY_WITHER_SKELETON_HURT, SoundCategory.PLAYERS);
-			((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 80, 0));
-		}
-	}
-	private void randomTeleport(LivingEntity entity) {
-		if (!world.isClient) {
-			double d = entity.getX();
-			double e = entity.getY();
-			double f = entity.getZ();
 
-			for (int i = 0; i < 16; ++i) {
-				double g = entity.getX() + (entity.getRandom().nextDouble() - 0.5D) * 16.0D;
-				double h = MathHelper.clamp(entity.getY() + (double) (entity.getRandom().nextInt(16) - 8), 0.0D, (double) (world.getDimensionHeight() - 1));
-				double j = entity.getZ() + (entity.getRandom().nextDouble() - 0.5D) * 16.0D;
-				if (entity.hasVehicle()) {
-					entity.stopRiding();
-				}
+			if (this.hasStatusEffect(NotEnoughMilkStatusEffects.EVOKED)) {
+				double d = Math.min(target.getY(), this.getY());
+				double e = Math.max(target.getY(), this.getY()) + 1.0D;
+				float f = (float) MathHelper.atan2(target.getZ() - this.getZ(), target.getX() - this.getX());
+				int j;
+				if (this.squaredDistanceTo(target) < 9.0D) {
+					float h;
+					for (j = 0; j < 5; ++j) {
+						h = f + (float) j * 3.1415927F * 0.4F;
+						this.conjureFangs(this.getX() + (double) MathHelper.cos(h) * 1.5D, this.getZ() + (double) MathHelper.sin(h) * 1.5D, d, e, h, 0, this);
+					}
 
-				if (entity.teleport(g, h, j, true)) {
-					world.playSound((PlayerEntity) null, d, e, f, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
-					entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
-					break;
+					for (j = 0; j < 8; ++j) {
+						h = f + (float) j * 3.1415927F * 2.0F / 8.0F + 1.2566371F;
+						this.conjureFangs(this.getX() + (double) MathHelper.cos(h) * 2.5D, this.getZ() + (double) MathHelper.sin(h) * 2.5D, d, e, h, 3, this);
+					}
+				} else {
+					for (j = 0; j < 16; ++j) {
+						double l = 1.25D * (double) (j + 1);
+						int m = 1 * j;
+						this.conjureFangs(this.getX() + (double) MathHelper.cos(f) * l, this.getZ() + (double) MathHelper.sin(f) * l, d, e, f, m, this);
+					}
 				}
+				createSound(target, SoundEvents.ENTITY_EVOKER_CAST_SPELL, SoundCategory.PLAYERS);
+			}
+
+			if (this.hasStatusEffect(NotEnoughMilkStatusEffects.ENDERMANNED) && target instanceof LivingEntity) {
+				if (!world.isClient) {
+					double d = target.getX();
+					double e = target.getY();
+					double f = target.getZ();
+
+					for (int i = 0; i < 24; ++i) {
+						double g = target.getX() + ((target.world.getRandom().nextDouble() - 0.5D)) * 25.0D;
+						double h = MathHelper.clamp(target.getY() + (double) ((target.world.getRandom().nextInt(25) - 8)), 0.0D, (double) (world.getDimensionHeight() - 1));
+						double j = target.getZ() + ((target.world.getRandom().nextDouble() - 0.5D)) * 25.0D;
+						if (target.hasVehicle()) {
+							target.stopRiding();
+						}
+						if (((LivingEntity) target).teleport(g, h, j, true)) {
+							createSound(target, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS);
+							createSound(this, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS);
+							createSound(this, SoundEvents.ENTITY_ENDERMAN_SCREAM, SoundCategory.PLAYERS);
+							createSound(target, SoundEvents.ENTITY_ENDERMAN_SCREAM, SoundCategory.PLAYERS);
+							break;
+						}
+					}
+				}
+			}
+			if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SPITTER) && target instanceof LivingEntity) {
+				createSound(target, SoundEvents.ENTITY_LLAMA_SPIT, SoundCategory.PLAYERS);
+				LlamaSpitEntity llamaSpitEntity = new LlamaSpitEntity(world, this.getX(), this.getEyeY() + .25, this.getZ(), 0d, 0d, 0d);
+				double d = target.getX() - this.getX();
+				double e = target.getBodyY(0.3333333333333333D) - llamaSpitEntity.getY();
+				double f = target.getZ() - this.getZ();
+				float g = MathHelper.sqrt(d * d + f * f) * 0.2F;
+				llamaSpitEntity.setVelocity(d, e + (double) g, f, 1.5F, 10.0F);
+				this.world.spawnEntity(llamaSpitEntity);
+			}
+			if (this.hasStatusEffect(NotEnoughMilkStatusEffects.CAVE_SPIDERED) && target instanceof LivingEntity) {
+				((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 600, 0));
+			}
+			if (this.hasStatusEffect(NotEnoughMilkStatusEffects.RAVAGED) && target instanceof LivingEntity) {
+				createSound(target, SoundEvents.ENTITY_RAVAGER_ATTACK, SoundCategory.PLAYERS);
+				((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20, 99));
+			}
+			if (this.hasStatusEffect(NotEnoughMilkStatusEffects.BAMBOOED) && target instanceof LivingEntity) {
+				createSound(target, SoundEvents.ENTITY_PANDA_SNEEZE, SoundCategory.PLAYERS);
+				((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 80, 6));
+			}
+			if (this.hasStatusEffect(NotEnoughMilkStatusEffects.STRAYED) && target instanceof LivingEntity) {
+				((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 600, 0));
+			}
+			if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SHULKED) && target instanceof LivingEntity) {
+				createSound(target, SoundEvents.ENTITY_SHULKER_BULLET_HIT, SoundCategory.PLAYERS);
+				((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 200, 0));
+			}
+			if (this.hasStatusEffect(NotEnoughMilkStatusEffects.NIGHTMARE) && target instanceof LivingEntity) {
+				createSound(target, SoundEvents.ENTITY_PHANTOM_BITE, SoundCategory.PLAYERS);
+				((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 120, 0));
+				((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 120, 0));
+				((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 60, 9999));
+			}
+			if (this.hasStatusEffect(NotEnoughMilkStatusEffects.BUZZING) && target instanceof LivingEntity) {
+				createSound(target, SoundEvents.ENTITY_BEE_STING, SoundCategory.PLAYERS);
+				((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 600, 0));
+			}
+			if (((LivingEntity) target).hasStatusEffect(NotEnoughMilkStatusEffects.GUARDED)) {
+				createSound(target, SoundEvents.ENCHANT_THORNS_HIT, SoundCategory.PLAYERS);
+				if (!this.hasStatusEffect(NotEnoughMilkStatusEffects.GUARDED)) {
+					this.damage(DamageSource.thorns(this), 4);
+				}
+			}
+			if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SILVERFISHED) && target instanceof LivingEntity) {
+				createSound(target, SoundEvents.ENTITY_SILVERFISH_HURT, SoundCategory.PLAYERS);
+				SilverfishEntity silverfishEntity = (SilverfishEntity) EntityType.SILVERFISH.create(this.getEntityWorld());
+				assert silverfishEntity != null;
+				silverfishEntity.refreshPositionAndAngles((double) target.getX() + 0.5D, (double) target.getY(), (double) target.getZ() + 0.5D, 0.0F, 0.0F);
+				this.world.spawnEntity(silverfishEntity);
+				silverfishEntity.playSpawnEffects();
+			}
+			if (this.hasStatusEffect(NotEnoughMilkStatusEffects.ENDERMITED) && target instanceof LivingEntity) {
+				createSound(target, SoundEvents.ENTITY_ENDERMITE_HURT, SoundCategory.PLAYERS);
+				EndermiteEntity endermiteEntity = (EndermiteEntity) EntityType.ENDERMITE.create(this.getEntityWorld());
+				assert endermiteEntity != null;
+				endermiteEntity.refreshPositionAndAngles((double) target.getX() + 0.5D, (double) target.getY(), (double) target.getZ() + 0.5D, 0.0F, 0.0F);
+				this.world.spawnEntity(endermiteEntity);
+				endermiteEntity.playSpawnEffects();
+			}
+			if (this.hasStatusEffect(NotEnoughMilkStatusEffects.VEXXED) && target instanceof LivingEntity) {
+				createSound(target, SoundEvents.ENTITY_VEX_DEATH, SoundCategory.PLAYERS);
+				VexEntity vexEntity = (VexEntity) EntityType.VEX.create(this.getEntityWorld());
+				assert vexEntity != null;
+				vexEntity.refreshPositionAndAngles((double) target.getX() + 0.5D, (double) target.getY(), (double) target.getZ() + 0.5D, 0.0F, 0.0F);
+				this.world.spawnEntity(vexEntity);
+				vexEntity.playSpawnEffects();
+			}
+			if (this.hasStatusEffect(NotEnoughMilkStatusEffects.INKING) && target instanceof LivingEntity) {
+				createSound(target, SoundEvents.ENTITY_SQUID_SQUIRT, SoundCategory.PLAYERS);
+				((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 160, 0));
+			}
+			if (this.hasStatusEffect(NotEnoughMilkStatusEffects.WITHERING) && target instanceof LivingEntity) {
+				createSound(target, SoundEvents.ENTITY_WITHER_SKELETON_HURT, SoundCategory.PLAYERS);
+				((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 80, 0));
 			}
 		}
 	}

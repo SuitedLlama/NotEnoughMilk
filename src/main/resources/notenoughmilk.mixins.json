@@ -12,6 +12,7 @@
     "CatEntityMixin",
     "CobwebBlockMixin",
     "CrossbowItemMixin",
+    "DragonEggBlockMixin",
     "FlowerBlockMixin",
     "GrassBlockMixin",
     "IronGolemEntityMixin",
@@ -23,13 +24,12 @@
     "PlayerEntityMixin",
     "PufferfishEntityMixin",
     "SchoolingFishEntityMixin",
+    "TridentEntityMixin",
     "VillagerEntityMixin",
     "WolfEntityMixin"
   ],
   "client": [
-    "InGameHudMixin",
-    "LivingEntityRendererMixin",
-    "PlayerEntityRendererMixin"
+    "InGameHudMixin"
   ],
   "injectors": {
     "defaultRequire": 1

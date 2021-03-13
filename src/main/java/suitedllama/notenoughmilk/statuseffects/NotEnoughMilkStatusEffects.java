@@ -37,6 +37,11 @@ public class NotEnoughMilkStatusEffects {
     public static final StatusEffect EVOKED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 16437760);
     public static final StatusEffect RAVAGED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 6581870);
     public static final StatusEffect SPITTER = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 16777150);
+    public static final StatusEffect DROWNER = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 61695);
+    public static final StatusEffect SILVERFISHED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 6579300);
+    public static final StatusEffect ENDERMITED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 6553700);
+    public static final StatusEffect VEXXED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 65535);
+    public static final StatusEffect GUARDED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 65470);
 
 
     public static void statusEffectInit(){
@@ -69,6 +74,11 @@ public class NotEnoughMilkStatusEffects {
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "evoked"), EVOKED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "ravaged"), RAVAGED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "spitter"), SPITTER);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "drowner"), DROWNER);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "silverfished"), SILVERFISHED);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "endermited"), ENDERMITED);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "vexxed"), VEXXED);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "guarded"), GUARDED);
 
     }
 

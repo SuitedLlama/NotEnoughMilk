@@ -73,5 +73,22 @@
     "item.notenoughmilk.ravager_milk_bucket": "Ravager Milk",
     "effect.notenoughmilk.spitting": "Spitting",
     "item.notenoughmilk.llama_milk_bucket": "Llama Milk",
-    "item.notenoughmilk.hoglin_milk_bucket": "Hoglin Milk"
+    "item.notenoughmilk.hoglin_milk_bucket": "Hoglin Milk",
+    "item.notenoughmilk.piglin_milk_bucket": "Piglin Milk",
+    "item.notenoughmilk.drowned_milk_bucket": "Drowned Milk",
+    "effect.notenoughmilk.drowner": "Drowner",
+    "item.notenoughmilk.zoglin_milk_bucket":"Zoglin Milk",
+    "effect.notenoughmilk.silverfished": "Silverfished",
+    "item.notenoughmilk.silverfish_milk_bucket":"Silverfish Milk",
+    "effect.notenoughmilk.endermited": "Endermited",
+    "item.notenoughmilk.endermite_milk_bucket":"Endermite Milk",
+    "item.notenoughmilk.phantom_milk_bucket":"Phantom Milk",
+    "effect.notenoughmilk.vexxed": "Vexxed",
+    "item.notenoughmilk.vex_milk_bucket":"Vex Milk",
+    "effect.notenoughmilk.guarded": "Guarded",
+    "item.notenoughmilk.guardian_milk_bucket":"Guardian Milk",
+    "item.notenoughmilk.elder_guardian_milk_bucket":"Elder Guardian Milk",
+    "item.notenoughmilk.wither_milk_bucket":"Wither Milk",
+    "item.notenoughmilk.ender_dragon_milk_bucket":"Ender Dragon Milk"
+
 }
