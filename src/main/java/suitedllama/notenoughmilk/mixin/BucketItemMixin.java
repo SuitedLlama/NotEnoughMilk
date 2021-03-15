@@ -11,6 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.LiteralText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import suitedllama.notenoughmilk.NotEnoughMilk;
@@ -251,7 +252,8 @@ public abstract class BucketItemMixin extends Item {
 			return ActionResult.success(player.world.isClient);
 		}
 		else if (entity instanceof PlayerEntity && entity.isAlive()) {
-			this.milk(stack, player, NotEnoughMilk.PLAYER_MILK_BUCKET.getDefaultStack(), hand);
+			PlayerEntity milkedPlayer = (PlayerEntity) entity;
+			this.milk(stack, player, NotEnoughMilk.PLAYER_MILK_BUCKET.getDefaultStack().setCustomName(milkedPlayer.getDisplayName().copy().append((new LiteralText("'s Milk")))), hand);
 			return ActionResult.success(player.world.isClient);
 		}
 		return ActionResult.PASS;
