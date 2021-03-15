@@ -86,13 +86,7 @@ public class EnderDragonMilkItem extends Item {
                if (serverPlayerEntity.hasVehicle()) {
                     serverPlayerEntity.stopRiding();
                }
-                  RegistryKey<World> userWorld = user.getEntityWorld().getRegistryKey();
-                  RegistryKey<World> serverPlayerEntityWorld = user.getEntityWorld().getRegistryKey();
-                  RegistryKey<World> registryKey = user.world.getRegistryKey() == userWorld ? serverPlayerEntityWorld : userWorld;
-                  ServerWorld destinationWorld = ((ServerWorld)user.world).getServer().getWorld(registryKey);
-                  serverPlayerEntity.moveToWorld(destinationWorld);
-                  serverPlayerEntity.teleport((ServerWorld) user.getEntityWorld(),user.getX(), user.getY(), user.getZ(), user.yaw, user.pitch);
-                  serverPlayerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 60,0));
+                  serverPlayerEntity.teleport((ServerWorld) user.getEntityWorld(),serverPlayerEntity.getX() + serverPlayerEntity.world.random.nextInt(400), serverPlayerEntity.getY(), serverPlayerEntity.getZ() + serverPlayerEntity.world.random.nextInt(400), user.yaw, user.pitch);
                   serverPlayerEntity.playSound(SoundEvents.ENTITY_ENDER_DRAGON_GROWL, 4.0f, 1.0f);
                }
          }

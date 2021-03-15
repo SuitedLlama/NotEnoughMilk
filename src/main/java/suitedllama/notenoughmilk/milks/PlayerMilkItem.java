@@ -3,7 +3,6 @@ package suitedllama.notenoughmilk.milks;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,9 +16,9 @@ import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
-public class BatMilkItem extends Item {
+public class PlayerMilkItem extends Item {
 
-   public BatMilkItem(Item.Settings settings) {
+   public PlayerMilkItem(Settings settings) {
       super(settings);
    }
 
@@ -35,9 +34,14 @@ public class BatMilkItem extends Item {
       }
 
       if (!world.isClient) {
-        user.clearStatusEffects();
-         user.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 6000, 0));
-        user.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 6000, 0));
+         user.clearStatusEffects();
+         assert user instanceof PlayerEntity;
+         if(((PlayerEntity)user).isCreative() || user.isSpectator()){
+            user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.DIMENSIONAL, 20, 0));
+
+         } else{
+            user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.DIMENSIONAL, 120, 0));
+         }
       }
 
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;

@@ -35,6 +35,10 @@ public class VindicatorMilkItem extends Item {
         super(settings);
     }
 
+    public static boolean bannerIsNeeded;
+    public static boolean axeIsNeeded;
+    public static boolean shieldIsNeeded;
+
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
 
         if (user instanceof ServerPlayerEntity) {
@@ -57,38 +61,43 @@ public class VindicatorMilkItem extends Item {
                 ItemStack inventoryStack = playerEntity.inventory.getStack(i);
                 if ((inventoryStack.isItemEqual(Raid.getOminousBanner()))) {
                     foundBanner = true;
+                    shieldIsNeeded = false;
                     break;
                 }
             }
             if (!foundBanner) {
                 if (user.getEquippedStack(EquipmentSlot.HEAD).isEmpty()) {
                     user.equipStack(EquipmentSlot.HEAD, Raid.getOminousBanner());
+                    shieldIsNeeded = false;
                 } else {
-                    ((PlayerEntity) user).giveItemStack(Raid.getOminousBanner());
+                    shieldIsNeeded = true;
                 }
             }
             for (int i = 0; i < playerEntity.inventory.size(); i++) {
                 ItemStack inventoryStack = playerEntity.inventory.getStack(i);
                 if ((inventoryStack.getItem() == Items.IRON_AXE)) {
                     foundAxe = true;
+                    axeIsNeeded = false;
                     break;
                 }
             }
             if (!foundAxe) {
-                ((PlayerEntity)user).giveItemStack(Items.IRON_AXE.getDefaultStack());
+                axeIsNeeded = true;
             }
             for (int i = 0; i < playerEntity.inventory.size(); i++) {
                 ItemStack inventoryStack = playerEntity.inventory.getStack(i);
                 if ((inventoryStack.getItem() == Items.SHIELD)) {
                     foundShield = true;
+                    shieldIsNeeded = false;
                     break;
                 }
             }
             if (!foundShield) {
                 if (user.getEquippedStack(EquipmentSlot.OFFHAND).isEmpty()) {
+                    shieldIsNeeded = false;
                     user.equipStack(EquipmentSlot.OFFHAND, (new ItemStack(Items.SHIELD)));
                 } else {
-                    ((PlayerEntity)user).giveItemStack(Items.SHIELD.getDefaultStack());
+                    shieldIsNeeded = true;
                 }
             }
         }

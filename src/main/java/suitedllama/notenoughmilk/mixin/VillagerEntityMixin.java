@@ -33,18 +33,16 @@ public abstract class VillagerEntityMixin extends MerchantEntity {
 	public void interactMob(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> info) {
 		ItemStack itemStack = player.getStackInHand(hand);
 		if (itemStack.getItem() == Items.POPPY && player.hasStatusEffect(NotEnoughMilkStatusEffects.IRONED) && !player.hasStatusEffect(StatusEffects.HERO_OF_THE_VILLAGE)) {
-			this.produceParticles(ParticleTypes.HEART);
 			info.setReturnValue(ActionResult.PASS);
 		}
 		if ((itemStack.getItem() == Items.BUCKET) && !this.isBaby()) {
 			player.addStatusEffect(new StatusEffectInstance(StatusEffects.HERO_OF_THE_VILLAGE, 600, 0));
-			if((MathHelper.nextInt(random, 0, 24) == 0) && player.hasStatusEffect(StatusEffects.HERO_OF_THE_VILLAGE)){
+			if((MathHelper.nextInt(random, 0, 4) == 0) && player.hasStatusEffect(StatusEffects.HERO_OF_THE_VILLAGE)){
 				this.dropItem(Items.EMERALD);
 			}
 			if(this.isOnGround()){
 				this.jump();
 			}
-			this.produceParticles(ParticleTypes.HEART);
 			info.setReturnValue(ActionResult.PASS);
 		}
 	}

@@ -34,6 +34,7 @@ public class PhantomMilkItem extends Item {
       }
 
       if (!world.isClient) {
+         user.clearStatusEffects();
          user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.NIGHTMARE, 6000, 0));
       }
 

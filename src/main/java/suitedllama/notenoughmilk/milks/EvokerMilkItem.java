@@ -24,6 +24,8 @@ public class EvokerMilkItem extends Item {
       super(settings);
    }
 
+   public static boolean totemIsNeeded;
+
    public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
       if (user instanceof ServerPlayerEntity) {
          ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)user;
@@ -42,14 +44,16 @@ public class EvokerMilkItem extends Item {
             ItemStack inventoryStack = ((PlayerEntity) user).inventory.getStack(i);
             if ((inventoryStack.isItemEqual(Items.TOTEM_OF_UNDYING.getDefaultStack()))) {
                foundTotem = true;
+               totemIsNeeded = false;
                break;
             }
          }
          if (!foundTotem) {
             if (user.getEquippedStack(EquipmentSlot.OFFHAND).isEmpty()) {
+               totemIsNeeded = false;
                user.equipStack(EquipmentSlot.OFFHAND, Items.TOTEM_OF_UNDYING.getDefaultStack());
             } else {
-               ((PlayerEntity) user).giveItemStack(Items.TOTEM_OF_UNDYING.getDefaultStack());
+               totemIsNeeded = true;
             }
          }
            user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.EVOKED, 6000, 0));

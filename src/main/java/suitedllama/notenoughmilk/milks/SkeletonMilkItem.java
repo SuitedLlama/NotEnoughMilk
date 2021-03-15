@@ -22,6 +22,7 @@ public class SkeletonMilkItem extends Item {
     public SkeletonMilkItem(Settings settings) {
       super(settings);
    }
+    public static boolean bowIsNeeded;
 
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
 
@@ -45,11 +46,12 @@ public class SkeletonMilkItem extends Item {
               ItemStack inventoryStack = playerEntity.inventory.getStack(i);
               if ((inventoryStack.getItem() == Items.BOW)) {
                   foundBow = true;
+                  bowIsNeeded = false;
                   break;
               }
           }
           if (!foundBow) {
-              ((PlayerEntity)user).giveItemStack(Items.BOW.getDefaultStack());
+              bowIsNeeded = true;
           }
 
 }

@@ -19,6 +19,8 @@ import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
 public class DrownedMilkItem extends Item {
 
+    public static boolean tridentIsNeeded;
+
     public DrownedMilkItem(Settings settings) {
       super(settings);
    }
@@ -50,11 +52,12 @@ public class DrownedMilkItem extends Item {
               ItemStack inventoryStack = playerEntity.inventory.getStack(i);
               if ((inventoryStack.getItem() == Items.TRIDENT)) {
                   foundTrident = true;
+                  tridentIsNeeded = false;
                   break;
               }
           }
           if (!foundTrident) {
-              ((PlayerEntity)user).giveItemStack(Items.TRIDENT.getDefaultStack());
+              tridentIsNeeded = true;
           }
 
 }

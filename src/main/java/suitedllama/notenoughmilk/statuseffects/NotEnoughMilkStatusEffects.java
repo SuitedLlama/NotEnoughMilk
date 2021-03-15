@@ -14,7 +14,6 @@ public class NotEnoughMilkStatusEffects {
     public static final StatusEffect SHULKED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 15728880);
     public static final StatusEffect IRONED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 6579300);
     public static final StatusEffect PARROTED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 3342130);
-    public static final StatusEffect BATTED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 20);
     public static final StatusEffect BLAZED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 16744960);
     public static final StatusEffect GHASTED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 16744960);
     public static final StatusEffect SPIDERED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 2621440);
@@ -42,6 +41,7 @@ public class NotEnoughMilkStatusEffects {
     public static final StatusEffect ENDERMITED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 6553700);
     public static final StatusEffect VEXXED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 65535);
     public static final StatusEffect GUARDED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 65470);
+    public static final StatusEffect DIMENSIONAL = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 9830525);
 
 
     public static void statusEffectInit(){
@@ -51,7 +51,6 @@ public class NotEnoughMilkStatusEffects {
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "shulked"), SHULKED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "ironed"), IRONED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "parroted"), PARROTED);
-        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "batted"), BATTED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "blazed"), BLAZED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "ghasted"), GHASTED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "spidered"), SPIDERED);
@@ -79,6 +78,7 @@ public class NotEnoughMilkStatusEffects {
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "endermited"), ENDERMITED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "vexxed"), VEXXED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "guarded"), GUARDED);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "dimensional"), DIMENSIONAL);
 
     }
 

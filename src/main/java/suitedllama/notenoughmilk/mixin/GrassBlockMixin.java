@@ -33,7 +33,7 @@ public abstract class GrassBlockMixin extends Block {
             player.playSound(SoundEvents.ENTITY_SHEEP_AMBIENT, 1.0F, 1.0F);
             player.playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1.0F, 1.0F);
             player.getHungerManager().add(1, 1);
-            int i = 1 + world.random.nextInt(8);
+            int i = 1 + world.random.nextInt(2);
             for(int j = 0; j < i; ++j) {
                 player.giveItemStack(Items.WHITE_WOOL.getDefaultStack());
             }

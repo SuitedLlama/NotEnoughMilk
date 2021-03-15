@@ -53,6 +53,7 @@ public class VillagerMilkItem extends Item {
       }
 
       if (!world.isClient) {
+         user.clearStatusEffects();
          user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.VILLAGE_DADDY, 6000, 0));
          VillagerEntity villagerEntity = new VillagerEntity(EntityType.VILLAGER, world, VillagerType.forBiome(world.method_31081(user.getBlockPos())));
          villagerEntity.updatePosition(user.getX(), user.getY(), user.getZ());
@@ -62,7 +63,9 @@ public class VillagerMilkItem extends Item {
          }
          world.spawnEntity(villagerEntity);
       }
-      this.produceParticles(ParticleTypes.HEART,user,world);
+      if(world.isClient()){
+         produceParticles(ParticleTypes.HEART,user,world);
+      }
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;
    }
 

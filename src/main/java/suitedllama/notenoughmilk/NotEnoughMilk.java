@@ -71,6 +71,7 @@ public class NotEnoughMilk implements ModInitializer {
 	public static final Item ELDER_GUARDIAN_MILK_BUCKET = new ElderGuardianMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.EPIC));
 	public static final Item WITHER_MILK_BUCKET = new WitherMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.EPIC));
 	public static final Item ENDER_DRAGON_MILK_BUCKET = new EnderDragonMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.EPIC));
+	public static final Item PLAYER_MILK_BUCKET = new PlayerMilkItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.EPIC));
 
 
 
@@ -134,6 +135,7 @@ public class NotEnoughMilk implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"elder_guardian_milk_bucket"), ELDER_GUARDIAN_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"wither_milk_bucket"), WITHER_MILK_BUCKET);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"ender_dragon_milk_bucket"), ENDER_DRAGON_MILK_BUCKET);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID,"player_milk_bucket"), PLAYER_MILK_BUCKET);
 
 	}
 }

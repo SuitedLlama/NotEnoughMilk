@@ -34,6 +34,7 @@ public class ZombifiedMilkItem extends Item {
       }
 
       if (!world.isClient) {
+            user.clearStatusEffects();
             user.addStatusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 600, 0));
             user.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 6000, 0));
       }

@@ -23,6 +23,8 @@ public class PiglinMilkItem extends Item {
       super(settings);
    }
 
+   public static boolean swordIsNeeded;
+
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
 
       if (user instanceof ServerPlayerEntity) {
@@ -46,11 +48,12 @@ public class PiglinMilkItem extends Item {
                   ItemStack inventoryStack = playerEntity.inventory.getStack(i);
                   if ((inventoryStack.getItem() == Items.GOLDEN_SWORD)) {
                       foundSword = true;
+                     swordIsNeeded = false;
                       break;
                   }
               }
               if (!foundSword) {
-                  ((PlayerEntity)user).giveItemStack(Items.GOLDEN_SWORD.getDefaultStack());
+                  swordIsNeeded = true;
               }
           }
 }

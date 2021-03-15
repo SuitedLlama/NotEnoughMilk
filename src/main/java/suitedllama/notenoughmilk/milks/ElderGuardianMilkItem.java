@@ -36,6 +36,8 @@ public class ElderGuardianMilkItem extends Item {
       super(settings);
    }
 
+   public static boolean tridentIsNeeded;
+
    public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
       if (user instanceof ServerPlayerEntity) {
          ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)user;
@@ -65,11 +67,12 @@ public class ElderGuardianMilkItem extends Item {
             ItemStack inventoryStack = playerEntity.inventory.getStack(i);
             if ((inventoryStack.getItem() == Items.TRIDENT)) {
                foundTrident = true;
+               tridentIsNeeded = false;
                break;
             }
          }
          if (!foundTrident) {
-            ((PlayerEntity)user).giveItemStack(Items.TRIDENT.getDefaultStack());
+            tridentIsNeeded = true;
          }
          fatigueServer(user);
       }

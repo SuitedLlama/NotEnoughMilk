@@ -28,6 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import suitedllama.notenoughmilk.milks.PiglinMilkItem;
 import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
 import org.spongepowered.asm.mixin.injection.At;
@@ -58,9 +59,18 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Inject(at = @At("TAIL"), method = "tick")
 	private void tick(CallbackInfo info) {
+		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.DIMENSIONAL)){
+			this.setInNetherPortal(this.getBlockPos());
+
+		}
 		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.GUARDED)){
 			if(this.hasStatusEffect(StatusEffects.MINING_FATIGUE)){
 				this.removeStatusEffect(StatusEffects.MINING_FATIGUE);
+			}
+		}
+		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.TURTLED)){
+			if(!this.submergedInWater){
+				this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 40, 1));
 			}
 		}
 		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.STRIDERED)){
@@ -254,7 +264,7 @@ public abstract class LivingEntityMixin extends Entity {
 			if (((LivingEntity) target).hasStatusEffect(NotEnoughMilkStatusEffects.GUARDED)) {
 				createSound(target, SoundEvents.ENCHANT_THORNS_HIT, SoundCategory.PLAYERS);
 				if (!this.hasStatusEffect(NotEnoughMilkStatusEffects.GUARDED)) {
-					this.damage(DamageSource.thorns(this), 4);
+					this.damage(DamageSource.thorns(target), 4);
 				}
 			}
 			if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SILVERFISHED) && target instanceof LivingEntity) {

@@ -89,6 +89,7 @@
     "item.notenoughmilk.guardian_milk_bucket":"Guardian Milk",
     "item.notenoughmilk.elder_guardian_milk_bucket":"Elder Guardian Milk",
     "item.notenoughmilk.wither_milk_bucket":"Wither Milk",
-    "item.notenoughmilk.ender_dragon_milk_bucket":"Ender Dragon Milk"
-
+    "item.notenoughmilk.ender_dragon_milk_bucket":"Ender Dragon Milk",
+    "effect.notenoughmilk.dimensional": "Dimensional",
+    "item.notenoughmilk.player_milk_bucket":"Player Milk"
 }

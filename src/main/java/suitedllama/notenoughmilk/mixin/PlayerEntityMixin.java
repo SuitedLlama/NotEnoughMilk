@@ -26,6 +26,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.village.raid.Raid;
 import net.minecraft.world.GameMode;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Shadow;
@@ -42,8 +43,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
-import suitedllama.notenoughmilk.milks.SilverfishMilkItem;
-import suitedllama.notenoughmilk.milks.WitchMilkItem;
+import suitedllama.notenoughmilk.milks.*;
 import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
 import java.util.function.Consumer;
@@ -93,14 +93,64 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Inject(at = @At("TAIL"), method = "tick")
 	public void tick(CallbackInfo info) throws InterruptedException {
+
+		if(PiglinMilkItem.swordIsNeeded){
+			this.giveItemStack(Items.GOLDEN_SWORD.getDefaultStack());
+			PiglinMilkItem.swordIsNeeded = false;
+		}
+		if(ElderGuardianMilkItem.tridentIsNeeded){
+		    this.giveItemStack(Items.TRIDENT.getDefaultStack());
+			ElderGuardianMilkItem.tridentIsNeeded = false;
+		}
+		if(DrownedMilkItem.tridentIsNeeded){
+			this.giveItemStack(Items.TRIDENT.getDefaultStack());
+			DrownedMilkItem.tridentIsNeeded = false;
+		}
+		if(EvokerMilkItem.totemIsNeeded){
+			this.giveItemStack(Items.TOTEM_OF_UNDYING.getDefaultStack());
+			EvokerMilkItem.totemIsNeeded = false;
+		}
+		if(PillagerMilkItem.bannerIsNeeded){
+			this.giveItemStack(Raid.getOminousBanner());
+			PillagerMilkItem.bannerIsNeeded = false;
+		}
+		if(PillagerMilkItem.crossbowIsNeeded){
+			this.giveItemStack(Items.CROSSBOW.getDefaultStack());
+			PillagerMilkItem.crossbowIsNeeded = false;
+		}
+		if(PillagerMilkItem.shieldIsNeeded){
+			this.giveItemStack(Items.SHIELD.getDefaultStack());
+			PillagerMilkItem.shieldIsNeeded = false;
+		}
+		if(SkeletonMilkItem.bowIsNeeded){
+			this.giveItemStack(Items.BOW.getDefaultStack());
+			SkeletonMilkItem.bowIsNeeded = false;
+		}
+		if(StrayMilkItem.bowIsNeeded){
+			this.giveItemStack(Items.BOW.getDefaultStack());
+			StrayMilkItem.bowIsNeeded = false;
+		}
+		if(VindicatorMilkItem.shieldIsNeeded){
+			this.giveItemStack(Items.SHIELD.getDefaultStack());
+			VindicatorMilkItem.shieldIsNeeded = false;
+		}
+		if(VindicatorMilkItem.axeIsNeeded){
+			this.giveItemStack(Items.IRON_AXE.getDefaultStack());
+			VindicatorMilkItem.axeIsNeeded = false;
+		}
+		if(VindicatorMilkItem.shieldIsNeeded){
+			this.giveItemStack(Items.SHIELD.getDefaultStack());
+			VindicatorMilkItem.shieldIsNeeded = false;
+		}
+
 		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.BAMBOOED) && MathHelper.nextInt(random, 0, 700) == 0){
 			Vec3d vec3d = this.getVelocity();
-			this.world.addParticle(ParticleTypes.SNEEZE, this.getX() - (double)(this.getWidth() + 1.0F) * 0.5D * (double)MathHelper.sin(this.bodyYaw * 0.017453292F), this.getEyeY() - 0.10000000149011612D, this.getZ() + (double)(this.getWidth() + 1.0F) * 0.5D * (double)MathHelper.cos(this.bodyYaw * 0.017453292F), vec3d.x, 0.0D, vec3d.z);
 			createSound(this, SoundEvents.ENTITY_PANDA_SNEEZE, SoundCategory.PLAYERS);
 			if(!world.isClient){
 				this.giveItemStack(Items.SLIME_BALL.getDefaultStack());
 			}
 		}
+
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SNOWED) && this.isSneaking()) {
 			if (cooldownSnowShoot <= 0) {
 			SnowballEntity snowballEntity = new SnowballEntity(world, this);
@@ -146,15 +196,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 			}
 
 		}
-		
-	if (!this.isFallFlying() && this.jumping) {
-		if ((this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED) || this.hasStatusEffect(NotEnoughMilkStatusEffects.BATTED))) {
-			if (!this.onGround && !this.isFallFlying() && !this.isTouchingWater()) {
-				this.startFallFlying();
-			}
-
-		}
-	}
 
 	if (this.hasStatusEffect(NotEnoughMilkStatusEffects.WITCHED)){
 		if(!this.world.isClient()) {
@@ -180,13 +221,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 		}
 	}
 
-	if ((this.isFallFlying() && this.onGround) && ((this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED) || this.hasStatusEffect(NotEnoughMilkStatusEffects.BATTED)))){
-		this.stopFallFlying();
-	}
 
-	if (this.isSneaking() && ((this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED) || this.hasStatusEffect(NotEnoughMilkStatusEffects.BATTED)))) {
-		this.addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 10, 7));
-		}
 
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SHULKED)) {
 			if (hasBeenDamaged(this)){
@@ -239,7 +274,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
 	@Inject(cancellable = true, at = @At("HEAD"), method = "handleFallDamage")
 	public void handleFallDamage(float fallDistance, float damageMultiplier, CallbackInfoReturnable<Boolean> info) {
-		if ((this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED) || this.hasStatusEffect(NotEnoughMilkStatusEffects.BATTED))){
+		if ((this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED))){
 			info.setReturnValue(false);
 		}
 	}

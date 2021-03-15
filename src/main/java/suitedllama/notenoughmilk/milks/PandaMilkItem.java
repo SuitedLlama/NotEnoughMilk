@@ -34,7 +34,8 @@ public class PandaMilkItem extends Item {
       }
 
       if (!world.isClient) {
-        user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.BAMBOOED, 6000, 0));
+         user.clearStatusEffects();
+         user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.BAMBOOED, 6000, 0));
       }
 
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;
