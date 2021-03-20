@@ -36,9 +36,9 @@ public class TurtleMilkItem extends Item {
 
       if (!world.isClient) {
            user.clearStatusEffects();
-           user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.TURTLED, 3000));
-           user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.FISHER, 3000));
-           user.addStatusEffect(new StatusEffectInstance(StatusEffects.CONDUIT_POWER, 3000));
+           user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.TURTLED, 1500));
+           user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.FISHER, 1500));
+           user.addStatusEffect(new StatusEffectInstance(StatusEffects.CONDUIT_POWER, 1500));
       }
 
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;

@@ -36,7 +36,9 @@ public class WolfMilkItem extends Item {
 
       if (!world.isClient) {
          user.clearStatusEffects();
-         user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.CARNIVOROUS, 6000, 0));
+         user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.CARNIVOROUS, 3500, 0));
+         user.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 3500, 0));
+
       }
 
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;

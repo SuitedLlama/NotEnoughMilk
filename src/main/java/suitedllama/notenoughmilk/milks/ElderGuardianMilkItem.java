@@ -60,8 +60,6 @@ public class ElderGuardianMilkItem extends Item {
          user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.GUARDED, 8000, 0));
          user.addStatusEffect(new StatusEffectInstance(StatusEffects.CONDUIT_POWER, 8000, 0));
          assert user instanceof ServerPlayerEntity;
-         ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) user;
-         serverPlayerEntity.getServerWorld().setWeather(0, 8000,true,true);
          boolean foundTrident = false;
          for (int i = 0; i < playerEntity.inventory.size(); i++) {
             ItemStack inventoryStack = playerEntity.inventory.getStack(i);

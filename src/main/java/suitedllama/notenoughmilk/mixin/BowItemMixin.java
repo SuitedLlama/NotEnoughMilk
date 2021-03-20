@@ -44,8 +44,8 @@ public abstract class BowItemMixin extends RangedWeaponItem {
 						PersistentProjectileEntity persistentProjectileEntity = arrowItem.createArrow(world, itemStack, playerEntity);
 						persistentProjectileEntity.setProperties(playerEntity, playerEntity.pitch, playerEntity.yaw, 0.0F, f * 3.0F, 1.0F);
 						persistentProjectileEntity.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY;
-						persistentProjectileEntity.setCritical(true);
-						persistentProjectileEntity.setDamage(persistentProjectileEntity.getDamage() + (double)2 * 0.5D + 0.5D);
+						persistentProjectileEntity.setCritical(false);
+						persistentProjectileEntity.setDamage(persistentProjectileEntity.getDamage());
 
 
 						int k = EnchantmentHelper.getLevel(Enchantments.PUNCH, stack);

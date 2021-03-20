@@ -42,8 +42,6 @@ public class DrownedMilkItem extends Item {
           PlayerEntity playerEntity = (PlayerEntity) user;
           user.clearStatusEffects();
           assert user instanceof ServerPlayerEntity;
-          ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) user;
-          serverPlayerEntity.getServerWorld().setWeather(0, 6000,true,true);
           user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.FISHER, 6000, 0));
           user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.DROWNER, 6000, 0));
           user.addStatusEffect(new StatusEffectInstance(StatusEffects.CONDUIT_POWER, 6000, 0));
@@ -57,6 +55,7 @@ public class DrownedMilkItem extends Item {
               }
           }
           if (!foundTrident) {
+              if(world.random.nextInt(100) <= 15)
               tridentIsNeeded = true;
           }
 
