@@ -94,6 +94,14 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(at = @At("TAIL"), method = "tick")
 	public void tick(CallbackInfo info) throws InterruptedException {
 
+		if(PiglinMilkItem.goldIsNeeded){
+			int i = this.world.random.nextInt(15) + 1;
+			ItemStack goldIngots = Items.GOLD_INGOT.getDefaultStack();
+			goldIngots.setCount(i);
+			this.giveItemStack(goldIngots);
+			PiglinMilkItem.goldIsNeeded = false;
+		}
+
 		if(PiglinMilkItem.swordIsNeeded){
 			this.giveItemStack(Items.GOLDEN_SWORD.getDefaultStack());
 			PiglinMilkItem.swordIsNeeded = false;

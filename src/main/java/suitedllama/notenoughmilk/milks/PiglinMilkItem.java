@@ -24,6 +24,8 @@ public class PiglinMilkItem extends Item {
    }
 
    public static boolean swordIsNeeded;
+   public static boolean goldIsNeeded;
+
 
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
 
@@ -42,6 +44,7 @@ public class PiglinMilkItem extends Item {
           PlayerEntity playerEntity = (PlayerEntity) user;
           user.clearStatusEffects();
           if(user.world.getDimension().isUltrawarm()) {
+              goldIsNeeded = true;
               user.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 6000, 0));
               boolean foundSword = false;
               for (int i = 0; i < playerEntity.inventory.size(); i++) {

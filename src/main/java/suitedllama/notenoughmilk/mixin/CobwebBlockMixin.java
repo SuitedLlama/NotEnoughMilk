@@ -33,6 +33,7 @@ public abstract class CobwebBlockMixin extends Block {
 	}
 
 	/**
+	 * @reason needed to stop player movement speed from slowing when the player has the spider status effect, can be replaced with a variable change in the future.
 	 * @author SuitedLlama
 	 */
 	@Overwrite
