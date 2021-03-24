@@ -15,36 +15,27 @@
       "announce_to_chat": true,
       "hidden": false
     },
-    "rewards": {
-      "experience": 800
-    },
-    "criteria": {
-      "notenoughmilk:bat_milk_bucket": {
-        "trigger": "minecraft:consume_item",
-        "conditions": {
-          "item": {
-            "item": "notenoughmilk:bat_milk_bucket"
-          }
-        }
-      },
-      "minecraft:milk_bucket": {
-        "trigger": "minecraft:consume_item",
-        "conditions": {
-          "item": {
-            "item": "minecraft:milk_bucket"
-          }
-        }
-      }
-    },
-    "notenoughmilk:chicken_milk_bucket": {
+  "rewards": {
+    "experience": 100
+  },
+  "criteria": {
+    "bat_milk": {
       "trigger": "minecraft:consume_item",
       "conditions": {
         "item": {
-          "item": "notenoughmilk:chicken_milk_bucket"
+          "item": "notenoughmilk:bat_milk_bucket"
         }
       }
     },
-    "notenoughmilk:cat_milk_bucket": {
+    "bee_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:blaze_milk_bucket"
+        }
+      }
+    },
+    "cat_milk": {
       "trigger": "minecraft:consume_item",
       "conditions": {
         "item": {
@@ -52,7 +43,95 @@
         }
       }
     },
-    "notenoughmilk:fish_milk_bucket": {
+    "cave_spider_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:cave_spider_milk_bucket"
+        }
+      }
+    },
+    "chicken_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:chicken_milk_bucket"
+        }
+      }
+    },
+    "creeper_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:creeper_milk_bucket"
+        }
+      }
+    },
+    "dolphin_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:dolphin_milk_bucket"
+        }
+      }
+    },
+    "donkey_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:donkey_milk_bucket"
+        }
+      }
+    },
+    "drowned_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:drowned_milk_bucket"
+        }
+      }
+    },
+    "elder_guardian_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:elder_guardian_milk_bucket"
+        }
+      }
+    },
+    "ender_dragon_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:ender_dragon_milk_bucket"
+        }
+      }
+    },
+    "enderman_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:enderman_milk_bucket"
+        }
+      }
+    },
+    "endermite_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:endermite_milk_bucket"
+        }
+      }
+    },
+    "evoker_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:evoker_milk_bucket"
+        }
+      }
+    },
+    "fish_milk": {
       "trigger": "minecraft:consume_item",
       "conditions": {
         "item": {
@@ -60,21 +139,503 @@
         }
       }
     },
-    "requirements": [
-      [
-        "notenoughmilk:bat_milk_bucket"
-      ],
-      [
-        "minecraft:milk_bucket"
-      ],
-      [
-        "notenoughmilk:chicken_milk_bucket"
-      ],
-      [
-        "notenoughmilk:cat_milk_bucket"
-      ],
-      [
-        "notenoughmilk:fish_milk_bucket"
-      ]
+    "fox_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:fox_milk_bucket"
+        }
+      }
+    },
+    "ghast_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:ghast_milk_bucket"
+        }
+      }
+    },
+    "guardian_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:guardian_milk_bucket"
+        }
+      }
+    },
+    "hoglin_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:hoglin_milk_bucket"
+        }
+      }
+    },
+    "horse_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:horse_milk_bucket"
+        }
+      }
+    },
+    "iron_golem_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:iron_golem_milk"
+        }
+      }
+    },
+    "llama_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:llama_milk_bucket"
+        }
+      }
+    },
+    "magma_cube_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:magma_cube_milk_bucket"
+        }
+      }
+    },
+    "mooshroom_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:mooshroom_milk_bucket"
+        }
+      }
+    },
+    "mule_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:mule_milk_bucket"
+        }
+      }
+    },
+    "ocelot_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:ocelot_milk_bucket"
+        }
+      }
+    },
+    "panda_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:panda_milk_bucket"
+        }
+      }
+    },
+    "parrot_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:parrot_milk_bucket"
+        }
+      }
+    },
+    "phantom_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:phantom_milk_bucket"
+        }
+      }
+    },
+    "pig_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "minecraft:pig_milk_bucket"
+        }
+      }
+    },
+    "piglin_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:piglin_milk_bucket"
+        }
+      }
+    },
+    "pillager_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:pillager_milk_bucket"
+        }
+      }
+    },
+    "polar_bear_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:polar_bear_milk_bucket"
+        }
+      }
+    },
+    "rabbit_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:rabbit_milk_bucket"
+        }
+      }
+    },
+    "ravager_milk_bucket": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:ravager_milk_bucket"
+        }
+      }
+    },
+    "sheep_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:sheep_milk_bucket"
+        }
+      }
+    },
+    "shulker_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:shulker_milk_bucket"
+        }
+      }
+    },
+    "silverfish_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:silverfish_milk_bucket"
+        }
+      }
+    },
+    "skeleton_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:skeleton_milk_bucket"
+        }
+      }
+    },
+    "slime_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:slime_milk_bucket"
+        }
+      }
+    },
+    "snow_golem_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:snow_golem_milk_bucket"
+        }
+      }
+    },
+    "spider_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:spider_milk_bucket"
+        }
+      }
+    },
+    "squid_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:squid_milk_bucket"
+        }
+      }
+    },
+    "stray_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:stray_milk_bucket"
+        }
+      }
+    },
+    "strider_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:strider_milk_bucket"
+        }
+      }
+    },
+    "turtle_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:turtle_milk_bucket"
+        }
+      }
+    },
+    "vex_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:vex_milk_bucket"
+        }
+      }
+    },
+    "villager_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:villager_milk_bucket"
+        }
+      }
+    },
+    "vindicator_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:vindicator_milk_bucket"
+        }
+      }
+    },
+    "witch_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:witch_milk_bucket"
+        }
+      }
+    },
+    "wither_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:wither_milk_bucket"
+        }
+      }
+    },
+    "wither_skeleton_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:wither_skeleton_milk_bucket"
+        }
+      }
+    },
+    "wolf_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:wolf_milk_bucket"
+        }
+      }
+    },
+    "zoglin_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:zoglin_milk_bucket"
+        }
+      }
+    },
+    "zobmie_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:zombie_milk_bucket"
+        }
+      }
+    },
+    "zombified_piglin_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "notenoughmilk:zombified_piglin_milk"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "bat_milk"
+    ],
+    [
+      "bee_milk"
+    ],
+    [
+      "blaze_milk"
+    ],
+    [
+      "cat_milk"
+    ],
+    [
+      "cave_spider_milk"
+    ],
+    [
+      "chicken_milk"
+    ],
+    [
+      "creeper_milk"
+    ],
+    [
+      "dolphin_milk"
+    ],
+    [
+      "donkey_milk"
+    ],
+    [
+      "drowned_milk"
+    ],
+    [
+      "elder_guardian_milk"
+    ],
+    [
+      "ender_dragon_milk"
+    ],
+    [
+      "enderman_milk"
+    ],
+    [
+      "endermite_milk"
+    ],
+    [
+      "evoker_milk"
+    ],
+    [
+      "fish_milk"
+    ],
+    [
+      "fox_milk"
+    ],
+    [
+      "ghast_milk"
+    ],
+    [
+      "guardian_milk"
+    ],
+    [
+      "hoglin_milk"
+    ],
+    [
+      "horse_milk"
+    ],
+    [
+      "iron_golem_milk"
+    ],
+    [
+      "llama_milk"
+    ],
+    [
+      "magma_cube_milk"
+    ],
+    [
+      "mooshroom_milk"
+    ],
+    [
+      "mule_milk"
+    ],
+    [
+      "ocelot_milk"
+    ],
+    [
+      "panda_milk"
+    ],
+    [
+      "phantom_milk"
+    ],
+    [
+      "pig_milk"
+    ],
+    [
+      "piglin_milk"
+    ],
+    [
+      "pillager_milk"
+    ],
+    [
+      "polar_bear_milk"
+    ],
+    [
+      "rabbit_milk"
+    ],
+    [
+      "ravager_milk"
+    ],
+    [
+      "sheep_milk"
+    ],
+    [
+      "shulker_milk"
+    ],
+    [
+      "silverfish_milk"
+    ],
+    [
+      "skeleton_milk"
+    ],
+    [
+      "slime_milk"
+    ],
+    [
+      "snow_golem_milk"
+    ],
+    [
+      "spider_milk"
+    ],
+    [
+      "squid_milk"
+    ],
+    [
+      "stray_milk"
+    ],
+    [
+      "strider_milk"
+    ],
+    [
+      "turtle_milk"
+    ],
+    [
+      "vex_milk"
+    ],
+    [
+      "villager_milk"
+    ],
+    [
+      "vindicator_milk"
+    ],
+    [
+      "witch_milk"
+    ],
+    [
+      "wither_milk"
+    ],
+    [
+      "wither_skeleton_milk"
+    ],
+    [
+      "wolf_milk"
+    ],
+    [
+      "zoglin_milk"
+    ],
+    [
+      "zombie_milk"
+    ],
+    [
+      "zombified_piglin_milk"
     ]
-  }
+  ]
+}

@@ -59,10 +59,6 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Inject(at = @At("TAIL"), method = "tick")
 	private void tick(CallbackInfo info) {
-		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.DIMENSIONAL)){
-			this.setInNetherPortal(this.getBlockPos());
-
-		}
 		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.GUARDED)){
 			if(this.hasStatusEffect(StatusEffects.MINING_FATIGUE)){
 				this.removeStatusEffect(StatusEffects.MINING_FATIGUE);

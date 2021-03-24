@@ -41,8 +41,6 @@ public class NotEnoughMilkStatusEffects {
     public static final StatusEffect ENDERMITED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 6553700);
     public static final StatusEffect VEXXED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 65535);
     public static final StatusEffect GUARDED = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 65470);
-    public static final StatusEffect DIMENSIONAL = new AccessibleStatusEffect(StatusEffectType.BENEFICIAL, 9830525);
-
 
     public static void statusEffectInit(){
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "inking"), INKING);
@@ -78,8 +76,6 @@ public class NotEnoughMilkStatusEffects {
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "endermited"), ENDERMITED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "vexxed"), VEXXED);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "guarded"), GUARDED);
-        Registry.register(Registry.STATUS_EFFECT, new Identifier(NotEnoughMilk.MOD_ID, "dimensional"), DIMENSIONAL);
-
     }
 
 }

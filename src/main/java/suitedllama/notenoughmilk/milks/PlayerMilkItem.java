@@ -32,7 +32,7 @@ public class PlayerMilkItem extends Item {
       if (user instanceof PlayerEntity && !((PlayerEntity)user).abilities.creativeMode) {
          stack.decrement(1);
       }
-
+/*
       if (!world.isClient) {
          user.clearStatusEffects();
          assert user instanceof PlayerEntity;
@@ -43,7 +43,7 @@ public class PlayerMilkItem extends Item {
             user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.DIMENSIONAL, 120, 0));
          }
       }
-
+*/
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;
    }
 

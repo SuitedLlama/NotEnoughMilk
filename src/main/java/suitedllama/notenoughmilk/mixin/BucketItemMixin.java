@@ -254,7 +254,7 @@ public abstract class BucketItemMixin extends Item {
 		/**
 		else if (entity instanceof PlayerEntity && entity.isAlive() && player.isSneaking()) {
 			PlayerEntity milkedPlayer = (PlayerEntity) entity;
-			this.milk(stack, player, NotEnoughMilk.PLAYER_MILK_BUCKET.getDefaultStack().setCustomName(milkedPlayer.getDisplayName().copy().append((new LiteralText("'s Milk")))), hand);
+			this.milk(stack, player, NotEnoughMilk.PLAYER_MILK_BUCKET.getDefaultStack().setTag(tag).setCustomName(milkedPlayer.getDisplayName().copy().append((new LiteralText("'s Milk")))), hand);
 			return ActionResult.success(player.world.isClient);
 		}
 		**/
