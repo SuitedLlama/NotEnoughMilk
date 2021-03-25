@@ -35,7 +35,7 @@ public class PigMilkItem extends Item {
 
       if (!world.isClient) {
          user.clearStatusEffects();
-         user.addStatusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 600, 2));
+         user.addStatusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 80, 0));
       }
 
       return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;

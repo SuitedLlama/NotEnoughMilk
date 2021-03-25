@@ -221,13 +221,15 @@ public abstract class LivingEntityMixin extends Entity {
 			}
 			if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SPITTER) && target instanceof LivingEntity) {
 				createSound(target, SoundEvents.ENTITY_LLAMA_SPIT, SoundCategory.PLAYERS);
-				LlamaSpitEntity llamaSpitEntity = new LlamaSpitEntity(world, this.getX(), this.getEyeY() + .25, this.getZ(), 0d, 0d, 0d);
-				double d = target.getX() - this.getX();
-				double e = target.getBodyY(0.3333333333333333D) - llamaSpitEntity.getY();
-				double f = target.getZ() - this.getZ();
-				float g = MathHelper.sqrt(d * d + f * f) * 0.2F;
-				llamaSpitEntity.setVelocity(d, e + (double) g, f, 1.5F, 10.0F);
-				this.world.spawnEntity(llamaSpitEntity);
+				if(this.world.isClient()) {
+					LlamaSpitEntity llamaSpitEntity = new LlamaSpitEntity(world, this.getX(), this.getEyeY() + .25, this.getZ(), 0d, 0d, 0d);
+					double d = target.getX() - this.getX();
+					double e = target.getBodyY(0.3333333333333333D) - llamaSpitEntity.getY();
+					double f = target.getZ() - this.getZ();
+					float g = MathHelper.sqrt(d * d + f * f) * 0.2F;
+					llamaSpitEntity.setVelocity(d, e + (double) g, f, 1.5F, 10.0F);
+					this.world.spawnEntity(llamaSpitEntity);
+				}
 			}
 			if (this.hasStatusEffect(NotEnoughMilkStatusEffects.CAVE_SPIDERED) && target instanceof LivingEntity) {
 				((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 600, 0));

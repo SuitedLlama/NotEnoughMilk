@@ -31,6 +31,14 @@
       "trigger": "minecraft:consume_item",
       "conditions": {
         "item": {
+          "item": "notenoughmilk:bee_milk_bucket"
+        }
+      }
+    },
+    "blaze_milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
           "item": "notenoughmilk:blaze_milk_bucket"
         }
       }
@@ -183,7 +191,7 @@
       "trigger": "minecraft:consume_item",
       "conditions": {
         "item": {
-          "item": "notenoughmilk:iron_golem_milk"
+          "item": "notenoughmilk:iron_golem_milk_bucket"
         }
       }
     },
@@ -200,6 +208,14 @@
       "conditions": {
         "item": {
           "item": "notenoughmilk:magma_cube_milk_bucket"
+        }
+      }
+    },
+    "milk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "minecraft:milk_bucket"
         }
       }
     },
@@ -255,7 +271,7 @@
       "trigger": "minecraft:consume_item",
       "conditions": {
         "item": {
-          "item": "minecraft:pig_milk_bucket"
+          "item": "notenoughmilk:pig_milk_bucket"
         }
       }
     },
@@ -291,7 +307,7 @@
         }
       }
     },
-    "ravager_milk_bucket": {
+    "ravager_milk": {
       "trigger": "minecraft:consume_item",
       "conditions": {
         "item": {
@@ -451,7 +467,7 @@
         }
       }
     },
-    "zobmie_milk": {
+    "zombie_milk": {
       "trigger": "minecraft:consume_item",
       "conditions": {
         "item": {
@@ -463,7 +479,7 @@
       "trigger": "minecraft:consume_item",
       "conditions": {
         "item": {
-          "item": "notenoughmilk:zombified_piglin_milk"
+          "item": "notenoughmilk:zombified_piglin_milk_bucket"
         }
       }
     }
@@ -542,6 +558,9 @@
       "magma_cube_milk"
     ],
     [
+      "milk"
+    ],
+    [
       "mooshroom_milk"
     ],
     [
@@ -552,6 +571,9 @@
     ],
     [
       "panda_milk"
+    ],
+    [
+      "parrot_milk"
     ],
     [
       "phantom_milk"
