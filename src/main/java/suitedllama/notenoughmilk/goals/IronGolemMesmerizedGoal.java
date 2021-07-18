@@ -9,7 +9,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
 public class IronGolemMesmerizedGoal extends Goal {
-    private static final TargetPredicate TEMPTING_ENTITY_PREDICATE = (new TargetPredicate()).setBaseMaxDistance(10.0D).includeInvulnerable().includeTeammates().ignoreEntityTargetRules().includeHidden();
+    // TODO TargetPredicate() is private in class
+    // private static final TargetPredicate TEMPTING_ENTITY_PREDICATE = (new TargetPredicate()).setBaseMaxDistance(10.0D).includeInvulnerable().includeTeammates().ignoreEntityTargetRules().includeHidden();
     protected final MobEntity mob;
     private final double speed;
     protected PlayerEntity closestPlayer;
@@ -27,7 +28,7 @@ public class IronGolemMesmerizedGoal extends Goal {
             --this.cooldown;
             return false;
         } else {
-            this.closestPlayer = this.mob.world.getClosestPlayer(TEMPTING_ENTITY_PREDICATE, this.mob);
+            // this.closestPlayer = this.mob.world.getClosestPlayer(TEMPTING_ENTITY_PREDICATE, this.mob);
             if (this.closestPlayer == null) {
                 return false;
             } else {

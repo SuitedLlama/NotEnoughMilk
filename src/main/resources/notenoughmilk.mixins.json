@@ -2,7 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "package": "suitedllama.notenoughmilk.mixin",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_16",
   "mixins": [
     "AbstractDonkeyEntityMixin",
     "BambooBlockMixin",
@@ -11,8 +11,6 @@
     "BucketItemMixin",
     "CatEntityMixin",
     "CobwebBlockMixin",
-    "CrossbowItemMixin",
-    "DragonEggBlockMixin",
     "FlowerBlockMixin",
     "GrassBlockMixin",
     "IronGolemEntityMixin",
@@ -29,7 +27,7 @@
     "WolfEntityMixin"
   ],
   "client": [
-    "InGameHudMixin"
+
   ],
   "injectors": {
     "defaultRequire": 1

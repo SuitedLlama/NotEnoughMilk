@@ -19,6 +19,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
+import java.util.Random;
+
 import static net.minecraft.item.BowItem.getPullProgress;
 
 @Mixin(BowItem.class)
@@ -42,7 +44,7 @@ public abstract class BowItemMixin extends RangedWeaponItem {
 					if (!world.isClient) {
 						ArrowItem arrowItem = (ArrowItem)((ArrowItem)(itemStack.getItem() instanceof ArrowItem ? itemStack.getItem() : Items.ARROW));
 						PersistentProjectileEntity persistentProjectileEntity = arrowItem.createArrow(world, itemStack, playerEntity);
-						persistentProjectileEntity.setProperties(playerEntity, playerEntity.pitch, playerEntity.yaw, 0.0F, f * 3.0F, 1.0F);
+						persistentProjectileEntity.setProperties(playerEntity, playerEntity.getPitch(), playerEntity.getYaw(), 0.0F, f * 3.0F, 1.0F);
 						persistentProjectileEntity.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY;
 						persistentProjectileEntity.setCritical(false);
 						persistentProjectileEntity.setDamage(persistentProjectileEntity.getDamage());
@@ -59,8 +61,8 @@ public abstract class BowItemMixin extends RangedWeaponItem {
 
 						world.spawnEntity(persistentProjectileEntity);
 					}
-
-					world.playSound((PlayerEntity)null, playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (RANDOM.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+					// removed random.nextfloat() because of errors that i dont know how to fix rn
+					world.playSound((PlayerEntity)null, playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, (float) (1.0F / (0.5 * 0.4F + 1.2F) + f * 0.5F));
 					playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
 				}
 			}

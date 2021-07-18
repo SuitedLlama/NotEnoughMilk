@@ -60,7 +60,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 	@Shadow public abstract void startFallFlying();
 	@Shadow public abstract void stopFallFlying();
 
-	@Shadow public abstract void setGameMode(GameMode gameMode);
+	// @Shadow public abstract void setGameMode(GameMode gameMode);
 	@Shadow public abstract boolean isCreative();
 
 	@Shadow public abstract void jump();
@@ -75,7 +75,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
 	@Shadow public abstract float getMovementSpeed();
 
-	@Shadow public abstract boolean canFly();
+	// @Shadow public abstract boolean canFly();
 
 	@Shadow @Final public PlayerAbilities abilities;
 	private int cooldownSnowShoot;
@@ -158,7 +158,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 				this.giveItemStack(Items.SLIME_BALL.getDefaultStack());
 			}
 		}
-
+		/*
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SNOWED) && this.isSneaking()) {
 			if (cooldownSnowShoot <= 0) {
 			SnowballEntity snowballEntity = new SnowballEntity(world, this);
@@ -171,7 +171,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 			cooldownSnowShoot --;
 			}
 		}
-
+		*/
 		if (this.songSource != null && this.songSource.isWithinDistance(this.getPos(), 3.46D) && this.world.getBlockState(this.songSource).isOf(Blocks.JUKEBOX) && this.songPlaying == true && this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED)) {
 			ItemStack itemStack = this.getStackInHand(Hand.MAIN_HAND);
 			if (this.isOnGround()){
@@ -180,7 +180,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 			}
 		}
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.BLAZED) || this.hasStatusEffect(NotEnoughMilkStatusEffects.GHASTED)){
-			FireballEntity fireballEntity = new FireballEntity(world, this, 0, 0, 0);
+			// FireballEntity fireballEntity = new FireballEntity(world, this, 0, 0, 0);
 			if (!this.world.getDimension().isUltrawarm()){
 				this.removeStatusEffect(StatusEffects.FIRE_RESISTANCE);
 				this.removeStatusEffect(NotEnoughMilkStatusEffects.BLAZED);
@@ -190,6 +190,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 			if (!this.isSneaking()){
 				cooldownBlazeShoot = 25;
 			}
+			/*
 			if (this.isSneaking()){
 				if (cooldownBlazeShoot <= 0) {
 					Vec3d vec3d = this.getRotationVec(1.0F);
@@ -202,6 +203,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 					cooldownBlazeShoot --;
 				}
 			}
+			 */
 
 		}
 
@@ -240,7 +242,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
 					for (int i = 0; i < 16; ++i) {
 						double g = this.getX() + (this.getRandom().nextDouble() - 0.5D) * 16.0D;
-						double h = MathHelper.clamp(this.getY() + (double) (this.getRandom().nextInt(16) - 8), 0.0D, (double) (world.getDimensionHeight() - 1));
+						double h = MathHelper.clamp(this.getY() + (double) (this.getRandom().nextInt(16) - 8), 0.0D, (double) (world.getDimension().getHeight() - 1));
 						double j = this.getZ() + (this.getRandom().nextDouble() - 0.5D) * 16.0D;
 						if (this.hasVehicle()) {
 							this.stopRiding();
@@ -259,7 +261,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 					LivingEntity target = null;
 					ShulkerBulletEntity shulkerBulletEntity = new ShulkerBulletEntity(world, this, target, this.getMovementDirection().getAxis());
 					shulkerBulletEntity.setNoGravity(true);
-					shulkerBulletEntity.setProperties(this, this.pitch, this.yaw, 0.5F, 0.75F, 1.0F);
+					// shulkerBulletEntity.setProperties(this, this.pitch, this.yaw, 0.5F, 0.75F, 1.0F);
 					this.playSound(SoundEvents.ENTITY_SHULKER_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
 					world.spawnEntity(shulkerBulletEntity);
 					cooldownShulkerShoot = 40;
@@ -279,13 +281,15 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 		}
 	}
 
-
+	// Another weird error
+	/*
 	@Inject(cancellable = true, at = @At("HEAD"), method = "handleFallDamage")
 	public void handleFallDamage(float fallDistance, float damageMultiplier, CallbackInfoReturnable<Boolean> info) {
 		if ((this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED))){
 			info.setReturnValue(false);
 		}
 	}
+	*/
 
 	@Inject(cancellable = true, at = @At("TAIL"), method = "interact")
 	public void interact(Entity player, Hand hand, CallbackInfoReturnable<ActionResult> info) {

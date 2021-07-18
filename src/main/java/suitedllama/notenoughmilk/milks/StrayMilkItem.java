@@ -30,7 +30,7 @@ public class StrayMilkItem extends Item {
          serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
       }
 
-      if (user instanceof PlayerEntity && !((PlayerEntity)user).abilities.creativeMode) {
+      if (user instanceof PlayerEntity && !((PlayerEntity)user).isCreative()) {
          stack.decrement(1);
       }
 
@@ -40,8 +40,8 @@ public class StrayMilkItem extends Item {
             user.clearStatusEffects();
             user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.STRAYED, 4200, 0));
             boolean foundBow = false;
-            for (int i = 0; i < playerEntity.inventory.size(); i++) {
-                ItemStack inventoryStack = playerEntity.inventory.getStack(i);
+            for (int i = 0; i < playerEntity.getInventory().size(); i++) {
+                ItemStack inventoryStack = playerEntity.getInventory().getStack(i);
                 if ((inventoryStack.getItem() == Items.BOW)) {
                     foundBow = true;
                     bowIsNeeded = false;

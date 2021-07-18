@@ -29,6 +29,9 @@ public class InGameHudMixin {
             this.renderPumpkinOverlay();
         }
     }
+    /*
+    Method not in InGameHud.class anymore
     @Shadow private void renderPumpkinOverlay(){
     }
+     */
 }

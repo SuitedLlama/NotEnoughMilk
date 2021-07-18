@@ -267,7 +267,7 @@ public abstract class BucketItemMixin extends Item {
 			player.setStackInHand(hand, milkStack);
 		}
 		else {
-		ItemStack itemStack = ItemUsage.method_30012(bucketStack, player, milkStack);
+		ItemStack itemStack = ItemUsage.exchangeStack(bucketStack, player, milkStack);
 			player.setStackInHand(hand, itemStack);
 		}
 	}

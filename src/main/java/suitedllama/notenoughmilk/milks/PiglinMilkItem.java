@@ -35,7 +35,7 @@ public class PiglinMilkItem extends Item {
          serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
       }
 
-      if (user instanceof PlayerEntity && !((PlayerEntity)user).abilities.creativeMode) {
+      if (user instanceof PlayerEntity && !((PlayerEntity)user).isCreative()) {
          stack.decrement(1);
       }
 
@@ -47,8 +47,8 @@ public class PiglinMilkItem extends Item {
               goldIsNeeded = true;
               user.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 6000, 0));
               boolean foundSword = false;
-              for (int i = 0; i < playerEntity.inventory.size(); i++) {
-                  ItemStack inventoryStack = playerEntity.inventory.getStack(i);
+              for (int i = 0; i < playerEntity.getInventory().size(); i++) {
+                  ItemStack inventoryStack = playerEntity.getInventory().getStack(i);
                   if ((inventoryStack.getItem() == Items.GOLDEN_SWORD)) {
                       foundSword = true;
                      swordIsNeeded = false;
