@@ -9,6 +9,4 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface LivingEntityAccess  {
 	@Accessor("lastDamageTime")
 	public long lastDamageTime();
-
-
 }
