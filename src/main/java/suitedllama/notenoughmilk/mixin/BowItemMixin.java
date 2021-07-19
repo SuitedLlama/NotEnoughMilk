@@ -62,7 +62,8 @@ public abstract class BowItemMixin extends RangedWeaponItem {
 						world.spawnEntity(persistentProjectileEntity);
 					}
 					// removed random.nextfloat() because of errors that i dont know how to fix rn
-					world.playSound((PlayerEntity)null, playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, (float) (1.0F / (0.5 * 0.4F + 1.2F) + f * 0.5F));
+					Random random = new Random();
+					world.playSound((PlayerEntity)null, playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, (float) (1.0F / (random.nextFloat() * 0.4F + 1.2F) + f * 0.5F));
 					playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
 				}
 			}

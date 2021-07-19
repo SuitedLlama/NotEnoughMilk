@@ -1,8 +1,5 @@
 package suitedllama.notenoughmilk.mixin;
 
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.CrossbowUser;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -10,20 +7,20 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FireworkRocketEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.CrossbowItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
 @Mixin(CrossbowItem.class)
@@ -61,9 +58,9 @@ public abstract class CrossbowItemMixin extends RangedWeaponItem {
 				crossbowUser.shoot(crossbowUser.getTarget(), crossbow, (ProjectileEntity)projectileEntity2, simulated);
 			} else {
 				Vec3d vec3d = shooter.getOppositeRotationVector(1.0F);
-				Quaternion quaternion = new Quaternion(new Vector3f(vec3d), simulated, true);
+				Quaternion quaternion = new Quaternion(new Vec3f(vec3d), simulated, true);
 				Vec3d vec3d2 = shooter.getRotationVec(1.0F);
-				Vector3f vector3f = new Vector3f(vec3d2);
+				Vec3f vector3f = new Vec3f(vec3d2);
 				vector3f.rotate(quaternion);
 				((ProjectileEntity)projectileEntity2).setVelocity((double)vector3f.getX(), (double)vector3f.getY(), (double)vector3f.getZ(), speed, divergence);
 			}

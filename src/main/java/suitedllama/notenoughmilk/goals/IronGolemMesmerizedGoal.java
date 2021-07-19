@@ -28,6 +28,7 @@ public class IronGolemMesmerizedGoal extends Goal {
             --this.cooldown;
             return false;
         } else {
+            // TODO fix other todo in here then delete //
             // this.closestPlayer = this.mob.world.getClosestPlayer(TEMPTING_ENTITY_PREDICATE, this.mob);
             if (this.closestPlayer == null) {
                 return false;

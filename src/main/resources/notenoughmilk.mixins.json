@@ -11,8 +11,10 @@
     "BucketItemMixin",
     "CatEntityMixin",
     "CobwebBlockMixin",
+    "CrossbowItemMixin",
     "FlowerBlockMixin",
     "GrassBlockMixin",
+    "InGameHudMixin",
     "IronGolemEntityMixin",
     "ItemMixin",
     "LivingEntityAccess",
@@ -27,7 +29,6 @@
     "WolfEntityMixin"
   ],
   "client": [
-
   ],
   "injectors": {
     "defaultRequire": 1
