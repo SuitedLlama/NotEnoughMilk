@@ -19,6 +19,7 @@ public abstract class IronGolemEntityMixin extends MobEntity {
 	}
 
 	@Inject(cancellable = true, at = @At("HEAD"), method = "initGoals")
+	// TODO Golem doesn't follow or move at player
 	protected void initGoals(CallbackInfo ci) {
 		this.goalSelector.add(2, new IronGolemMesmerizedGoal(this, .75D));
 	}

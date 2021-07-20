@@ -33,7 +33,7 @@ public class ShulkerMilkItem extends Item {
          serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
       }
 
-      if (user instanceof PlayerEntity && !((PlayerEntity)user).abilities.creativeMode) {
+      if (user instanceof PlayerEntity && !((PlayerEntity)user).isCreative()) {
          stack.decrement(1);
       }
 

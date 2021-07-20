@@ -4,52 +4,45 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.render.entity.model.PlayerEntityModel;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.EvokerEntity;
 import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.VexEntity;
 import net.minecraft.entity.player.PlayerAbilities;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.projectile.FireballEntity;
 import net.minecraft.entity.projectile.ShulkerBulletEntity;
+import net.minecraft.entity.projectile.thrown.SnowballEntity;
 import net.minecraft.item.CrossbowItem;
-import net.minecraft.particle.ParticleTypes;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.village.raid.Raid;
-import net.minecraft.world.GameMode;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.thrown.SnowballEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
 import suitedllama.notenoughmilk.milks.*;
 import suitedllama.notenoughmilk.statuseffects.NotEnoughMilkStatusEffects;
 
 import java.util.function.Consumer;
-
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
 
 @SuppressWarnings("all")
 @Mixin(PlayerEntity.class)
@@ -60,7 +53,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 	@Shadow public abstract void startFallFlying();
 	@Shadow public abstract void stopFallFlying();
 
-	@Shadow public abstract void setGameMode(GameMode gameMode);
+	// @Shadow public abstract void setGameMode(GameMode gameMode);
 	@Shadow public abstract boolean isCreative();
 
 	@Shadow public abstract void jump();
@@ -75,7 +68,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
 	@Shadow public abstract float getMovementSpeed();
 
-	@Shadow public abstract boolean canFly();
+	// @Shadow public abstract boolean canFly();
 
 	@Shadow @Final public PlayerAbilities abilities;
 	private int cooldownSnowShoot;
@@ -158,11 +151,10 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 				this.giveItemStack(Items.SLIME_BALL.getDefaultStack());
 			}
 		}
-
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SNOWED) && this.isSneaking()) {
 			if (cooldownSnowShoot <= 0) {
 			SnowballEntity snowballEntity = new SnowballEntity(world, this);
-			snowballEntity.setProperties(this, this.pitch, this.yaw, 0.0F, 1.5F, 1.0F);
+			snowballEntity.setProperties(this, this.getPitch(), this.getYaw(), 0.0F, 1.5F, 1.0F);
 			world.spawnEntity(snowballEntity);
 			this.playSound(SoundEvents.ENTITY_SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
 			cooldownSnowShoot = 10;
@@ -171,7 +163,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 			cooldownSnowShoot --;
 			}
 		}
-
 		if (this.songSource != null && this.songSource.isWithinDistance(this.getPos(), 3.46D) && this.world.getBlockState(this.songSource).isOf(Blocks.JUKEBOX) && this.songPlaying == true && this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED)) {
 			ItemStack itemStack = this.getStackInHand(Hand.MAIN_HAND);
 			if (this.isOnGround()){
@@ -180,20 +171,21 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 			}
 		}
 		if (this.hasStatusEffect(NotEnoughMilkStatusEffects.BLAZED) || this.hasStatusEffect(NotEnoughMilkStatusEffects.GHASTED)){
-			FireballEntity fireballEntity = new FireballEntity(world, this, 0, 0, 0);
+			// Added explosionPower with 1 dunno how much this actually is though
+			FireballEntity fireballEntity = new FireballEntity(world, this, 0, 0, 0, 1);
 			if (!this.world.getDimension().isUltrawarm()){
 				this.removeStatusEffect(StatusEffects.FIRE_RESISTANCE);
 				this.removeStatusEffect(NotEnoughMilkStatusEffects.BLAZED);
 				this.removeStatusEffect(StatusEffects.SLOW_FALLING);
 				this.removeStatusEffect(NotEnoughMilkStatusEffects.GHASTED);
 			}
-			if (!this.isSneaking()){
+			if (!this.isSneaking()) {
 				cooldownBlazeShoot = 25;
 			}
 			if (this.isSneaking()){
 				if (cooldownBlazeShoot <= 0) {
 					Vec3d vec3d = this.getRotationVec(1.0F);
-					fireballEntity.setProperties(this, this.pitch, this.yaw, 0.0F, 0.0F, 0.0F);
+					fireballEntity.setProperties(this, this.getPitch(), this.getYaw(), 0.0F, 0.0F, 0.0F);
 					fireballEntity.updatePosition(this.getX() + vec3d.x * 4.0D, this.getY() + vec3d.y * 4.0D, fireballEntity.getZ() + vec3d.z * 4.0D);
 					world.spawnEntity(fireballEntity);
 					cooldownBlazeShoot = 25;
@@ -240,7 +232,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
 					for (int i = 0; i < 16; ++i) {
 						double g = this.getX() + (this.getRandom().nextDouble() - 0.5D) * 16.0D;
-						double h = MathHelper.clamp(this.getY() + (double) (this.getRandom().nextInt(16) - 8), 0.0D, (double) (world.getDimensionHeight() - 1));
+						double h = MathHelper.clamp(this.getY() + (double) (this.getRandom().nextInt(16) - 8), 0.0D, (double) (world.getDimension().getHeight() - 1));
 						double j = this.getZ() + (this.getRandom().nextDouble() - 0.5D) * 16.0D;
 						if (this.hasVehicle()) {
 							this.stopRiding();
@@ -259,7 +251,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 					LivingEntity target = null;
 					ShulkerBulletEntity shulkerBulletEntity = new ShulkerBulletEntity(world, this, target, this.getMovementDirection().getAxis());
 					shulkerBulletEntity.setNoGravity(true);
-					shulkerBulletEntity.setProperties(this, this.pitch, this.yaw, 0.5F, 0.75F, 1.0F);
+					shulkerBulletEntity.setProperties(this, this.getPitch(), this.getYaw(), 0.5F, 0.75F, 1.0F);
 					this.playSound(SoundEvents.ENTITY_SHULKER_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
 					world.spawnEntity(shulkerBulletEntity);
 					cooldownShulkerShoot = 40;
@@ -279,9 +271,9 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 		}
 	}
 
-
+	// Another weird error
 	@Inject(cancellable = true, at = @At("HEAD"), method = "handleFallDamage")
-	public void handleFallDamage(float fallDistance, float damageMultiplier, CallbackInfoReturnable<Boolean> info) {
+	public void handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource, CallbackInfoReturnable<Boolean> info) {
 		if ((this.hasStatusEffect(NotEnoughMilkStatusEffects.PARROTED))){
 			info.setReturnValue(false);
 		}

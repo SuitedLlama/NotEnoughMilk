@@ -33,15 +33,15 @@ public class EvokerMilkItem extends Item {
          serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
       }
 
-      if (user instanceof PlayerEntity && !((PlayerEntity)user).abilities.creativeMode) {
+      if (user instanceof PlayerEntity && !((PlayerEntity)user).isCreative()) {
          stack.decrement(1);
       }
 
       if (!world.isClient) {
          user.clearStatusEffects();
          boolean foundTotem = false;
-         for (int i = 0; i < ((PlayerEntity) user).inventory.size(); i++) {
-            ItemStack inventoryStack = ((PlayerEntity) user).inventory.getStack(i);
+         for (int i = 0; i < ((PlayerEntity) user).getInventory().size(); i++) {
+            ItemStack inventoryStack = ((PlayerEntity) user).getInventory().getStack(i);
             if ((inventoryStack.isItemEqual(Items.TOTEM_OF_UNDYING.getDefaultStack()))) {
                foundTotem = true;
                totemIsNeeded = false;

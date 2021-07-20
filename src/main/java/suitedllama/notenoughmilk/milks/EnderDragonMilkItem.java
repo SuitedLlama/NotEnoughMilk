@@ -39,7 +39,7 @@ public class EnderDragonMilkItem extends Item {
          serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
       }
 
-      if (user instanceof PlayerEntity && !((PlayerEntity)user).abilities.creativeMode) {
+      if (user instanceof PlayerEntity && !((PlayerEntity)user).isCreative()) {
          stack.decrement(1);
       }
 
@@ -86,7 +86,7 @@ public class EnderDragonMilkItem extends Item {
                if (serverPlayerEntity.hasVehicle()) {
                     serverPlayerEntity.stopRiding();
                }
-                  serverPlayerEntity.teleport((ServerWorld) user.getEntityWorld(),serverPlayerEntity.getX() + serverPlayerEntity.world.random.nextInt(400), serverPlayerEntity.getY(), serverPlayerEntity.getZ() + serverPlayerEntity.world.random.nextInt(400), user.yaw, user.pitch);
+                  serverPlayerEntity.teleport((ServerWorld) user.getEntityWorld(),serverPlayerEntity.getX() + serverPlayerEntity.world.random.nextInt(400), serverPlayerEntity.getY(), serverPlayerEntity.getZ() + serverPlayerEntity.world.random.nextInt(400), user.getYaw(), user.getPitch());
                   serverPlayerEntity.playSound(SoundEvents.ENTITY_ENDER_DRAGON_GROWL, 4.0f, 1.0f);
                }
          }

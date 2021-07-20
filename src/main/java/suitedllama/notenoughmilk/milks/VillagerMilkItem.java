@@ -48,14 +48,14 @@ public class VillagerMilkItem extends Item {
          serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
       }
 
-      if (user instanceof PlayerEntity && !((PlayerEntity)user).abilities.creativeMode) {
+      if (user instanceof PlayerEntity && !((PlayerEntity)user).isCreative()) {
          stack.decrement(1);
       }
 
       if (!world.isClient) {
          user.clearStatusEffects();
          user.addStatusEffect(new StatusEffectInstance(NotEnoughMilkStatusEffects.VILLAGE_DADDY, 6000, 0));
-         VillagerEntity villagerEntity = new VillagerEntity(EntityType.VILLAGER, world, VillagerType.forBiome(world.method_31081(user.getBlockPos())));
+         VillagerEntity villagerEntity = new VillagerEntity(EntityType.VILLAGER, world, VillagerType.forBiome(world.getBiomeKey(user.getBlockPos())));
          villagerEntity.updatePosition(user.getX(), user.getY(), user.getZ());
          villagerEntity.setBaby(true);
          if(user.getDisplayName()!= null){

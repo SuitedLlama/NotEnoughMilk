@@ -132,11 +132,11 @@ public abstract class LivingEntityMixin extends Entity {
 	}
 
 	@Inject(cancellable = true, at = @At("HEAD"), method = "handleFallDamage")
-	public void handleFallDamage(float fallDistance, float damageMultiplier, CallbackInfoReturnable<Boolean> cir) {
+	public void handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
 		if(this.hasStatusEffect(NotEnoughMilkStatusEffects.STRIDERED)){
 			cir.setReturnValue(!this.isInLava());
 		}
-		super.handleFallDamage(fallDistance, damageMultiplier);
+		super.handleFallDamage(fallDistance, damageMultiplier, DamageSource.GENERIC);
 	}
 
 
@@ -204,7 +204,7 @@ public abstract class LivingEntityMixin extends Entity {
 
 					for (int i = 0; i < 24; ++i) {
 						double g = target.getX() + ((target.world.getRandom().nextDouble() - 0.5D)) * 25.0D;
-						double h = MathHelper.clamp(target.getY() + (double) ((target.world.getRandom().nextInt(25) - 8)), 0.0D, (double) (world.getDimensionHeight() - 1));
+						double h = MathHelper.clamp(target.getY() + (double) ((target.world.getRandom().nextInt(25) - 8)), 0.0D, (double) (world.getDimension().getHeight() - 1));
 						double j = target.getZ() + ((target.world.getRandom().nextDouble() - 0.5D)) * 25.0D;
 						if (target.hasVehicle()) {
 							target.stopRiding();
@@ -219,18 +219,20 @@ public abstract class LivingEntityMixin extends Entity {
 					}
 				}
 			}
-			if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SPITTER) && target instanceof LivingEntity) {
+			/*
+			if (this.hasStatusEffect(NotEnoughMilkStatusEffects.SPITTER)) {
 				createSound(target, SoundEvents.ENTITY_LLAMA_SPIT, SoundCategory.PLAYERS);
 				if(this.world.isClient()) {
 					LlamaSpitEntity llamaSpitEntity = new LlamaSpitEntity(world, this.getX(), this.getEyeY() + .25, this.getZ(), 0d, 0d, 0d);
 					double d = target.getX() - this.getX();
 					double e = target.getBodyY(0.3333333333333333D) - llamaSpitEntity.getY();
 					double f = target.getZ() - this.getZ();
-					float g = MathHelper.sqrt(d * d + f * f) * 0.2F;
+					float g = MathHelper.sqrt((float) (d * d + f * f)) * 0.2F;
 					llamaSpitEntity.setVelocity(d, e + (double) g, f, 1.5F, 10.0F);
 					this.world.spawnEntity(llamaSpitEntity);
 				}
 			}
+			 */
 			if (this.hasStatusEffect(NotEnoughMilkStatusEffects.CAVE_SPIDERED) && target instanceof LivingEntity) {
 				((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 600, 0));
 			}

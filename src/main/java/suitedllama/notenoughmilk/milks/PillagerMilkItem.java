@@ -37,7 +37,7 @@ public class PillagerMilkItem extends Item {
             serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
         }
         user.playSound(SoundEvents.EVENT_RAID_HORN, 64.0F, 1.0F);
-        if (user instanceof PlayerEntity && !((PlayerEntity) user).abilities.creativeMode) {
+        if (user instanceof PlayerEntity && !((PlayerEntity) user).isCreative()) {
             stack.decrement(1);
         }
         if (!world.isClient) {
@@ -48,8 +48,8 @@ public class PillagerMilkItem extends Item {
             boolean foundBanner = false;
             boolean foundCrossbow = false;
             boolean foundShield = false;
-            for (int i = 0; i < playerEntity.inventory.size(); i++) {
-                ItemStack inventoryStack = playerEntity.inventory.getStack(i);
+            for (int i = 0; i < playerEntity.getInventory().size(); i++) {
+                ItemStack inventoryStack = playerEntity.getInventory().getStack(i);
                 if ((inventoryStack.isItemEqual(Raid.getOminousBanner()))) {
                     foundBanner = true;
                     bannerIsNeeded = false;
@@ -64,8 +64,8 @@ public class PillagerMilkItem extends Item {
                     bannerIsNeeded = true;
                 }
             }
-            for (int i = 0; i < playerEntity.inventory.size(); i++) {
-                ItemStack inventoryStack = playerEntity.inventory.getStack(i);
+            for (int i = 0; i < playerEntity.getInventory().size(); i++) {
+                ItemStack inventoryStack = playerEntity.getInventory().getStack(i);
                 if ((inventoryStack.getItem() == Items.CROSSBOW)) {
                     foundCrossbow = true;
                     crossbowIsNeeded = false;
@@ -75,8 +75,8 @@ public class PillagerMilkItem extends Item {
             if (!foundCrossbow) {
                 crossbowIsNeeded = true;
             }
-            for (int i = 0; i < playerEntity.inventory.size(); i++) {
-                ItemStack inventoryStack = playerEntity.inventory.getStack(i);
+            for (int i = 0; i < playerEntity.getInventory().size(); i++) {
+                ItemStack inventoryStack = playerEntity.getInventory().getStack(i);
                 if ((inventoryStack.getItem() == Items.SHIELD)) {
                     foundShield = true;
                     shieldIsNeeded = false;
